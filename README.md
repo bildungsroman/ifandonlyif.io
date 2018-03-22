@@ -111,7 +111,7 @@ Sell IFF to Mark Zuckerberg and retire to a private island.
 ## Project To-Dos
 
 - ~~Register domain~~
-- Set up NPN/Webpack
+- Set up npm/Webpack
 - Set up Django project
     - determine Django models
     - determine Django views
