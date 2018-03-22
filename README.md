@@ -54,6 +54,7 @@ A user signs up, and creates their first IFF list. They enter one get-to-do and 
 Once a user has an account, their home screen shows a list of all of their IFF lists. If they click on one, they go to a detail page where they can see all their to-do items and can check them off. If all of a get-to-do's to-do items are checked off, they get a message saying they can now do their reward task, and the whole list disappears.
 
 Users can also have a history (archive) of all of the things they've done and have gotten to do in the past.
+![Image of list page](https://raw.githubusercontent.com/PdxCodeGuild/20180116-FullStack-Day/master/Code/Anna/Capstone/Capstone%20mockup%20and%20proposal/img/Screen%20Shot%202018-03-22%20at%2013.02.46.png)
 
 ## Data Model
 
