@@ -112,7 +112,7 @@ Sell IFF to Mark Zuckerberg and retire to a private island.
 ## Project To-Dos
 
 - ~~Register domain~~
-- Add placeholder to domain (redirect to github for now)
+- ~~Add placeholder to domain (redirect to github for now)~~
 - Set up npm/Webpack
 - Set up Django project
     - determine Django models
