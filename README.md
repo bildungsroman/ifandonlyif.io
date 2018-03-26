@@ -70,18 +70,39 @@ The IFF Task model is just one get-to-do item followed by at least one to-do ite
 
 ### Milestone 1
 _Due date: March 30th_
+- ~~Register domain~~
+- ~~Add placeholder to domain (redirect to github for now)~~
+- Set up npm/Webpack
+- Set up PostgreSQL database
+- Set up Django project
+    - determine Django models
+    - determine Django views
+- Set up VueJS project
+- ~~Set up basic frontend design~~
+- Set up login sidebar and register modal
 
-Entire project is set up, including installing Webpack, Django, and Vue and getting them to play nicely together in a virtual env. A rough front-end including the landing page and user log-in screen is completed.
+At the end of the week, the entire project is set up, including installing Webpack, Django, and Vue and getting them to play nicely together in a virtual env. A rough front-end including the landing page and user log-in screen is completed.
 ### Milestone 2
 _Due date: April 6th_
+- Set up user registration ability
+- Set up add to-do capability
+- Set up ability to save, complete and archive to-do lists
+- Finish front-end design of IFFlists and IFFlist lists (really need a better name)
+- Think of better name for IFFlists
 
 Ability for users to register and add lists is complete. It doesn't have to look pretty yet.
 ### Milestone 3
 _Due date: April 13th_ (Capstone presentation day)
+- Test adding users, adding lists, saving
+- Design IFF logo, finalize color scheme
+- Deploy MVP on the interwebs using Heroku or AWS
 
 An MVP of IFF is deployed and live, with the ability for users to sign up. The frontend is finalized.
 ### Milestone 4
 _Due date: April 20th_
+
+- Soft launch of IFF to friends and family for testing
+- Profit?
 
 User testing and debugging with actual users.
 ### Milestone 5
@@ -108,19 +129,3 @@ Launch iOS and Android apps.
 _Due date: ?_
 
 Sell IFF to Mark Zuckerberg and retire to a private island.
-
-## Project To-Dos
-
-- ~~Register domain~~
-- ~~Add placeholder to domain (redirect to github for now)~~
-- Set up npm/Webpack
-- Set up Django project
-    - determine Django models
-    - determine Django views
-- Set up VueJS project
-- Set up basic frontend design
-- Set up user registration
-- Set up add to-do capability
-- Test adding users, adding lists, saving
-- Deploy MVP on the interwebs
-- Profit?
