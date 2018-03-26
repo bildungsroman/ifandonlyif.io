@@ -63,6 +63,7 @@ There are two main data models:
 1. User
     - First name
     - Last name
+    - username
     - email (not shown)
     - password (not shown)
     - profile pic URL
@@ -77,6 +78,17 @@ There are two main data models:
 The User model includes the user's login information, a profile picture, and all of their active and archived IFF lists. Future versions of IFF will add a social media aspect to the user profile, connecting users as friends and letting them see each others' IFF lists and even keep each other accountable by verifying that the to-do tasks were in fact completed (via photo or something like that).
 
 The IFF Task model is just one get-to-do item followed by at least one to-do item. Each new task is an instance of the IFF model.
+
+### Views
+
+1. Landing page
+    - Register modal
+    - Login sidebar
+2. New user welcome page with first IFFlist
+    - User profile completion sidebar on right
+3. Add IFFlist page
+    - Current/past lists sidebar on left
+4. Detail view for IFFlist
 
 ## Schedule
 
@@ -98,6 +110,7 @@ At the end of the week, the entire project is set up, including installing Webpa
 _Due date: April 6th_
 - Set up user registration ability
 - Set up auto email to user after registration, with confirmation link
+- Set up forgot password email/reset link
 - Set up welcome page for new user - add first IFFlist
 - Set up profile sidebar and ability to add profile pic and bio
 - Set up add to-do capability
@@ -124,6 +137,8 @@ User testing and debugging with actual users.
 ### Milestone 5
 _Due date: May 31st_
 
+- Add email reminders (that can be turned on or off) for completing of tasks
+
 All bugs fixed and mass roll-out of platform. Functionality limited to signing up and adding up to 10 IFF lists at a time.
 ### Milestone 6
 _Due date: Fall 2018_
@@ -140,7 +155,7 @@ Monetization of platform. Add team premium tier where multiple people can share 
 ### Milestone 9
 _Due date: Q2 2019_
 
-Launch iOS and Android apps.
+Launch iOS and Android apps, Mac desktop app in the menu bar?
 ### Milestone 10
 _Due date: ?_
 
