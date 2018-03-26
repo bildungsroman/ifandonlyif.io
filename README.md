@@ -124,6 +124,7 @@ _Due date: April 13th_ (Capstone presentation day)
 - Get classmates/friends to sign up for initial testing
 - Test adding users, adding lists, saving
 - Design IFF logo, finalize color scheme
+- Add https/SSL certificate
 - Deploy MVP on the interwebs using AWS Elastic Beanstalk
 
 An MVP of IFF is deployed and live, with the ability for users to sign up. The frontend is finalized.
