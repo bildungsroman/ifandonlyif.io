@@ -61,7 +61,18 @@ Users can also have a history (archive) of all of the things they've done and ha
 
 There are two main data models:
 1. User
+    - First name
+    - Last name
+    - email (not shown)
+    - password (not shown)
+    - profile pic URL
+    - short bio (300 chars)
+    - goals (where the user adds their top goals - 300 chars)
+    - foreign key to IFFlists?
+    
 2. IFF Task
+    - 1 get-to-do
+    - unlimited number of to-dos
 
 The User model includes the user's login information, a profile picture, and all of their active and archived IFF lists. Future versions of IFF will add a social media aspect to the user profile, connecting users as friends and letting them see each others' IFF lists and even keep each other accountable by verifying that the to-do tasks were in fact completed (via photo or something like that).
 
@@ -88,6 +99,7 @@ _Due date: April 6th_
 - Set up user registration ability
 - Set up auto email to user after registration, with confirmation link
 - Set up welcome page for new user - add first IFFlist
+- Set up profile sidebar and ability to add profile pic and bio
 - Set up add to-do capability
 - Set up ability to save, complete and archive to-do lists
 - Finish front-end design of IFFlists and IFFlist lists (really need a better name)
