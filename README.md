@@ -86,6 +86,8 @@ At the end of the week, the entire project is set up, including installing Webpa
 ### Milestone 2
 _Due date: April 6th_
 - Set up user registration ability
+- Set up auto email to user after registration, with confirmation link
+- Set up welcome page for new user - add first IFFlist
 - Set up add to-do capability
 - Set up ability to save, complete and archive to-do lists
 - Finish front-end design of IFFlists and IFFlist lists (really need a better name)
