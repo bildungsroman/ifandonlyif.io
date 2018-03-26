@@ -27,7 +27,7 @@ IFF will use Django in the backend to store user accounts and user lists. It wil
 - PostgreSQL for the user and list database
 - VueJS frontend
 - Materialize CSS for style
-- Deploy on Heroku/AWS (tbd)
+- Deploy on AWS Elastic Beanstalk
 
 **Potential users**:
 
@@ -97,7 +97,7 @@ _Due date: April 13th_ (Capstone presentation day)
 - Get classmates/friends to sign up for initial testing
 - Test adding users, adding lists, saving
 - Design IFF logo, finalize color scheme
-- Deploy MVP on the interwebs using Heroku or AWS
+- Deploy MVP on the interwebs using AWS Elastic Beanstalk
 
 An MVP of IFF is deployed and live, with the ability for users to sign up. The frontend is finalized.
 ### Milestone 4
