@@ -111,11 +111,11 @@ _Due date: March 30th_
     - determine Django views
     - determine User model
 - Set up VueJS project
-- Set up MaterializeCSS and make it play nice
+- Set up MaterializeCSS and make it play nice with everything else
 - ~~Set up basic frontend design~~
 - Set up login sidebar and register modal
 
-At the end of the week, the entire project is set up, including installing Webpack, Django, and Vue and getting them to play nicely together in a virtual env. A rough front-end including the landing page and user log-in screen is completed.
+At the end of the week, the entire project is set up, including installing Webpack, Django, and Vue and getting them to play nicely together in ~~a virtual env~~ Docker (yikes!). A rough front-end including the landing page and user log-in screen is completed.
 ### Milestone 2
 _Due date: April 6th_
 - Set up user registration ability
