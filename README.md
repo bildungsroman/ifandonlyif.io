@@ -96,10 +96,11 @@ The IFF Task model is just one get-to-do item followed by at least one to-do ite
 _Due date: March 30th_
 - ~~Register domain~~
 - ~~Add placeholder to domain (redirect to github for now)~~
-- Set up Cookiecutter Django
+- ~~Set up Cookiecutter Django~~
     - understand WTF is going on with the files in it
-- Set up Docker
+- ~~Set up Docker~~
 - ~~Set up PostgreSQL database~~
+- Learn/set up Django rest framework
 - Set up Django project
     - determine Django models
     - determine Django views
