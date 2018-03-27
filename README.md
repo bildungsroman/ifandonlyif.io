@@ -104,7 +104,7 @@ _Due date: March 30th_
 - Set up Django project
     - determine Django models
     - determine Django views
-    - 
+    - determine User model
 - Set up VueJS project
 - Set up MaterializeCSS and make it play nice
 - ~~Set up basic frontend design~~
