@@ -62,23 +62,29 @@ Users can also have a history (archive) of all of the things they've done and ha
 There are three main data models:
 1. User
     - One-to-One relationship with Django User model, + extra fields
-    - First name
-    - Last name
+    - Name
     - username
+    - is_new_user? boolean - if true, get welcome screen
     - email (not shown)
     - password (not shown)
-    - profile pic URL
+    - profile pic ImageField
     - short bio (300 chars)
     - goals (where the user adds their top goals - 300 chars)
-    - foreign key to IFFlists?
+    - friends (for future versions when users can share lists with friends)
 
 2. List of IFF Tasks
-    - each row is foreign key to a user's individual IFF task
-    - One-to-Many relationship
+    - text of one get to do item
+    - can you do the get-to-do? boolean
+    - is the get-to-do completed? boolean
+    - user id of owner of list
+    - created date (for sorting)
+    - completed date
+    - is the whole list completed? boolean (for archiving)
         
-3. Individual IFF Task
-    - 1 get-to-do (boolean True)
-    - unlimited number of to-dos (boolean False)
+3. Individual IFF to-do task
+    - text of task
+    - foreign key to IFFlist task is part of
+    - is it completed? boolean
 
 The User model includes the user's login information, a profile picture, and all of their active and archived IFF lists. Future versions of IFF will add a social media aspect to the user profile, connecting users as friends and letting them see each others' IFF lists and even keep each other accountable by verifying that the to-do tasks were in fact completed (via photo or something like that).
 
