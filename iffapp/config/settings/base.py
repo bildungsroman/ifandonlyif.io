@@ -67,9 +67,14 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
+    'material',
+    'material.frontend',
+    'jet.dashboard',
+    'jet',
 ]
 LOCAL_APPS = [
     'iffapp.users.apps.UsersConfig',
+    'iffapp.ifftasks.apps.IfftasksConfig',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

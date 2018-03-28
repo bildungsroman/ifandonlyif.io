@@ -113,7 +113,7 @@ _Due date: March 30th_
     - determine User model
 - Set up VueJS project
 - Set up MaterializeCSS and make it play nice with everything else
-- ~~Set up basic frontend design~~
+- Set up basic frontend design
 - Set up login sidebar and register modal
 
 At the end of the week, the entire project is set up, including installing Webpack, Django, and Vue and getting them to play nicely together in ~~a virtual env~~ Docker (yikes!). A rough front-end including the landing page and user log-in screen is completed.
