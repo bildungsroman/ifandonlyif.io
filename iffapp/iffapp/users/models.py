@@ -9,9 +9,10 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_('Your name'), blank=True, max_length=255)
     is_new_user = models.BooleanField(default=True)
-    profile_url = models.URLField(blank=True, null=True, max_length=200)
+    profile_pic = models.ImageField(null=True, blank=True, upload_to='media/profile_pics')
     user_bio = models.CharField(_('A short bio'), blank=True, null=True, max_length=300)
     user_goals = models.CharField(_('Your goals'), blank=True, null=True, max_length=255)
+    friends_with = models.ManyToManyField('self', null=True, blank=True)  # for future use
 
     def __str__(self):
         return self.username

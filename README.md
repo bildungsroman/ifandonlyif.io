@@ -102,26 +102,32 @@ _Due date: March 30th_
 - ~~Register domain~~
 - ~~Add placeholder to domain (redirect to github for now)~~
 - ~~Set up Cookiecutter Django~~
-    - understand WTF is going on with the files in it
+    - understand WTF is going on with the files in it?
 - ~~Set up Docker~~
 - ~~Set up PostgreSQL database~~
 - ~~Set up Django rest framework~~
     - understand WTF it does
 - Set up Django project
-    - determine Django models
+    - ~~determine Django IFFlist models~~
     - determine Django views
-    - determine User model
+    - ~~determine User model~~
 - Set up VueJS project
-- Set up MaterializeCSS and make it play nice with everything else
 - Set up basic frontend design
+    - set up base HTML file
+    - set up all template HTML files
+    - ~~set up MaterializeCSS and make it play nice with everything else~~
+    - set up navbar
+    - set up landing page changing text
+    - set up register modal
+    - set up user sidebar
 - Set up login sidebar and register modal
 
 At the end of the week, the entire project is set up, including installing Webpack, Django, and Vue and getting them to play nicely together in ~~a virtual env~~ Docker (yikes!). A rough front-end including the landing page and user log-in screen is completed.
 ### Milestone 2
 _Due date: April 6th_
-- Set up user registration ability
-- Set up auto email to user after registration, with confirmation link
-- Set up forgot password email/reset link
+- ~~Set up user registration ability~~
+- ~~Set up auto email to user after registration, with confirmation link~~
+- ~~Set up forgot password email/reset link~~
 - Set up welcome page for new user - add first IFFlist
 - Set up profile sidebar and ability to add profile pic and bio
 - Set up add to-do capability
