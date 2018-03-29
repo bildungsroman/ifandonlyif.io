@@ -117,7 +117,6 @@ _Due date: March 30th_
     - ~~determine Django IFFlist models~~
     - determine Django views
     - ~~determine User model~~
-- Set up VueJS project
 - Set up basic frontend design
     - set up base HTML file
     - set up all template HTML files
@@ -128,13 +127,14 @@ _Due date: March 30th_
     - set up user sidebar
 - Set up login sidebar and register modal
 
-At the end of the week, the entire project is set up, including installing Webpack, Django, and Vue and getting them to play nicely together in ~~a virtual env~~ Docker (yikes!). A rough front-end including the landing page and user log-in screen is completed.
+At the end of the week, the entire project is set up, including installing cookiecutter Django with Postgres and MailHog and getting them to play nicely together in ~~a virtual env~~ Docker (yikes!). A rough front-end including the landing page and user log-in screen is completed.
 ### Milestone 2
 _Due date: April 6th_
 - ~~Set up user registration ability~~
 - ~~Set up auto email to user after registration, with confirmation link~~
 - ~~Set up forgot password email/reset link~~
 - Set up welcome page for new user - add first IFFlist
+- Set up VueJS project
 - Set up profile sidebar and ability to add profile pic and bio
 - Set up add to-do capability
 - Set up ability to save, complete and archive to-do lists
