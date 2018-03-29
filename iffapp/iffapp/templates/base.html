@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>{% block title %}IFF | If and Only If {% endblock title %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="IFF is an online 'get to do' list rather than a to-do list. You get to do a thing if and only if you complete the task or tasks you need to do.">
   <meta name="author" content="Anna Spysz">
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -16,7 +16,7 @@
   {% block css %}
   <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+  <link href="{% static 'css/normalize.css' %}" rel="stylesheet">
   <!-- Your stuff: Third-party CSS libraries go here -->
   {% include 'material/includes/material_css.html' %}
   <!-- This file stores project-specific CSS -->
@@ -27,46 +27,42 @@
 </head>
 <body>
   <div class="header">
-  <div class="m-b-1">
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <!-- navbar -->
+    <div class="navbar-fixed">
+    <nav id="navbar-custom" class="transparent z-depth-0">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'home' %}">IFF</a>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'about' %}">About</a>
-          </li>
-          {% if request.user.is_authenticated %}
-            <li class="nav-item">
-              {# URL provided by django-allauth/account/urls.py #}
-              <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
-            </li>
-            <li class="nav-item">
-              {# URL provided by django-allauth/account/urls.py #}
-              <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              {# URL provided by django-allauth/account/urls.py #}
-              <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-            </li>
-            <li class="nav-item">
-              {# URL provided by django-allauth/account/urls.py #}
-              <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-            </li>
-          {% endif %}
-        </ul>
-      </div>
+        <div class="nav-wrapper">
+            <div class="container">
+            <a href="{% url 'home' %}" class="brand-logo">IFF</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                {# URL provided by django-allauth/account/urls.py #}
+                <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
+              </li>
+              <li class="nav-item">
+                {# URL provided by django-allauth/account/urls.py #}
+                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                {# URL provided by django-allauth/account/urls.py #}
+                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+              </li>
+              <li class="nav-item">
+                {# URL provided by django-allauth/account/urls.py #}
+                <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+              </li>
+            {% endif %}
+            </ul>
+        </div>
+        </div>
     </nav>
+    </div>
   </div>
-  </div>
-  <div class="main">
+
   <div class="container">
 
     {% if messages %}
@@ -76,13 +72,30 @@
     {% endif %}
 
     {% block content %}
-      <p>Use this document as a way to quick start any new project.</p>
+      <main>
+      <div class="container">
+          <div class="main-cont center-align">
+              <h1 class="light-text">I get to <span id="change-text-1" class="underline-span"></span></h1>
+              <h1 class="iff">if and only if</h1>
+              <h1 class="light-text">I <span id="change-text-2" class="underline-span"></span></h1>
+              <a id="blink" class="start-btn waves-effect waves-light" href="#!">Get Started</a>
+          </div>
+      </div>
+      </main>
     {% endblock content %}
 
   </div> <!-- /container -->
-  </div>
-  <div class="footer">
 
+  <div class="footer">
+  <!-- footer -->
+    <footer class="page-footer main-color">
+      <div class="footer-copyright">
+        <div class="container">
+            © 2018 Copyright IFF
+            <span class="right"><a href="https://github.com/bildungsroman/iffapp.com" target="_blank">What's this about?</a></span>
+        </div>
+      </div>
+    </footer>
   </div>
 
   {% block modal %}{% endblock modal %}
@@ -93,17 +106,24 @@
   {% block javascript %}
 
     <!-- Required by Bootstrap v4 beta -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"> </script>
+    <script src="{% static 'js/vendor/jquery-3.2.1.min.js' %}"> </script>
+    <script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"> </script>
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"> </script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"> </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"> </script>
     <!-- Your stuff: Third-party javascript libraries go here -->
     <script src="{% static 'js/materialize.min.js' %}"> </script>
     {% include 'material/includes/material_js.html' %}
     <!-- place project specific Javascript in this file -->
-
+    <script src="{% static 'js/plugins.js' %}"> </script>
     <script src="{% static 'js/project.js' %}"> </script>
 
-
+    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+    <!--<script>-->
+        <!--window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;-->
+        <!--ga('create','UA-XXXXX-Y','auto');ga('send','pageview')-->
+    <!--</script>-->
+    <!--<script src="https://www.google-analytics.com/analytics.js" async defer></script>-->
   {% endblock javascript %}
 </body>
 </html>

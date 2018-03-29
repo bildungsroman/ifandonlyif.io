@@ -59,6 +59,8 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'django.contrib.humanize', # Handy template tags
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
@@ -69,8 +71,6 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'material',
     'material.frontend',
-    'jet.dashboard',
-    'jet',
 ]
 LOCAL_APPS = [
     'iffapp.users.apps.UsersConfig',

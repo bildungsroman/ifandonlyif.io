@@ -12,7 +12,7 @@ class User(AbstractUser):
     profile_pic = models.ImageField(null=True, blank=True, upload_to='media/profile_pics')
     user_bio = models.CharField(_('A short bio'), blank=True, null=True, max_length=300)
     user_goals = models.CharField(_('Your goals'), blank=True, null=True, max_length=255)
-    friends_with = models.ManyToManyField('self', null=True, blank=True)  # for future use
+    friends_with = models.ManyToManyField('self')  # for future use
 
     def __str__(self):
         return self.username
