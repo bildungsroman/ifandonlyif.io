@@ -13,6 +13,14 @@ $(function () {
   });
 });
 
+// close message toast
+$(".close-toast").click(function(e) {
+  e.preventDefault();
+  $("#message-container").fadeOut();
+});
+let toast = document.querySelector('#message-container');
+toast.addEventListener('webkitAnimationEnd', function(event) { toast.style.display = 'none'; }, false);
+
 // sign-in
 let $input = $('.form-fieldset > input');
 
