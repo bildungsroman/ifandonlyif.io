@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
 
 {% block title %}{{ user.username }}{% endblock %}
 
@@ -7,10 +10,12 @@
   <h1>{{ user.username }}</h1>
   <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
     {% csrf_token %}
-    {{ form|crispy }}
+    {% form form=form %}
+      {{ form|crispy }}
+    {% endform %}
     <div class="control-group">
       <div class="controls">
-        <button type="submit" class="btn">Update</button>
+        <button type="submit" class="btn grey darken-2">Update</button>
       </div>
     </div>
   </form>

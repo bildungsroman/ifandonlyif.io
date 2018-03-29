@@ -40,11 +40,11 @@
             {% if request.user.is_authenticated %}
             <li class="nav-item">
               {# URL provided by django-allauth/account/urls.py #}
-              <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
+              <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">My IFFlists</a>
             </li>
             <li class="nav-item">
               {# URL provided by django-allauth/account/urls.py #}
-              <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+              <a class="nav-link" href="{% url 'account_logout' %}">{% if user.name %}{{ user.name }}{% elif user.username %}{{ user.username }}{% endif %} <img src="{{user.profile_pic.url}}" alt="profile_pic" class="profile-pic-small circle"></a>
             </li>
           {% else %}
             <li class="nav-item">

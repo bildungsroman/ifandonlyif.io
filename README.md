@@ -118,14 +118,15 @@ _Due date: March 30th_
     - determine Django views
     - ~~determine User model~~
 - Set up basic frontend design
-    - set up base HTML file
+    - ~~set up base HTML file~~
     - set up all template HTML files
     - ~~set up MaterializeCSS and make it play nice with everything else~~
-    - set up navbar
-    - set up landing page changing text
+    - ~~set up navbar~~
+    - ~~set up landing page changing text~~
+- Set up login and registration
     - set up register modal
     - set up user sidebar
-- Set up login sidebar and register modal
+    - set up user photo upload
 
 At the end of the week, the entire project is set up, including installing cookiecutter Django with Postgres and MailHog and getting them to play nicely together in ~~a virtual env~~ Docker (yikes!). A rough front-end including the landing page and user log-in screen is completed.
 ### Milestone 2

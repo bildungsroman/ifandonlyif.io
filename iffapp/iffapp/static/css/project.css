@@ -37,6 +37,15 @@ main {
   margin-bottom: 10vh;
 }
 
+a {
+  text-decoration: none;
+  color: #9e9e9e;
+}
+a:hover {
+  text-decoration: none;
+  color: #222;
+}
+
 ::-moz-selection {
   background: #b3d4fc;
   text-shadow: none;
@@ -111,6 +120,11 @@ textarea {
   background-color: #222 !important;
   color: white;
 }
+
+.secondary-color {
+  color: #616161;
+}
+
 .main-cont {
   height: 80vh;
   width: 100%;
@@ -428,8 +442,12 @@ textarea {
   opacity: .5;
 }
 
-.profile-pic {
-  max-width: 45px;
+.profile-pic-large {
+  max-width: 15vw !important;
+}
+
+.profile-pic-small {
+  max-width: 45px !important;
 }
 
 .iff-cont {
@@ -442,7 +460,20 @@ textarea {
   z-index: 500;
 }
 
+/* materialize label focus color */
+input:focus + label {
+ color: #9e9e9e !important;
+}
+ /* label underline focus color */
+input:focus {
+   border-bottom: 1px solid #222 !important;
+   box-shadow: 0 1px 0 0 #222 !important;
+   color: #616161
+ }
 
+input[type="file"] {
+  background-color: #616161 !important;
+}
 
 /* message toast! */
 .toast-container {
