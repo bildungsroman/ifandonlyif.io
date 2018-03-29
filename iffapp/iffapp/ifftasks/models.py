@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
-from ..users.models import User
+# from ..users.models import User  # this doesn't compile :(
+from iffapp.users.models import User
 
 
 class IffList(models.Model):
