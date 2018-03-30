@@ -1,11 +1,31 @@
 $(document).ready(function() {
   smoothScroll();
   // initialize Materialize components
+  Materialize.updateTextFields();
+  $('select').material_select();
   $('.modal').modal();
   $(".dropdown-button").dropdown();
   $('ul.tabs').tabs();
   $(".button-collapse").sideNav();
 });
+
+// for some reason, this is required to make the modal work
+$('.modal-trigger').click(function () {
+  $('#register-modal').modal().modal('open');
+});
+
+// for matching passwords
+// let register_bt = document.querySelector('#register_bt');
+// let password_input1 = document.querySelector('#password_input1');
+// let password_input2 = document.querySelector('#password_input2');
+// register_bt.onclick = function() {
+//     if (password_input1.value !== password_input2.value) {
+//         alert("Your passwords don't match!");
+//         console.log("Your passwords don't match!");
+//         return false; // cancels form submission! This or prevent default needed
+//     }
+// };
+
 $(function () {
   $(document).scroll(function () {
     let $nav = $("#navbar-custom");
