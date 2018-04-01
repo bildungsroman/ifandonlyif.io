@@ -125,8 +125,8 @@ _Due date: March 30th_
     - ~~set up landing page changing text~~
 - Set up login and registration
     - set up register modal
-    - set up user sidebar
-    - set up user photo upload
+    - ~~set up user sidebar~~
+    - ~~set up user photo upload~~
 
 At the end of the week, the entire project is set up, including installing cookiecutter Django with Postgres and MailHog and getting them to play nicely together in ~~a virtual env~~ Docker (yikes!). A rough front-end including the landing page and user log-in screen is completed.
 ### Milestone 2

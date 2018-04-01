@@ -16,24 +16,25 @@
   {% block css %}
   <!-- Latest compiled and minified Bootstrap 4 beta CSS -->
   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
-  <link href="{% static 'css/normalize.css' %}" rel="stylesheet">
   <!-- Your stuff: Third-party CSS libraries go here -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.min.css' %}" rel="stylesheet">
   {% include 'material/includes/material_css.html' %}
   <!-- This file stores project-specific CSS -->
-  <link href="{% static 'css/materialize.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/animate.css' %}" rel="stylesheet">
   <link href="{% static 'css/project.css' %}" rel="stylesheet">
   {% endblock %}
 
 </head>
 <body>
+<div class="cover" onclick="toggleSidenav();"></div>
   <!-- navbar -->
   <div class="navbar-fixed">
   <nav id="navbar-custom" class="transparent z-depth-0">
     <!--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
       <!--<span class="navbar-toggler-icon"></span>-->
     <!--</button>-->
-      <div class="nav-wrapper">
+      <div class="nav-wrapper move-over">
           <div class="container">
             <a href="{% url 'home' %}" class="brand-logo"><span class="iff">iff</span></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -44,7 +45,7 @@
             </li>
             <li>
               {# URL provided by django-allauth/account/urls.py #}
-              <a href="{% url 'account_logout' %}">Hello, {% if user.name %}{{ user.name }}{% elif user.username %}{{ user.username }}{% endif %}! <img src="{{user.profile_pic.url}}" alt="profile_pic" class="profile-pic-small circle"></a>
+              <a class="hamburger" id="hamburger" onclick="toggleSidenav();">Hello, {% if user.name %}{{ user.name }}{% elif user.username %}{{ user.username }}{% endif %}! {% if object.profile_pic %}<img src="{{user.profile_pic.url}}" alt="profile_pic" class="profile-pic-small circle">{% endif %}</a>
             </li>
           {% else %}
             <li>
@@ -63,24 +64,81 @@
   </div>
 
   <main>
-    <div class="container">
+    <div class="main">
     {% block content %}
-
-      <div class="main-cont center-align">
-          <h1 class="light-text">I get to <span id="change-text-1" class="underline-span"></span></h1>
-          <h1 class="iff">if and only if</h1>
-          <h1 class="light-text">I <span id="change-text-2" class="underline-span"></span></h1>
-          <a id="blink" class="start-btn modal-trigger"  data-target="register-modal" href="#register-modal">Get Started</a>
-      </div>
-
     {% endblock content %}
     </div>
   </main>
 
-  <!-- sign up modal -->
-  <!--{% url 'account_signup' %}-->
+  <!-- user sidenav -->
+  <div class="sidenav-wrapper">
+    <div class="user-sidenav">
+      <div class="center-align">
+      <div class="row">
+        <div class="col s12">
+          <h3>Welcome, {{ object.username }}!</h3>
+          {% if object.profile_pic %}
+            <img src="{{ object.profile_pic_url|default_if_none:'#' }}" class="responsive-img circle profile-pic-large" alt="profile-picture">
+          {% endif %}
+          {% if object.name %}
+            <p><strong>Name: </strong>{{ object.name }}</p>
+          {% endif %}
+          {% if object.user_bio %}
+            <p><strong>Bio: </strong>{{ object.user_bio }}</p>
+          {% endif %}
+          {% if object.user_goals %}
+            <p><strong>Current goals: </strong>{{ object.user_goals }}</p>
+          {% endif %}
+        </div>
+      </div>
+        {% if object == request.user %}
+      <!-- Action buttons -->
+        <div class="collection">
+          {# URL provided by django-allauth/account/urls.py #}
+          <a class="collection-item" href="{% url 'users:update' %}" role="button">Update Info</a>
+          <a class="collection-item" href="{% url 'account_email' %}" role="button">E-Mail</a>
+          <a class="collection-item" href="{% url 'account_logout' %}" role="button">Log out</a>
+        </div>
+      <!-- End Action buttons -->
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if messages %}
+  <!--//show a toast with the message if there is a message to be shown-->
+    {% for message in messages %}
+    <!-- Toast -->
+    <div class="toast-container toast-pos-right toast-pos-top animated fadeInRight">
+      <div class="toast toast-auto z-depth-1" id="message-container">
+        <span class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</span>
+        <a href="#" class="close-toast">&#10006;</a>
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="footer">
+  <!-- footer -->
+    <footer class="page-footer main-color">
+      <div class="footer-copyright">
+        <div class="container">
+            © 2018 Copyright IFF
+            <span class="right"><a class="about-trigger" href="#about-modal">What's this about?</a></span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  {% block modal %}
   <div id="register-modal" class="modal">
-    <div class="modal-content">
+  <div class="modal-content">
+    <ul class="tabs grey">
+      <li class="tab col s6"><a class="white-text" href="#register">register</a></li>
+      <li class="tab col s6"><a class="white-text active" href="#login">login</a></li>
+    </ul>
+    <div id="register" class="col s12">
+      <div class="form-container">
       <h4>Register for a new IFF account</h4>
       <p>Already have an account? Please <a href="{{ login_url }}">come on in</a>.</p>
       <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
@@ -111,36 +169,43 @@
         </div>
         <button class="btn grey darken-2" id="register_bt" type="submit">{% trans "Sign Up" %} &raquo;</button>
       </form>
-    </div>
-  </div>
-
-
-  {% if messages %}
-  <!--//show a toast with the message if there is a message to be shown-->
-    {% for message in messages %}
-    <!-- Toast -->
-    <div class="toast-container toast-pos-right toast-pos-top animated fadeInRight">
-      <div class="toast toast-auto z-depth-1" id="message-container">
-        <span class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</span>
-        <a href="#" class="close-toast">&#10006;</a>
       </div>
     </div>
-    {% endfor %}
-  {% endif %}
-
-  <div class="footer">
-  <!-- footer -->
-    <footer class="page-footer main-color">
-      <div class="footer-copyright">
-        <div class="container">
-            © 2018 Copyright IFF
-            <span class="right"><a href="https://github.com/bildungsroman/iffapp.com" target="_blank">What's this about?</a></span>
-        </div>
+    <div id="login" class="col s12">
+      <div class="form-container">
+        <h4>Welcome back</h4>
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="username" type="text" class="validate">
+              <label for="username">Username</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password" type="password" class="validate">
+              <label for="password">Password</label>
+            </div>
+          </div>
+          <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+          <button class="primaryAction btn grey darken-2" type="submit">{% trans "Sign In" %}</button>
+        </form>
       </div>
-    </footer>
+    </div>
   </div>
-
-  {% block modal %}{% endblock modal %}
+  <!-- about bottom modal -->
+    <div id="about-modal" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>IFF App</h4>
+      <p>IFF (<a href="https://en.wikipedia.org/wiki/If_and_only_if" target="_blank">If and only if</a>) is an online get-to-do list rather than a to-do list. You get to do a thing <strong><em>if and only if</em></strong> you complete the task or tasks you need to do.</p>
+      <p>Created by <a href="https://twitter.com/annaspies" target="_blank">@annaspies</a> (mainly for herself). View the repo: <a href="https://github.com/bildungsroman/iffapp.com" target="_blank">IFF on Github</a>.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-grey btn-flat">Awesome, let's make some lists!</a>
+    </div>
+  </div>
+  {% endblock modal %}
 
   <!-- Le javascript
   ================================================== -->

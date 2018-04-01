@@ -1,39 +1,35 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}User: {{ object.username }}{% endblock %}
+{% block title %}{{ object.username }}'s IFFlists {% endblock %}
+
+<!-- this is where all the ifflist vues will go -->
 
 {% block content %}
-<div class="container">
-
   <div class="row">
-    <div class="col-12 text-center">
-
-      <h2>Welcome, {{ object.username }}!</h2>
-      {% if object.name %}
-        <img src="{{object.profile_pic.url}}" class="responsive-img circle profile-pic-large">
-        <p><strong>Name: </strong>{{ object.name }}</p>
-        <p><strong>Bio: </strong>{{ object.user_bio }}</p>
-        <p><strong>Current goals: </strong>{{ object.user_goals }}</p>
-      {% endif %}
+    <div class="col l4 s6">
+      <div class="iff-cont">
+        <ul class="collection with-header">
+            <li class="collection-header"><h4>Active IFFlists<sup>*</sup></h4> *come up with a better name!</li>
+            <li class="collection-item">I get to play Xbox IFF...</li>
+            <li class="collection-item">I get to go to the park IFF...</li>
+        </ul>
+        <ul class="collection with-header fade">
+            <li class="collection-header"><h4>Past IFFlists</h4></li>
+            <li class="collection-item">I got to read a new book</li>
+            <li class="collection-item">I got to go surfing</li>
+            <li class="collection-item">I got to buy a new dress</li>
+            <li class="collection-item">I got to take the kids to Disneyland</li>
+            <li class="collection-item">I got to go on a fancy date</li>
+            <li class="collection-item">I got to go to the bar</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col l8 s6">
+      <h2>Detail view of active IFFlist* items will go here.</h2>
+      <p>*(seriously, think of a better name)</p>
     </div>
   </div>
 
-{% if object == request.user %}
-<!-- Action buttons -->
-<div class="row">
-
-  <div class="col-sm-12">
-    <a class="btn grey darken-2" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn grey darken-2" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
-  </div>
-
-</div>
-<!-- End Action buttons -->
-{% endif %}
-
-
-</div>
 {% endblock content %}
 

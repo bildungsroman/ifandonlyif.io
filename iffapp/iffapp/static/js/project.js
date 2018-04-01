@@ -4,15 +4,27 @@ $(document).ready(function() {
   Materialize.updateTextFields();
   $('select').material_select();
   $('.modal').modal();
+  $('.tabs').tabs();
   $(".dropdown-button").dropdown();
-  $('ul.tabs').tabs();
   $(".button-collapse").sideNav();
 });
 
-// for some reason, this is required to make the modal work
+// for some reason, this is required to make the modals work
 $('.modal-trigger').click(function () {
   $('#register-modal').modal().modal('open');
+  $('ul.tabs').tabs();
 });
+$('.about-trigger').click(function () {
+  $('#about-modal').modal().modal('open');
+});
+
+// user sidebar
+let main_div = document.querySelector('.cover');
+function toggleSidenav(bool) {
+  document.body.classList.toggle('sidenav-active');
+  document.body.classList.toggle('noscroll');
+  main_div.classList.toggle('z-depth-3');
+}
 
 // for matching passwords
 // let register_bt = document.querySelector('#register_bt');

@@ -19,6 +19,11 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    @property
+    def profile_pic_url(self):
+        if self.profile_pic and hasattr(self.profile_pic, 'url'):
+            return self.profile_pic.url
+
     def absolute_path(self):
         return os.path.relpath(self.profile_pic, settings.MEDIA_ROOT)
 

@@ -1,1 +1,15 @@
 {% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<!--  if not logged in, universal landing page -->
+  <div class="main-cont center-align">
+    <h1 class="light-text">I get to <span id="change-text-1" class="underline-span"></span></h1>
+    <h1 class="iff">if and only if</h1>
+    <h1 class="light-text">I <span id="change-text-2" class="underline-span"></span></h1>
+    <a id="blink" class="start-btn modal-trigger"  data-target="register-modal" href="#register-modal">Get Started</a>
+  </div>
+<!--  if logged in, shortlist of current to-dos -->
+
+</div>
+{% endblock content %}
