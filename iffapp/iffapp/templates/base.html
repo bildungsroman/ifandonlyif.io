@@ -45,7 +45,7 @@
             </li>
             <li>
               {# URL provided by django-allauth/account/urls.py #}
-              <a class="hamburger" id="hamburger" onclick="toggleSidenav();">Hello, {% if user.name %}{{ user.name }}{% elif user.username %}{{ user.username }}{% endif %}! {% if object.profile_pic %}<img src="{{user.profile_pic.url}}" alt="profile_pic" class="profile-pic-small circle">{% endif %}</a>
+              <a class="hamburger" id="hamburger" onclick="toggleSidenav();">Hello, {% if user.name %}{{ user.name }}{% elif user.username %}{{ user.username }}{% endif %}! {% if user.profile_pic %}<img src="{{user.profile_pic.url}}" alt="profile_pic" class="profile-pic-small circle">{% endif %}</a>
             </li>
           {% else %}
             <li>
@@ -76,22 +76,21 @@
       <div class="center-align">
       <div class="row">
         <div class="col s12">
-          <h3>Welcome, {{ object.username }}!</h3>
-          {% if object.profile_pic %}
-            <img src="{{ object.profile_pic_url|default_if_none:'#' }}" class="responsive-img circle profile-pic-large" alt="profile-picture">
+          <h3>Welcome, {{ user.username }}!</h3>
+          {% if user.profile_pic %}
+            <img src="{{ user.profile_pic_url|default_if_none:'#' }}" class="responsive-img circle profile-pic-large" alt="profile-picture">
           {% endif %}
-          {% if object.name %}
-            <p><strong>Name: </strong>{{ object.name }}</p>
+          {% if user.name %}
+            <p><strong>Name: </strong>{{ user.name }}</p>
           {% endif %}
-          {% if object.user_bio %}
-            <p><strong>Bio: </strong>{{ object.user_bio }}</p>
+          {% if user.user_bio %}
+            <p><strong>Bio: </strong>{{ user.user_bio }}</p>
           {% endif %}
-          {% if object.user_goals %}
-            <p><strong>Current goals: </strong>{{ object.user_goals }}</p>
+          {% if user.user_goals %}
+            <p><strong>Current goals: </strong>{{ user.user_goals }}</p>
           {% endif %}
         </div>
       </div>
-        {% if object == request.user %}
       <!-- Action buttons -->
         <div class="collection">
           {# URL provided by django-allauth/account/urls.py #}
@@ -100,7 +99,6 @@
           <a class="collection-item" href="{% url 'account_logout' %}" role="button">Log out</a>
         </div>
       <!-- End Action buttons -->
-        {% endif %}
       </div>
     </div>
   </div>

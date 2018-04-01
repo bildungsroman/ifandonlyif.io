@@ -7,6 +7,7 @@ $(document).ready(function() {
   $('.tabs').tabs();
   $(".dropdown-button").dropdown();
   $(".button-collapse").sideNav();
+  $('.collapsible').collapsible();
 });
 
 // for some reason, this is required to make the modals work
