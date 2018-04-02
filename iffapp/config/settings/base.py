@@ -65,6 +65,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     'crispy_forms',
+    'crispy_forms_materialize',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -199,7 +200,7 @@ TEMPLATES = [
     },
 ]
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'materialize_css_forms'
 
 # FIXTURES
 # ------------------------------------------------------------------------------

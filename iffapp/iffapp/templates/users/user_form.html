@@ -4,11 +4,12 @@
 {% include 'material/includes/material_js.html' %}
 {% load material_form %}
 
-{% block title %}{{ user.username }}{% endblock %}
+{% block title %}Update your IFF profile{% endblock %}
 
 {% block content %}
 <div class="container">
-  <h1>{{ user.username }}</h1>
+  <h1>Update {{ user.username }}'s profile</h1>
+  <p>Your profile information is just for you (for now). Use it to stay focused on your main goals.</p>
   <form class="form-horizontal" method="post" action="{% url 'users:update' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {% form form=form %}
@@ -16,7 +17,7 @@
     {% endform %}
     <div class="control-group">
       <div class="controls">
-        <button type="submit" class="btn grey darken-2">Update</button>
+        <button type="submit" class="btn btn-primary">Update</button>
       </div>
     </div>
   </form>

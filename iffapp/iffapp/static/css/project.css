@@ -160,7 +160,7 @@ textarea {
   color: #222;
 }
 .scrolled {
-  background-color: rgba(255,255,255,.9) !important;
+  background-color: rgba(255,255,255,1) !important;
   transition: background-color 500ms linear;
 }
 
@@ -464,6 +464,25 @@ input[type="file"] {
   color: #616161;
 }
 
+
+.space-10 {
+  margin-top: 10px;
+}
+.space-20 {
+  margin-top: 20px;
+}
+.space-50 {
+  margin-top: 50px;
+}
+.left-marg {
+  margin-left: 10px;
+}
+.minus-left-marg {
+  margin-left: -10px;
+}
+.no-left-marg {
+  margin-left: 0;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */

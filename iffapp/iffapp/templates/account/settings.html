@@ -1,3 +1,4 @@
+
 {% extends "account/base.html" %}
 
 {% load i18n %}
@@ -6,7 +7,7 @@
 {% include 'material/includes/material_js.html' %}
 {% load material_form %}
 
-{% block head_title %}{% trans "IFF | Account Settings" %}{% endblock %}
+{% block head_title %}{% trans "Account" %}{% endblock %}
 
 {% block inner %}
 <h1>Account Settings</h1>
@@ -15,8 +16,10 @@
 
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
+
 <form action="{% url 'account_email' %}" class="email_list" method="post">
 {% csrf_token %}
+{% form form=form %}
 <fieldset class="blockLabels">
 
   {% for emailaddress in user.emailaddress_set.all %}
@@ -43,6 +46,7 @@
 </div>
 
 </fieldset>
+{% endform %}
 </form>
 
 {% else %}
@@ -60,19 +64,15 @@
   </form>
 </div>
 
-<div class="space-50"></div>
+<h4>{% trans "Change Password" %}</h4>
 
-<div class="no-left-marg">
-  <div class="minus-left-marg"><h4>{% trans "Change Password" %}</h4></div>
 <form method="POST" action="{% url 'account_change_password' %}" class="password_change">
     {% csrf_token %}
     {{ form|crispy }}
     <button class="btn btn-primary" type="submit" name="action">{% trans "Change Password" %}</button>
 </form>
-</div>
 
 <div class="space-50"></div>
-<div class="minus-left-marg">
 <h5>{% trans "Sign out" %}</h5>
 <form method="post" action="{% url 'account_logout' %}">
   {% csrf_token %}
@@ -81,7 +81,6 @@
   {% endif %}
   <button class="btn btn-danger" type="submit">{% trans 'Sign Out' %}</button>
 </form>
-</div>
 {% endblock %}
 
 

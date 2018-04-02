@@ -1,4 +1,7 @@
 {% load static i18n %}
+{% load crispy_forms_tags %}
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
 {% load material_form %}
 <!DOCTYPE html>
 <html lang="en">
@@ -94,8 +97,8 @@
       <!-- Action buttons -->
         <div class="collection">
           {# URL provided by django-allauth/account/urls.py #}
-          <a class="collection-item" href="{% url 'users:update' %}" role="button">Update Info</a>
-          <a class="collection-item" href="{% url 'account_email' %}" role="button">E-Mail</a>
+          <a class="collection-item" href="{% url 'users:update' %}" role="button">Update Profile</a>
+          <a class="collection-item" href="{% url 'account_email' %}" role="button">Account settings</a>
           <a class="collection-item" href="{% url 'account_logout' %}" role="button">Log out</a>
         </div>
       <!-- End Action buttons -->
@@ -138,57 +141,37 @@
     <div id="register" class="col s12">
       <div class="form-container">
       <h4>Register for a new IFF account</h4>
-      <p>Already have an account? Please <a href="{{ login_url }}">come on in</a>.</p>
-      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="username" type="text" class="validate">
-            <label for="username">Username</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="email" type="email" class="validate">
-            <label for="email">Email</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password_input1" type="password" class="validate">
-            <label for="password_input1">Password</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password_input2" type="password" class="validate">
-            <label for="password_input2">Password (again)</label>
-          </div>
-        </div>
-        <button class="btn grey darken-2" id="register_bt" type="submit">{% trans "Sign Up" %} &raquo;</button>
-      </form>
+      <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+          {% form form=form %}
+            {{ form|crispy }}
+          {% endform %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="btn grey darken-2" type="submit">{% trans "Sign Up" %} &raquo;</button>
+        </form>
       </div>
     </div>
     <div id="login" class="col s12">
       <div class="form-container">
         <h4>Welcome back</h4>
-        <form class="login" method="POST" action="{% url 'account_login' %}">
+        <p>{% blocktrans %}If you have not created an account yet, then please
+          <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+
+          <form class="login" method="POST" action="{% url 'account_login' %}">
             {% csrf_token %}
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="username" type="text" class="validate">
-              <label for="username">Username</label>
-            </div>
+            {% form form=form %}
+            {{ form|crispy }}
+            {% endform %}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
+            <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+          </form>
           </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="password" type="password" class="validate">
-              <label for="password">Password</label>
-            </div>
-          </div>
-          <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-          <button class="primaryAction btn grey darken-2" type="submit">{% trans "Sign In" %}</button>
-        </form>
       </div>
     </div>
   </div>
@@ -197,7 +180,7 @@
     <div class="modal-content">
       <h4>IFF App</h4>
       <p>IFF (<a href="https://en.wikipedia.org/wiki/If_and_only_if" target="_blank">If and only if</a>) is an online get-to-do list rather than a to-do list. You get to do a thing <strong><em>if and only if</em></strong> you complete the task or tasks you need to do.</p>
-      <p>Created by <a href="https://twitter.com/annaspies" target="_blank">@annaspies</a> (mainly for herself). View the repo: <a href="https://github.com/bildungsroman/iffapp.com" target="_blank">IFF on Github</a>.</p>
+      <p>Created by <a href="https://twitter.com/annaspies" target="_blank">@annaspies</a> (mainly to keep herself motivated). View the repo: <a href="https://github.com/bildungsroman/iffapp.com" target="_blank">IFF on Github</a>.</p>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-grey btn-flat">Awesome, let's make some lists!</a>

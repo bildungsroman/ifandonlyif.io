@@ -12,8 +12,8 @@ class User(AbstractUser):
     name = models.CharField(_('Your name'), blank=True, max_length=255)
     is_new_user = models.BooleanField(default=True)
     profile_pic = models.ImageField(null=True, blank=True, upload_to='media/profile_pics')
-    user_bio = models.CharField(_('A short bio'), blank=True, null=True, max_length=300)
-    user_goals = models.CharField(_('Your goals'), blank=True, null=True, max_length=255)
+    user_bio = models.TextField(_('A short bio'), blank=True, null=True)
+    user_goals = models.TextField(_('Your current goals'), blank=True, null=True, max_length=255)
     friends_with = models.ManyToManyField('self')  # for future use
 
     def __str__(self):
