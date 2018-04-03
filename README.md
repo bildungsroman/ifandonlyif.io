@@ -123,8 +123,8 @@ _Due date: March 30th_
     - ~~set up MaterializeCSS and make it play nice with everything else~~
     - ~~set up navbar~~
     - ~~set up landing page changing text~~
-- Set up login and registration
-    - set up register/login modal
+- ~~Set up login and registration~~
+    - ~~set up register/login modal~~
     - ~~set up user sidebar~~
     - ~~set up user photo upload~~
 
@@ -134,20 +134,20 @@ _Due date: April 6th_
 - ~~Set up user registration ability~~
 - ~~Set up auto email to user after registration, with confirmation link~~
 - ~~Set up forgot password email/reset link~~
-- Set up welcome page for new user - add first IFFlist
+- Set up welcome page for new user - add first ifflist
 - Set up VueJS project
 - ~~Set up profile sidebar and ability to add profile pic and bio~~
 - Set up add to-do capability
 - Set up ability to save, complete and archive to-do lists
-- Finish front-end design of IFFlists and IFFlist lists (really need a better name)
-- Think of better name for IFFlists
+- Finish front-end design of ifflist and ifflist lists (really need a better name)
+- Think of better name for ifflist
 
 Ability for users to register and add lists is complete. It doesn't have to look pretty yet.
 ### Milestone 3
 _Due date: April 13th_ (Capstone presentation day)
 - Get classmates/friends to sign up for initial testing
 - Test adding users, adding lists, saving
-- Design IFF logo, finalize color scheme
+- ~~Design IFF logo, finalize color scheme~~
 - Add https/SSL certificate
 - Deploy MVP on the interwebs using AWS Elastic Beanstalk
 
@@ -161,7 +161,7 @@ _Due date: April 20th_
 User testing and debugging with actual users.
 ### Milestone 5
 _Due date: May 31st_
-
+- Move user login/register/password interaction stuff into Vue views rather than Django views for better UX
 - Add email reminders (that can be turned on or off) for completing of tasks
 
 All bugs fixed and mass roll-out of platform. Functionality limited to signing up and adding up to 10 IFF lists at a time.
