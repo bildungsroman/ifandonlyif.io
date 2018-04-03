@@ -124,7 +124,7 @@ _Due date: March 30th_
     - ~~set up navbar~~
     - ~~set up landing page changing text~~
 - Set up login and registration
-    - set up register modal
+    - set up register/login modal
     - ~~set up user sidebar~~
     - ~~set up user photo upload~~
 
@@ -136,7 +136,7 @@ _Due date: April 6th_
 - ~~Set up forgot password email/reset link~~
 - Set up welcome page for new user - add first IFFlist
 - Set up VueJS project
-- Set up profile sidebar and ability to add profile pic and bio
+- ~~Set up profile sidebar and ability to add profile pic and bio~~
 - Set up add to-do capability
 - Set up ability to save, complete and archive to-do lists
 - Finish front-end design of IFFlists and IFFlist lists (really need a better name)

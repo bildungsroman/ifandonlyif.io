@@ -6,7 +6,7 @@ from iffapp.users.models import User
 
 class IffList(models.Model):
     """
-    List of ifflist items, including one get-to-do and unlimited to-do items
+    The main ifflist item, with one required get-to-do and unlimited TodoItem items
     """
     get_to_do = models.CharField(max_length=200)  # the one get to do item
     get_to_do_available = models.BooleanField(default=False)  # can you do the get-to-do
@@ -18,6 +18,11 @@ class IffList(models.Model):
     # this way we can do current_tasks = IffList.objects.filter(is_completed=False)
     # or current_tasks = IffList.objects.filter(is_completed=True)
     # in views to show current and completed items separately
+
+    # complete the ifflist
+    def complete(self):
+        if self.get_to_do_is_completed is True:
+            self.is_completed = True
 
     # this way we can do check off the get-to-do in the detail view
     def complete_get_to_do(self):  # runs from detail template
@@ -32,6 +37,24 @@ class IffList(models.Model):
                 return False
         self.get_to_do_available = True
         return True
+
+    @classmethod
+    def create_welcome_list(cls, get_to_do, user_id):
+        # create a default welcome list
+        new_list = cls(get_to_do=get_to_do, user_id=user_id)
+        return new_list
+
+    def create_first_ifflist(self, user_id):
+        # a function that will create a new welcome IFFlist for the user
+        welcome_list = IffList.create_welcome_list("party like it's 1999!", user_id)
+        welcome_list.created_date = timezone.now()
+        welcome_list.save()
+        welcome_todo1 = TodoItem.create_welcome_todos("complete my profile", welcome_list.id)
+        welcome_todo1.save()
+        welcome_todo2 = TodoItem.create_welcome_todos("add my first ifflist", welcome_list.id)
+        welcome_todo2.save()
+        welcome_todo3 = TodoItem.create_welcome_todos("tell my friends about IFF", welcome_list.id)
+        welcome_todo3.save()
 
     def __str__(self):
         return self.get_to_do
@@ -50,6 +73,12 @@ class TodoItem(models.Model):
     # this way we can do check off items in the detail view
     def complete(self):  # runs from detail template
         self.is_completed = True
+
+    @classmethod
+    def create_welcome_todos(cls, text, ifflist):
+        # create a default welcome list
+        new_todo = cls(text=text, ifflist=ifflist)
+        return new_todo
 
     def __str__(self):
         return self.text

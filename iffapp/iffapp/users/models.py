@@ -30,6 +30,6 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
 
-    def after_first_ifflist(self):
-        # a function that will convert is_new_user to False after they have completed their first ifflist
-        pass
+    def not_new_user(self):
+        # called when user completes first ifflist
+        self.is_new_user = False

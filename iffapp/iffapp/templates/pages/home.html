@@ -4,8 +4,16 @@
 <div class="container">
   <!--  if logged in, shortlist of current to-dos -->
   {% if request.user.is_authenticated %}
-    <div class="main-cont center-align">
-      <h4>Testing! {{user.username}} is logged in.</h4>
+    <div class="main-cont">
+      <h1>Welcome back, {{user.username}}!</h1>
+      <h4>Here are your current IFFlists:</h4>
+      {% if user.get_to_do %}
+      <ul>
+        {% for item in get_to_do %}
+        <li>{{item}}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
     </div>
   </div>
 <!--  if not logged in, universal landing page -->
@@ -14,7 +22,7 @@
     <h1 class="light-text">I get to <span id="change-text-1" class="underline-span"></span></h1>
     <h1 class="iff">if and only if</h1>
     <h1 class="light-text">I <span id="change-text-2" class="underline-span"></span></h1>
-    <a id="blink" class="start-btn modal-trigger"  data-target="register-modal" href="#register-modal">Get Started</a>
+    <a id="blink" class="start-btn register-trigger"  data-target="register-modal" href="#register-modal">Get Started</a>
   </div>
 {% endif %}
 {% endblock content %}

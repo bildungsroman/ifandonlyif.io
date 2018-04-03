@@ -4,32 +4,37 @@ $(document).ready(function() {
   Materialize.updateTextFields();
   $('select').material_select();
   $('.modal').modal();
-  $('.tabs').tabs();
   $(".dropdown-button").dropdown();
   $(".button-collapse").sideNav();
   $('.collapsible').collapsible();
 });
 
 // for some reason, this is required to make the modals work
-$('.modal-trigger').click(function () {
+$('.register-trigger').click(function () {
   $('#register-modal').modal().modal('open');
-  $('ul.tabs').tabs();
+  $('#login').addClass('hidden');
+  $('#register-tab').addClass('active-tab');
+});
+$('.login-trigger').click(function () {
+  $('#register-modal').modal().modal('open');
+  $('#register').addClass('hidden');
+  $('#login-tab').addClass('active-tab');
 });
 $('.about-trigger').click(function () {
   $('#about-modal').modal().modal('open');
 });
 
-$("#register-bt").click(function() {
-    $('#register').show();
-    $('#login').hide();
-    $('#register-tab').toggleClass('active-tab');
-    $('#login-tab').toggleClass('active-tab');
+$(".register-bt").click(function() {
+    $('#register').removeClass('hidden');
+    $('#login').addClass('hidden');
+    $('#register-tab').addClass('active-tab');
+    $('#login-tab').removeClass('active-tab');
 });
-$("#login-tb").click(function() {
-    $('#register').hide();
-    $('#login').show();
-    $('#register-tab').toggleClass('active-tab');
-    $('#login-tab').toggleClass('active-tab');
+$(".login-bt").click(function() {
+    $('#register').addClass('hidden');
+    $('#login').removeClass('hidden');
+    $('#register-tab').removeClass('active-tab');
+    $('#login-tab').addClass('active-tab');
 });
 // user sidebar
 let main_div = document.querySelector('.cover');

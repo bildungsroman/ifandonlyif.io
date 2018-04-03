@@ -433,7 +433,7 @@ input[type="file"] {
 
 /* sign up/sign in modal */
 .active-tab {
-  background-color: #616161 !important;
+  background-color: #222 !important;
   -webkit-transition: 0.3s all ease;
   transition: 0.3s ease all;
 }
@@ -443,12 +443,13 @@ input[type="file"] {
   height: 70px;
   padding: 10px 0;
   margin-bottom: 20px;
-  background-color: #222;
+  background-color: #616161;
 }
 .custom-tabs {
   text-align: center;
   padding: 10px 0;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .form-container
