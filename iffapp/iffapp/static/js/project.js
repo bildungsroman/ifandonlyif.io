@@ -95,10 +95,10 @@ function smoothScroll() {
 
 // for matching passwords
 let register_bt = document.querySelector('#register_bt');
-let password_input_1 = document.querySelector('#password_input_1');
-let password_input_2 = document.querySelector('#password_input_2');
+let id_password1 = document.querySelector('#id_password1');
+let id_password2 = document.querySelector('#id_password2');
 register_bt.onclick = function() {
-  if (password_input_1.value !== password_input_2.value) {
+  if (id_password1.value !== id_password2.value) {
     alert("Your passwords don't match!");
     console.log("Your passwords don't match!");
     return false; // cancels form submission! This or prevent default needed

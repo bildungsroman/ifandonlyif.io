@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from material.frontend import urls as frontend_urls
+from allauth.account import views as allauth_views
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -18,7 +19,26 @@ urlpatterns = [
 
     # User management
     path('lists/', include('iffapp.users.urls', namespace='users')),
-    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('allauth.urls')),  # get rid of the default, replace with custom URLs below:
+    path("signup/", allauth_views.signup, name="account_signup"),
+    path("login/", allauth_views.login, name="account_login"),
+    path("logout/", allauth_views.logout, name="account_logout"),
+
+    path("password/change/", allauth_views.password_change, name="account_change_password"),
+    path("password/set/", allauth_views.password_set, name="account_set_password"),
+
+    path("inactive/", allauth_views.account_inactive, name="account_inactive"),
+
+    # E-mail
+    path("settings/", allauth_views.email, name="account_email"),
+    path("confirm-email/", allauth_views.email_verification_sent, name="account_email_verification_sent"),
+    path("confirm-email/<key>", allauth_views.confirm_email, name="account_confirm_email"),
+
+    # password reset
+    path("password/reset/", allauth_views.password_reset, name="account_reset_password"),
+    path("password/reset/done/", allauth_views.password_reset_done, name="account_reset_password_done"),
+    path("password/reset/key/<uidb36><key>", allauth_views.password_reset_from_key, name="account_reset_password_from_key"),
+    path("password/reset/key/done/", allauth_views.password_reset_from_key_done, name="account_reset_password_from_key_done"),
 
     # Your stuff: custom urls includes go here
     path('', include(frontend_urls)),  # material frontend stuff

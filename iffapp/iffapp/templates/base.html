@@ -147,67 +147,66 @@
     <div id="register" class="col s12">
       <div class="form-container">
       <h4>Register for a new IFF account</h4>
-      <p>{% blocktrans %}Already have an IFF account? Please <a href="{{ login_url }}">come on in</a>.{% endblocktrans %}</p>
-        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="email" name="email" type="email" class="validate" required>
-              <label for="email">Email</label>
+      <p>{% blocktrans %}Already have an IFF account? Please <a href="/login">come on in</a>.{% endblocktrans %}</p>
+        <form class="signup" id="signup_form" method="post" action="/signup/">
+          {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s12 required" id="id_email_container">
+                <input id="id_email" name="email" placeholder="E-mail address" type="email">
+                <label for="id_email">E-mail</label>
             </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="username" type="text" name="username" class="validate" required>
-              <label for="username">Username</label>
-              <span class="helper-text" data-error="Your username is invalid" data-success="That works!">Your username will be your login</span>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 required" id="id_username_container">
+                <input autofocus="autofocus" id="id_username" maxlength="150" minlength="4" name="username" placeholder="Username" type="text">
+                <label for="id_username">Username</label>
             </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="password_input_1" name="password_input_1" type="password" class="validate" required>
-              <label for="password_input_1">Password</label>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 required" id="id_password1_container">
+                <input id="id_password1" name="password1" placeholder="Password" type="password">
+                <label for="id_password1">Password</label>
             </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="password_input_2" name="password_input_2" type="password" class="validate" required>
-              <label for="password_input_2">Password (again)</label>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 required" id="id_password2_container">
+                <input id="id_password2" name="password2" placeholder="Password (again)" type="password">
+                <label for="id_password2">Password (again)</label>
             </div>
-          </div>
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button class="primaryAction btn btn-primary" id="register_bt" type="submit">{% trans "Sign Up" %} &raquo;</button>
-      </form>
+        </div>
+          <button class="primaryAction btn btn-primary" id="register_bt" type="submit">Sign Up &raquo;</button>
+        </form>
       </div>
     </div>
     <div id="login" class="col s12">
       <div class="form-container">
         <h4>Welcome back</h4>
         <p>{% blocktrans %}If you have not created an IFF account yet, then please
-          <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-          <form class="login" method="POST" action="{% url 'account_login' %}">
-            {% csrf_token %}
+          <a href="/signup">sign up</a> first.{% endblocktrans %}</p>
+          <form class="login" method="POST" action="/login/">
+          {% csrf_token %}
+          <div class="row">
+              <div class="input-field col s12 required" id="id_login_container">
+                  <input autofocus="autofocus" id="id_login" maxlength="150" name="login" placeholder="Username" type="text">
+                  <label for="id_login">Username</label>
 
-              <div class="row">
-                <div class="input-field col s12">
-                  <input id="username" type="text" name="username" class="validate" required>
-                  <label for="username">Username</label>
-                </div>
               </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input id="password" name="password" type="password" class="validate" required>
-                  <label for="password">Password</label>
-                </div>
-              </div>
+          </div>
+          <div class="row">
+              <div class="input-field col s12 required" id="id_password_container">
+                  <input id="id_password" name="password" placeholder="Password" type="password">
+                  <label for="id_password">Password</label>
 
-            {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-            {% endif %}
-            <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
-            <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+              </div>
+          </div>
+          <div class="row">
+              <div class="checkbox-field col s12" id="id_remember_container">
+                  <label>
+                  <input class="filled-in " id="id_remember" name="remember" type="checkbox"><span for="id_remember">Remember Me</span></label>
+              </div>
+          </div>
+            <p><a class="button secondaryAction" href="/password/reset/">Forgot Password?</a></p>
+            <button class="primaryAction btn btn-primary" type="submit">Sign In</button>
           </form>
           </div>
       </div>
