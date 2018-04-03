@@ -11,7 +11,7 @@ class IffList(models.Model):
     get_to_do = models.CharField(max_length=200)  # the one get to do item
     get_to_do_available = models.BooleanField(default=False)  # can you do the get-to-do
     get_to_do_is_completed = models.BooleanField(default=False)  # is the get-to-do completed
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)  # if user deleted, delete all user's lists
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # if user deleted, delete all user's lists
     created_date = models.DateTimeField(auto_now_add=True)  # automatically added, for sorting on homepage view
     completed_date = models.DateTimeField(null=True, blank=True)  # add IFFlist to archive upon completion
     is_completed = models.BooleanField(default=False)  # is this whole list completed, including get-to-do?
@@ -38,16 +38,9 @@ class IffList(models.Model):
         self.get_to_do_available = True
         return True
 
-    @classmethod
-    def create_welcome_list(cls, get_to_do, user_id):
-        # create a default welcome list
-        new_list = cls(get_to_do=get_to_do, user_id=user_id)
-        return new_list
-
-    def create_first_ifflist(self, user_id):
-        # a function that will create a new welcome IFFlist for the user
-        welcome_list = IffList.create_welcome_list("party like it's 1999!", user_id)
-        welcome_list.created_date = timezone.now()
+    def create_first_ifflist(self, user):
+        # a function that will create a new welcome IFFlist for the user "party like it's 1999!"
+        welcome_list = IffList(get_to_do="party like it's 1999!", user=user)
         welcome_list.save()
         welcome_todo1 = TodoItem.create_welcome_todos("complete my profile", welcome_list.id)
         welcome_todo1.save()
