@@ -2,7 +2,6 @@
 
 {% load i18n %}
 {% load account socialaccount %}
-{% load crispy_forms_tags %}
 {% include 'material/includes/material_css.html' %}
 {% include 'material/includes/material_js.html' %}
 {% load material_form %}
@@ -40,7 +39,18 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 <form class="login" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
   {% form form=form %}
-  {{ form|crispy }}
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="username" type="text" name="username" class="validate" required>
+        <label for="username">Username</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" name="password" type="password" class="validate" required>
+        <label for="password">Password</label>
+      </div>
+    </div>
   {% endform %}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />

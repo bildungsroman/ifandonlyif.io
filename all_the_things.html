@@ -1,0 +1,201 @@
+<!-- these are all the old ways to do things with crispy forms, in case I break something along the way -->
+<!-- base -->
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
+
+{% extends "base.html" %}
+{% block title %}{% block head_title %}{% endblock head_title %}{% endblock title %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    {% block inner %}{% endblock %}
+  </div>
+</div>
+</div>
+{% endblock %}
+
+<!-- account_inactive -->
+{% extends "account/base.html" %}
+
+{% block head_title %}{% trans "Account Inactive" %}{% endblock %}
+
+{% block inner %}
+<h1>{% trans "Account Inactive" %}</h1>
+
+<p>{% trans "This account is inactive." %}</p>
+{% endblock %}
+
+<!-- email -->
+{% block head_title %}{% trans "IFF | Account Settings" %}{% endblock %}
+
+{% block inner %}
+<h1>Account Settings</h1>
+<hr>
+<h4>{% trans "E-mail Addresses" %}</h4>
+
+{% if user.emailaddress_set.all %}
+<p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
+<form action="{% url 'account_email' %}" class="email_list" method="post">
+{% csrf_token %}
+<fieldset class="blockLabels">
+
+  {% for emailaddress in user.emailaddress_set.all %}
+<div class="radio">
+  <label for="email_radio_{{forloop.counter}}" class="{% if emailaddress.primary %}primary_email{%endif%}">
+
+    <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{%endif %} value="{{emailaddress.email}}"/>
+
+    {{ emailaddress.email }}
+    {% if emailaddress.verified %}
+    <span class="verified">{% trans "Verified" %}</span>
+    {% else %}
+    <span class="unverified">{% trans "Unverified" %}</span>
+    {% endif %}
+    {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
+  </label>
+</div>
+  {% endfor %}
+<div class="space-20"></div>
+<div class="form-group">
+      <button class="secondaryAction btn btn-primary" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
+      <button class="secondaryAction btn btn-primary" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
+      <button class="primaryAction btn btn-primary" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+</div>
+
+</fieldset>
+</form>
+
+{% else %}
+<p><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}</p>
+
+{% endif %}
+
+<div class="space-50"></div>
+<h5>{% trans "Add E-mail Address" %}</h5>
+<div class="left-marg">
+  <form method="post" action="{% url 'account_email' %}" class="add_email">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="btn btn-primary" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+  </form>
+</div>
+{% endblock %}
+
+<!-- email_confirm -->
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+
+
+{% block inner %}
+<h1>{% trans "Confirm E-mail Address" %}</h1>
+
+{% if confirmation %}
+
+{% user_display confirmation.email_address.user as user_display %}
+
+<p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
+
+<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+{% csrf_token %}
+    <button class="btn btn-primary" type="submit">{% trans 'Confirm' %}</button>
+</form>
+
+{% else %}
+
+{% url 'account_email' as email_url %}
+
+<p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
+
+{% endif %}
+
+{% endblock %}
+
+<!-- login -->
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block inner %}
+<div class="container">
+<h1>{% trans "Sign In" %}</h1>
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+<p>{% blocktrans with site.name as site_name %}Please sign in with one
+of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+<div class="socialaccount_ballot">
+
+  <ul class="socialaccount_providers">
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+  </ul>
+
+  <div class="login-or">{% trans 'or' %}</div>
+
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+<p>{% blocktrans %}If you have not created an account yet, then please
+<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+{% endif %}
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  {% form form=form %}
+  {{ form|crispy }}
+  {% endform %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
+  <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+</form>
+</div>
+{% endblock %}
+
+<!-- logout -->
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block inner %}
+<div class="container">
+<h1>{% trans "Sign Out" %}</h1>
+
+<p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+<form method="post" action="{% url 'account_logout' %}">
+  {% csrf_token %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+  {% endif %}
+  <button class="btn btn-danger" type="submit">{% trans 'Sign Out' %}</button>
+</form>
+
+</div>
+{% endblock %}
+
+<!-- password_change -->
+

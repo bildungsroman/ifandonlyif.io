@@ -408,6 +408,9 @@ input[type="file"] {
 .toast-pos-top {
   top: 20px;
 }
+.toast-below {
+  top: 60px;
+}
 
 .toast {
   padding: 20px;

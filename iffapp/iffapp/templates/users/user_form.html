@@ -12,9 +12,36 @@
   <p>Your profile information is just for you (for now). Use it to stay focused on your main goals.</p>
   <form class="form-horizontal" method="post" action="{% url 'users:update' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {% form form=form %}
-      {{ form|crispy }}
-    {% endform %}
+    <div class="row">
+      <div class="input-field col s12" id="id_name_container">
+          <input id="id_name" maxlength="255" name="name" type="text" value="{{user.name}}">
+          <label class="active" for="id_name">Your name</label>
+      </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12" id="id_user_bio_container">
+            <textarea class="materialize-textarea" cols="40" id="id_user_bio" name="user_bio" rows="10">{{user.user_bio}}</textarea>
+            <label class="active" for="id_user_bio">A short bio</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12" id="id_user_goals_container">
+            <textarea class="materialize-textarea" cols="40" id="id_user_goals" maxlength="255" name="user_goals" rows="10">{{user.user_goals}}</textarea>
+            <label class="active" for="id_user_goals">Your current goals</label>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field file-field col s12" id="id_profile_pic_container">
+            <div class="btn btn-primary">
+                <span>Choose file</span>
+                <input type="file" name="profile_pic"/>
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path" id="id_profile_pic" placeholder="Profile pic" type="text" value="{{user.profile_pic}}">
+            </div>
+        </div>
+    </div>
     <div class="control-group">
       <div class="controls">
         <button type="submit" class="btn btn-primary">Update</button>

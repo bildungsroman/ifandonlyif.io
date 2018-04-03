@@ -64,11 +64,11 @@
 
 <div class="no-left-marg">
   <div class="minus-left-marg"><h4>{% trans "Change Password" %}</h4></div>
-<form method="POST" action="{% url 'account_change_password' %}" class="password_change">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button class="btn btn-primary" type="submit" name="action">{% trans "Change Password" %}</button>
-</form>
+  <form method="POST" action="{% url 'account_change_password' %}" class="password_change">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="btn btn-primary" type="submit" name="action">{% trans "Change Password" %}</button>
+  </form>
 </div>
 
 <div class="space-50"></div>

@@ -105,17 +105,19 @@
     </div>
   </div>
 
-  {% if messages %}
   <!--//show a toast with the message if there is a message to be shown-->
-    {% for message in messages %}
+  {% if messages %}
     <!-- Toast -->
     <div class="toast-container toast-pos-right toast-pos-top animated fadeInRight">
       <div class="toast toast-auto z-depth-1" id="message-container">
-        <span class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</span>
+        <ul>
+          {% for message in messages %}
+          <li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</li>
+          {% endfor %}
+        </ul>
         <a href="#" class="close-toast">&#10006;</a>
       </div>
     </div>
-    {% endfor %}
   {% endif %}
 
   <div class="footer">
@@ -145,17 +147,39 @@
     <div id="register" class="col s12">
       <div class="form-container">
       <h4>Register for a new IFF account</h4>
-      <p>{% blocktrans %}Already have an IFF account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+      <p>{% blocktrans %}Already have an IFF account? Please <a href="{{ login_url }}">come on in</a>.{% endblocktrans %}</p>
         <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-          {% csrf_token %}
-          {% form form=form %}
-            {{ form|crispy }}
-          {% endform %}
-          {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
-          <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
-        </form>
+        {% csrf_token %}
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="email" name="email" type="email" class="validate" required>
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="username" type="text" name="username" class="validate" required>
+              <label for="username">Username</label>
+              <span class="helper-text" data-error="Your username is invalid" data-success="That works!">Your username will be your login</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password_input_1" name="password_input_1" type="password" class="validate" required>
+              <label for="password_input_1">Password</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password_input_2" name="password_input_2" type="password" class="validate" required>
+              <label for="password_input_2">Password (again)</label>
+            </div>
+          </div>
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="primaryAction btn btn-primary" id="register_bt" type="submit">{% trans "Sign Up" %} &raquo;</button>
+      </form>
       </div>
     </div>
     <div id="login" class="col s12">
@@ -163,12 +187,22 @@
         <h4>Welcome back</h4>
         <p>{% blocktrans %}If you have not created an IFF account yet, then please
           <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-
           <form class="login" method="POST" action="{% url 'account_login' %}">
             {% csrf_token %}
-            {% form form=form %}
-            {{ form|crispy }}
-            {% endform %}
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="username" type="text" name="username" class="validate" required>
+                  <label for="username">Username</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="password" name="password" type="password" class="validate" required>
+                  <label for="password">Password</label>
+                </div>
+              </div>
+
             {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
             {% endif %}
@@ -178,8 +212,7 @@
           </div>
       </div>
     </div>
-  </div>
-  <!-- about bottom modal -->
+    <!-- about bottom modal -->
     <div id="about-modal" class="modal bottom-sheet">
     <div class="modal-content">
       <h4>IFF App</h4>
@@ -219,4 +252,3 @@
   {% endblock javascript %}
 </body>
 </html>
-
