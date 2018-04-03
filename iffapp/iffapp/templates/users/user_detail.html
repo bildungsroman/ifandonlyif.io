@@ -4,8 +4,8 @@
 {% block title %}{{ user.username }}'s IFFlists {% endblock %}
 
 <!-- this is where all the ifflist vues will go -->
-
 {% block content %}
+{% if object == request.user %}
   <div class="row">
     <div class="col l4 s6">
       <div class="iff-cont">
@@ -30,6 +30,11 @@
       <p>*(seriously, think of a better name)</p>
     </div>
   </div>
-
+{% else %}
+<div class="container">
+  <h4>Sorry, you can only see your own IFFlists (for now).</h4>
+  <a class="btn btn-primary btn-waves" href="{% url 'users:detail' request.user.username  %}">Take me to my lists!</a>
+</div>
+{% endif %}
 {% endblock content %}
 

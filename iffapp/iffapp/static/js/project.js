@@ -19,6 +19,18 @@ $('.about-trigger').click(function () {
   $('#about-modal').modal().modal('open');
 });
 
+$("#register-bt").click(function() {
+    $('#register').show();
+    $('#login').hide();
+    $('#register-tab').toggleClass('active-tab');
+    $('#login-tab').toggleClass('active-tab');
+});
+$("#login-tb").click(function() {
+    $('#register').hide();
+    $('#login').show();
+    $('#register-tab').toggleClass('active-tab');
+    $('#login-tab').toggleClass('active-tab');
+});
 // user sidebar
 let main_div = document.querySelector('.cover');
 function toggleSidenav(bool) {

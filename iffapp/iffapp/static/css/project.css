@@ -432,11 +432,23 @@ input[type="file"] {
 }
 
 /* sign up/sign in modal */
-.tabs .indicator
-{
-	background-color: #e0f2f1;
-	height: 60px;
-	opacity: 0.3;
+.active-tab {
+  background-color: #616161 !important;
+  -webkit-transition: 0.3s all ease;
+  transition: 0.3s ease all;
+}
+
+.custom-tabs-div {
+  width: 100%;
+  height: 70px;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  background-color: #222;
+}
+.custom-tabs {
+  text-align: center;
+  padding: 10px 0;
+  text-transform: uppercase;
 }
 
 .form-container
