@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
+{% load material_form %}
 
 {% block title %}{{ user.username }}'s ifflists {% endblock %}
+
 <!--TODO: change order in mobile view-->
 <!-- this is where all the ifflist vues will go -->
+
 {% block content %}
 {% if object == request.user %}
   <div class="row">
@@ -11,12 +14,15 @@
     <div class="col l4 s12 hide-on-med-and-down"> <!-- for now: not visible on mobile -->
       <div class="iff-cont">
         <ul class="collection with-header">
-            <li class="collection-header"><h4>Active ifflists<sup>*</sup></h4> *come up with a better name!</li>
+          <li class="collection-header"><h5>Add new ifflist <a class="btn-floating btn-large waves-effect grey darken-2 add-btn"><i class="material-icons">add</i></a></h5></li>
+        </ul>
+        <ul class="collection with-header">
+          <li class="collection-header"><h5>Active ifflists</h5></li>
             <a class="collection-item">I get to play Xbox IFF...</a>
             <a class="collection-item">I get to go to the park IFF...</a>
         </ul>
         <ul class="collection with-header fade">
-            <li class="collection-header"><h4>Past ifflists</h4></li>
+            <li class="collection-header"><h5>Completed ifflists</h5></li>
             <a class="collection-item">I got to read a new book</a>
             <a class="collection-item">I got to go surfing</a>
             <a class="collection-item">I got to buy a new dress</a>
@@ -26,10 +32,51 @@
         </ul>
       </div>
     </div>
-    <!-- current ifflist -->
-    <div class="col l8 s12">
-      <h2>((this will be the current ifflist name))</h2>
-      <p>*This will be the guts of it</p>
+    <!-- current/add ifflist -->
+    <div class="col l8 s12 list-container">
+      <div class="list-title-container z-depth-1">
+        <h2 class="add-cap">((current ifflist name))<a class="btn-floating btn-large waves-effect grey darken-2 add-btn"><i class="material-icons">edit</i></a></h2>
+      </div>
+      <div class="gtd-container">
+        <h4 class="light-text">I get to: <span class="underline-span">((get-to-do))</span></h4>
+      </div>
+      <div class="iff-container center-align z-depth-1">
+          <h4><span class="iff">if and only if</span> I:</h4>
+        </div>
+      <div class="todo-container z-depth-1">
+        <table id="todo_table">
+          <tr>
+            <td scope="col"><h4 class="light-text" contenteditable="true">((first to-do))</h4></td>
+            <td scope="col"><a href="#!"><i class="material-icons">edit</i></a></td>
+            <td scope="col">
+              <label>
+                <input type="checkbox" class="filled-in" />
+                <span></span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td scope="col"><h4 class="light-text" contenteditable="true">((second to-do))</h4></td>
+            <td scope="col"><a href="#!"><i class="material-icons">edit</i></a></td>
+            <td scope="col">
+            <label>
+              <input type="checkbox" class="filled-in" />
+              <span></span>
+            </label>
+            </td>
+          </tr>
+          <tr>
+            <td scope="col"><h4 class="light-text" contenteditable="true">((third to-do))</h4></td>
+            <td scope="col"><a href="#!"><i class="material-icons">edit</i></a></td>
+            <td scope="col">
+            <label>
+              <input type="checkbox" class="filled-in" />
+              <span></span>
+            </label>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 {% else %}

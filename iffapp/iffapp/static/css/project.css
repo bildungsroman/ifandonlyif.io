@@ -296,12 +296,6 @@ textarea {
 }
 
 
-
-
-
-
-
-
 /* navbar */
 .nav-wrapper a {
   color: #222;
@@ -452,17 +446,54 @@ textarea {
 }
 
 
-/* IFF Task box */
-.task-cont {
-  margin: 0 auto;
-  max-width: 80%;
-  min-height: 60%;
-  padding: 20px;
-  transform: translateZ(0);
-  text-align: center;
-  color: #222;
-  z-index: 500;
+/* user detail page stuff */
+
+.list-container {
+  padding: 0;
+  margin-top: 30px;
+  width: 100%;
 }
+.list-title-container{
+  background: rgba(34,34,34,.8);
+  color: white;
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+  float: left;
+}
+.gtd-container{
+  background: rgba(255,255,255,.9);
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+  float: left;
+}
+.iff-container{
+  background: rgba(34,34,34,.5);
+  color: white;
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+  float: left;
+}
+.todo-container{
+  background: rgba(255,255,255,.5);
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+  float: left;
+}
+/* IFF Task box */
+/*.task-cont {*/
+  /*margin: 0 auto;*/
+  /*max-width: 80%;*/
+  /*min-height: 60%;*/
+  /*padding: 20px;*/
+  /*transform: translateZ(0);*/
+  /*text-align: center;*/
+  /*color: #222;*/
+  /*z-index: 500;*/
+/*}*/
 
 .fade {
   opacity: .5;
@@ -477,13 +508,22 @@ textarea {
 }
 
 .iff-cont {
-  margin: 0 auto;
-  max-width: 80%;
-  min-height: 60%;
   padding: 20px;
   transform: translateZ(0);
   color: #222;
   z-index: 500;
+}
+
+.add-cap {
+  text-transform: capitalize;
+}
+
+.add-btn {
+  margin-left: 50px;
+}
+
+.btn:hover {
+  color: white !important;
 }
 
 /* materialize label focus color */

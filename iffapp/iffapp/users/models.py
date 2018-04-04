@@ -15,6 +15,8 @@ class User(AbstractUser):
     user_bio = models.TextField(_('A short bio'), blank=True, null=True)
     user_goals = models.TextField(_('Your current goals'), blank=True, null=True, max_length=255)
     friends_with = models.ManyToManyField('self')  # for future use
+    number_of_lists = models.IntegerField(default=1)  # for future use, when $monetizing$
+    premium_account = models.BooleanField(default=False)  # for future use, when $monetizing$
 
     def __str__(self):
         return self.username
@@ -33,3 +35,7 @@ class User(AbstractUser):
     def not_new_user(self):
         # called when user completes first ifflist
         self.is_new_user = False
+
+    def count_lists(self):
+        # will count the number of lists and not allow a user to add more than 10 unless premium
+        pass

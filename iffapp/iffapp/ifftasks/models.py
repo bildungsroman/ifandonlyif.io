@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.dispatch import receiver
 # from ..users.models import User  # this doesn't compile :(
 from iffapp.users.models import User
 
@@ -38,17 +39,6 @@ class IffList(models.Model):
         self.get_to_do_available = True
         return True
 
-    def create_first_ifflist(self, user):
-        # a function that will create a new welcome IFFlist for the user "party like it's 1999!"
-        welcome_list = IffList(get_to_do="party like it's 1999!", user=user)
-        welcome_list.save()
-        welcome_todo1 = TodoItem.create_welcome_todos("complete my profile", welcome_list.id)
-        welcome_todo1.save()
-        welcome_todo2 = TodoItem.create_welcome_todos("add my first ifflist", welcome_list.id)
-        welcome_todo2.save()
-        welcome_todo3 = TodoItem.create_welcome_todos("tell my friends about IFF", welcome_list.id)
-        welcome_todo3.save()
-
     def __str__(self):
         return self.get_to_do
 
@@ -58,9 +48,9 @@ class TodoItem(models.Model):
     The main model for individual IFFlist to-do items
     """
     text = models.CharField(max_length=200)  # this is the text of the actual to-do
-    ifflist = models.ForeignKey(IffList, on_delete=models.CASCADE, related_name='items')
-    # if list deleted, delete all list items
-    # which list this item belongs to - assign in detail view
+    ifflist = models.ForeignKey(IffList,  # which list this item belongs to - assign in detail view
+                                on_delete=models.CASCADE,  # if list deleted, delete all list items
+                                related_name='item')  # use this name instead of todoitem
     is_completed = models.BooleanField(default=False)  # is this item completed
 
     # this way we can do check off items in the detail view
@@ -75,3 +65,21 @@ class TodoItem(models.Model):
 
     def __str__(self):
         return self.text
+
+
+# create a 'welcome' list upon user creation
+# @receiver(models.signals.post_save, sender=User)
+def create_first_ifflist(sender, instance, created, **kwargs):
+    if created:
+        # create a new welcome IFFlist for the user with three to-dos
+        welcome_list = IffList(get_to_do="party like it's 1999!", user=instance)
+        welcome_list.save()
+        welcome_todo1 = TodoItem.create_welcome_todos("complete my profile", welcome_list)
+        welcome_todo1.save()
+        welcome_todo2 = TodoItem.create_welcome_todos("add my first ifflist", welcome_list)
+        welcome_todo2.save()
+        welcome_todo3 = TodoItem.create_welcome_todos("tell my friends about IFF", welcome_list)
+        welcome_todo3.save()
+
+
+models.signals.post_save.connect(create_first_ifflist, sender=User)

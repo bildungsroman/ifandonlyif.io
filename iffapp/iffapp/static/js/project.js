@@ -8,7 +8,7 @@ $(document).ready(function() {
   $('.collapsible').collapsible();
 });
 
-// for some reason, this is required to make the modals work
+// for some reason, this is required to make the modals work (though it shouldn't be)
 $('.register-trigger').click(function () {
   $('#register-modal').modal().modal('open');
   $('#login').addClass('hidden');
@@ -22,7 +22,7 @@ $('.login-trigger').click(function () {
 $('.about-trigger').click(function () {
   $('#about-modal').modal().modal('open');
 });
-
+// to switch the modal between sign up and login
 $(".register-bt").click(function() {
     $('#register').removeClass('hidden');
     $('#login').addClass('hidden');
@@ -52,6 +52,7 @@ function toggleSidenav(bool) {
   main_div.classList.toggle('z-depth-3');
 }
 
+// pretty navbar background on scroll
 $(function () {
   $(document).scroll(function () {
     let $nav = $("#navbar-custom");
