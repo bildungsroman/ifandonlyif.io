@@ -4,7 +4,6 @@ $(document).ready(function() {
   Materialize.updateTextFields();
   $('select').material_select();
   $('.modal').modal();
-  $(".dropdown-button").dropdown();
   $(".button-collapse").sideNav();
   $('.collapsible').collapsible();
 });
@@ -36,6 +35,15 @@ $(".login-bt").click(function() {
     $('#register-tab').removeClass('active-tab');
     $('#login-tab').addClass('active-tab');
 });
+
+// open mobile menu
+$('.js-toggle-menu').click(function(e){
+  e.preventDefault();
+  $('.mobile-header-nav').slideToggle();
+  $(this).toggleClass('open');
+});
+
+
 // user sidebar
 let main_div = document.querySelector('.cover');
 function toggleSidenav(bool) {

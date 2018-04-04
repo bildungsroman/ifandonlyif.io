@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ user.username }}'s IFFlists {% endblock %}
-
+{% block title %}{{ user.username }}'s ifflists {% endblock %}
+<!--TODO: change order in mobile view-->
 <!-- this is where all the ifflist vues will go -->
 {% block content %}
 {% if object == request.user %}
   <div class="row">
-    <div class="col l4 s6">
+    <!-- list of ifflists -->
+    <div class="col l4 s12 hide-on-med-and-down"> <!-- for now: not visible on mobile -->
       <div class="iff-cont">
         <ul class="collection with-header">
             <li class="collection-header"><h4>Active ifflists<sup>*</sup></h4> *come up with a better name!</li>
@@ -25,7 +26,8 @@
         </ul>
       </div>
     </div>
-    <div class="col l8 s6">
+    <!-- current ifflist -->
+    <div class="col l8 s12">
       <h2>((this will be the current ifflist name))</h2>
       <p>*This will be the guts of it</p>
     </div>

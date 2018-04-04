@@ -141,6 +141,37 @@ textarea {
   font-size: 5vw;
 }
 
+@media screen and (max-width: 992px) {
+  .main-cont h1 {
+    font-size: 2em;
+    line-height: 1.4em;
+  }
+  .start-btn {
+    color: #222;
+    font-size: 1.4em;
+    letter-spacing: 1.4em;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    width: 50vw;
+    font-weight: bold;
+    padding: 14px 0px;
+    border: 3px solid #222;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-top: 25px;
+    text-decoration: none;
+    background: none;
+    -webkit-transition: 0.3s all ease;
+    transition: 0.3s ease all;
+  }
+  .page-footer p {
+    font-size: .8em;
+  }
+}
+
 .underline-span {
   border-bottom: 2px black solid;
 }
@@ -155,6 +186,122 @@ textarea {
 }
 
 
+/* changing text */
+#change-text-1:after {
+  content:"do a thing I want";
+  animation: change-text-1 25s ease-in 1;
+}
+#change-text-2:after {
+  content:"do the thing(s) I need";
+  animation: change-text-2 25s ease-in 1;
+}
+@keyframes change-text-1 {
+  0% { content:"watch Netflix"; }
+  10% { content:"go to happy hour"; }
+  20% { content:"see a movie"; }
+  30% { content:"take a nap"; }
+  40% { content:"play Xbox"; }
+  50% { content: "read fan fiction"; }
+  60% { content: "play PUBG"; }
+  70% { content: "go to the park"; }
+  80% { content: "take a road trip"; }
+  90% { content: "smell the roses"; }
+}
+@keyframes change-text-2 {
+  0% { content:"go to the gym"; }
+  10% { content:"clean the garage"; }
+  20% { content:"reply to all my emails"; }
+  30% { content:"get the oil changed"; }
+  40% { content:"exercise for 30 minutes"; }
+  50% { content: "feed the cats"; }
+  60% { content: "finish tonight's homework"; }
+  70% { content: "deploy my web app"; }
+  80% { content: "sell the house"; }
+  90% { content: "write some lists"; }
+}
+#blink {
+  animation: blinkAnimation 2s ease-in-out 25s 1;
+}
+@keyframes blinkAnimation { /* flame pulses */
+  0%   { opacity:1; }
+  20%  { opacity:.2; }
+  100% { opacity:1; }
+}
+
+/* get started button */
+.start-btn {
+  color: #222;
+  font-size: 2.5vw;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: center;
+  width: 30vw;
+  font-weight: bold;
+  padding: 14px 0px;
+  border: 3px solid #222;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin-top: 35px;
+  text-decoration: none;
+  background: none;
+  -webkit-transition: 0.3s all ease;
+  transition: 0.3s ease all;
+}
+.start-btn:hover {
+  color: #FFF;
+}
+.start-btn:focus {
+  color: #FFF;
+}
+.start-btn:before {
+  -webkit-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  opacity: 0;
+  content: '';
+  background-color: #222;
+  z-index: -2;
+}
+.start-btn:hover:before {
+  -webkit-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+.start-btn:focus:before {
+  transition: 0.5s all ease;
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -25%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+
+
+
+
+
+
+
 /* navbar */
 .nav-wrapper a {
   color: #222;
@@ -163,6 +310,83 @@ textarea {
   background-color: rgba(255,255,255,1) !important;
   transition: background-color 500ms linear;
 }
+/* FYI 993 is the screen width for the materialize navbar to do its thing */
+@media screen and (min-width: 993px) {
+  #mobile-menu {
+    display: none;
+  }
+  .mobile-nav-wrap {
+     display: none;
+  }
+}
+
+/* mobile nav */
+.mobile-header-nav {
+  background-color: white;
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
+}
+.mobile-header-nav li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.mobile-header-nav li a {
+  text-transform: uppercase;
+  color: #222;
+  display: block;
+  padding: 15px 0;
+  text-align: center;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.mobile-header-nav li a:hover {
+  background-color: #222;
+  color: white;
+}
+
+.hamburger-menu {
+  display: inline-block;
+  height: 100px;
+  padding: 20px 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.hamburger-menu:hover {
+  cursor: pointer;
+}
+.hamburger-menu .menu-item {
+  background: #222;
+  display: block;
+  height: 3px;
+  margin: 0 0 10px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  width: 40px;
+}
+.hamburger-menu.open .menu-item {
+  margin: 0 0 5px;
+}
+.hamburger-menu.open .menu-item:first-child {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-transform-origin: 10px;
+          transform-origin: 10px;
+}
+.hamburger-menu.open .menu-item:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-menu.open .menu-item:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  -webkit-transform-origin: 8px;
+          transform-origin: 8px;
+}
+
 
 /* sidenav stuff */
 .move-over {
@@ -228,118 +452,6 @@ textarea {
 }
 
 
-/* changing text */
-#change-text-1:after {
-  content:"do a thing I want";
-  animation: change-text-1 25s ease-in 1;
-}
-#change-text-2:after {
-  content:"do the thing(s) I need";
-  animation: change-text-2 25s ease-in 1;
-}
-@keyframes change-text-1 {
-  0% { content:"watch Netflix"; }
-  10% { content:"go to happy hour"; }
-  20% { content:"see a movie"; }
-  30% { content:"take a nap"; }
-  40% { content:"play Xbox"; }
-  50% { content: "read fan fiction"; }
-  60% { content: "play PUBG"; }
-  70% { content: "go to the park"; }
-  80% { content: "take a road trip"; }
-  90% { content: "smell the roses"; }
-}
-@keyframes change-text-2 {
-  0% { content:"go to the gym"; }
-  10% { content:"clean the garage"; }
-  20% { content:"reply to all my emails"; }
-  30% { content:"get the oil changed"; }
-  40% { content:"exercise for 30 minutes"; }
-  50% { content: "feed the cats"; }
-  60% { content: "finish tonight's homework"; }
-  70% { content: "deploy my web app"; }
-  80% { content: "sell the house"; }
-  90% { content: "write some lists"; }
-}
-#blink {
-  animation: blinkAnimation 2s ease-in-out 25s 1;
-}
-@keyframes blinkAnimation { /* flame pulses */
-  0%   { opacity:1; }
-  20%  { opacity:.2; }
-  100% { opacity:1; }
-}
-
-/* get started button */
-.start-btn {
-  color: #222;
-  text-decoration: none;
-  background: none;
-  -webkit-transition: 0.3s all ease;
-  transition: 0.3s ease all;
-}
-.start-btn:hover {
-  color: #FFF;
-}
-.start-btn:focus {
-  color: #FFF;
-}
-
-.start-btn {
-  font-size: 2vw;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  display: inline-block;
-  text-align: center;
-  width: 23vw;
-  font-weight: bold;
-  padding: 14px 0px;
-  border: 3px solid #222;
-  border-radius: 10px;
-  position: relative;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  margin-top: 35px;
-}
-.start-btn:before {
-  -webkit-transition: 0.5s all ease;
-  transition: 0.5s all ease;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  right: 50%;
-  bottom: 0;
-  opacity: 0;
-  content: '';
-  background-color: #222;
-  z-index: -2;
-}
-.start-btn:hover:before {
-  -webkit-transition: 0.5s all ease;
-  transition: 0.5s all ease;
-  left: 0;
-  right: 0;
-  opacity: 1;
-}
-.start-btn:focus:before {
-  transition: 0.5s all ease;
-  left: 0;
-  right: 0;
-  opacity: 1;
-}
-
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -25%, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
 /* IFF Task box */
 .task-cont {
   margin: 0 auto;
@@ -395,6 +507,14 @@ input[type="file"] {
   max-width: 580px;
   margin: 0 auto;
   /*opacity: 0;  !* make the message disappear after the animation ends *!*/
+}
+
+@media screen and (max-width: 992px) {
+  .toast-container {
+    width: 90%;
+    margin: 0 auto;
+    /*opacity: 0;  !* make the message disappear after the animation ends *!*/
+  }
 }
 
 [class*="toast-pos-"] {
@@ -453,7 +573,7 @@ input[type="file"] {
 
 .form-container
 {
-	padding: 40px;
+	padding: 4vw;
 	padding-top: 10px;
 }
 .confirmation-tabs-btn
@@ -475,6 +595,8 @@ input[type="file"] {
 .modal-footer a:hover {
   color: #616161;
 }
+
+
 
 
 .space-10 {

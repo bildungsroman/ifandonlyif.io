@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{% block title %}IFF | If and Only If - Make get to do lists{% endblock title %}</title>
+  <title>{% block title %}IFF | If and Only If: Make get-to-do lists{% endblock title %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="IFF is an online 'get to do' list rather than a to-do list. You get to do a thing if and only if you complete the task or tasks you need to do.">
   <meta name="author" content="Anna Spysz">
@@ -32,13 +32,17 @@
   <!-- navbar -->
   <div class="navbar-fixed">
   <nav id="navbar-custom" class="transparent z-depth-0">
-    <!--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-      <!--<span class="navbar-toggler-icon"></span>-->
-    <!--</button>-->
       <div class="nav-wrapper move-over">
-          <div class="container">
-            <a href="{% url 'home' %}" class="brand-logo"><span class="iff">iff</span></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <div class="container">
+          <a href="{% url 'home' %}" class="brand-logo"><span class="iff">iff</span></a>
+          <!-- mobile menu - not visible on large screens -->
+          <a class="mobile-menu-toggle js-toggle-menu hamburger-menu" id="mobile-menu" href="#">
+            <span class="menu-item"></span>
+            <span class="menu-item"></span>
+            <span class="menu-item"></span>
+          </a>
+          <!--<a href="#" data-target="mobile-dropdown" class="dropdown-trigger"><i class="material-icons">menu</i></a>-->
+          <ul id="nav-mobile" class="main-nav right hide-on-med-and-down">
             {% if request.user.is_authenticated %}
             <li>
               {# URL provided by django-allauth/account/urls.py #}
@@ -60,9 +64,39 @@
             </li>
           {% endif %}
           </ul>
-      </div>
+        </div>
       </div>
   </nav>
+  </div>
+
+  <!-- mobile-only dropdown nav -->
+  <div class="mobile-nav-wrap" role="navigation">
+    <ul class="mobile-header-nav">
+      {% if request.user.is_authenticated %}
+      <li>
+        <a href="{% url 'users:detail' request.user.username  %}">My ifflists</a>
+      </li>
+      <li>
+        <a href="{% url 'users:update' %}" role="button">Update Profile</a>
+      </li>
+      <li>
+        <a class="collection-item" href="{% url 'account_email' %}" role="button">Account settings</a>
+      </li>
+      <li>
+        <a class="collection-item" href="{% url 'account_logout' %}" role="button">Log out</a>
+      </li>
+    {% else %}
+      <li>
+        {# URL provided by django-allauth/account/urls.py #}
+        <a href="/signup">{% trans "Sign Up" %}</a>
+      </li>
+      <li>
+        {# URL provided by django-allauth/account/urls.py #}
+        <!-- was {% url 'account_login' %}  -->
+        <a href="/login">{% trans "Login" %}</a>
+      </li>
+    {% endif %}
+    </ul>
   </div>
 
   <main>
@@ -125,8 +159,8 @@
     <footer class="page-footer main-color">
       <div class="footer-copyright">
         <div class="container">
-            © 2018 Copyright IFF
-            <span class="right"><a class="about-trigger" href="#about-modal">What's this about?</a></span>
+            <p>© 2018 Copyright IFF
+              <span class="right"><a class="about-trigger" href="#about-modal">What's this about?</a></span></p>
         </div>
       </div>
     </footer>
@@ -180,7 +214,7 @@
               <input class="filled-in " id="id_agree" name="agree" type="checkbox" required><span for="id_remember">By checking this I agree to give up my firstborn to IFF*</span></label>
           </div>
         </div>
-          <p>*<sup>Just kidding. We promise not to share your passwords, etc.</sup></p>
+          <p><sup>*Just kidding. We promise not to share your passwords, etc.</sup></p>
           <button class="primaryAction btn btn-primary" id="register_bt" type="submit">Sign Up &raquo;</button>
         </form>
       </div>

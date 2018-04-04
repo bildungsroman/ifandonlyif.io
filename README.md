@@ -145,6 +145,8 @@ _Due date: April 6th_
 Ability for users to register and add lists is complete. It doesn't have to look pretty yet.
 ### Milestone 3
 _Due date: April 13th_ (Capstone presentation day)
+- ~~Make dropdown menu work in mobile~~
+- ~~Check all pages in mobile view for good UX~~
 - Get classmates/friends to sign up for initial testing
 - Test adding users, adding lists, saving
 - ~~Design IFF logo, finalize color scheme~~
