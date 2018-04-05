@@ -134,7 +134,7 @@ _Due date: April 6th_
 - ~~Set up user registration ability~~
 - ~~Set up auto email to user after registration, with confirmation link~~
 - ~~Set up forgot password email/reset link~~
-- Set up welcome page for new user - add first ifflist
+- ~~Set up welcome page for new user - add first ifflist~~
 - Set up VueJS project
 - ~~Set up profile sidebar and ability to add profile pic and bio~~
 - Set up add to-do capability

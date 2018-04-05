@@ -128,8 +128,11 @@
         </div>
       </div>
       <!-- Action buttons -->
-        <div class="collection">
+        <div class="collection sidebar-btns">
           {# URL provided by django-allauth/account/urls.py #}
+          {% if user.is_superuser %}
+          <a class="collection-item" href="/admin" role="button">Admin panel</a>
+          {% endif %}
           <a class="collection-item" href="{% url 'users:update' %}" role="button">Update Profile</a>
           <a class="collection-item" href="{% url 'account_email' %}" role="button">Account settings</a>
           <a class="collection-item" href="{% url 'account_logout' %}" role="button">Log out</a>

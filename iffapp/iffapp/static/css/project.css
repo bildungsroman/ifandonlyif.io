@@ -444,7 +444,9 @@ textarea {
   position: relative;
   overflow: hidden;
 }
-
+.sidebar-btns {
+  text-transform: uppercase;
+}
 
 /* user detail page stuff */
 

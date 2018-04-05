@@ -6,7 +6,7 @@
   {% if request.user.is_authenticated %}
     <div class="main-cont">
       <h1>Welcome back, {{user.username}}!</h1>
-      <h4>Here are your current IFFlists:</h4>
+      <h4>Here are your current ifflists:</h4>
       {% if user.get_to_do %}
       <ul>
         {% for item in get_to_do %}
