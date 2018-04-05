@@ -66,6 +66,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'crispy_forms',
     'crispy_forms_materialize',
+    # 'django-admin-honeypot2',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -217,7 +218,7 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.s
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL regex.
-ADMIN_URL = 'admin/'
+ADMIN_URL = 'monkeys/'
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
     ("""Anna Spysz""", 'hello@iffapp.com'),

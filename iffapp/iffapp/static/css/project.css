@@ -398,7 +398,7 @@ textarea {
 
 /* sidenav stuff */
 .move-over {
-  z-index: 9999;
+  z-index: 9000;
 }
 .user-sidenav {
   background-color: white;
@@ -412,7 +412,7 @@ textarea {
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
   transition: transform 0.3s, -webkit-transform 0.3s;
-  z-index: 0;
+  z-index: 9001;
 }
 .user-sidenav a {
   display: block;
@@ -437,7 +437,7 @@ textarea {
   left: 0;
   right: 0;
   height: 100vh;
-  z-index: 5000;
+  z-index: 9999;
   -webkit-transition: background-color .3s, -webkit-transform 0.3s;
   transition: background-color .3s, -webkit-transform 0.3s;
   transition: background-color .3s, transform 0.3s;
@@ -464,52 +464,57 @@ textarea {
 
 /* user detail page stuff */
 
+.dark-collection li {
+  background: rgba(34,34,34,.8) !important;
+  color: white !important;
+}
+
+.dark-collection a {
+  background: rgba(34,34,34,.5) !important;
+  color: white !important;
+}
+
+.inline-collection {
+  display: inline-block;
+}
 .list-container {
   padding: 0;
-  margin-top: 30px;
   width: 100%;
 }
-.list-title-container{
-  background: rgba(34,34,34,.8);
-  color: white;
-  padding: 20px;
-  margin: 0;
-  width: 100%;
-  float: left;
+.collection {
+  border: none;
 }
-.gtd-container{
-  background: rgba(255,255,255,.9);
-  padding: 20px;
-  margin: 0;
-  width: 100%;
-  float: left;
+.iff-list-cont {
+  padding-right: 20px;
 }
-.iff-container{
-  background: rgba(34,34,34,.5);
-  color: white;
-  padding: 20px;
-  margin: 0;
-  width: 100%;
-  float: left;
+
+.iff-cont {
+  padding-left: 20px;
 }
-.todo-container{
-  background: rgba(255,255,255,.5);
-  padding: 20px;
-  margin: 0;
-  width: 100%;
-  float: left;
+
+@media screen and (max-width: 992px) {
+  .iff-list-cont {
+    padding: 0;
+    width: 100%;
+  }
+
+  .iff-cont {
+    padding: 0;
+    width: 100%;
+  }
 }
-/* IFF Task box */
-/*.task-cont {*/
-  /*margin: 0 auto;*/
-  /*max-width: 80%;*/
-  /*min-height: 60%;*/
-  /*padding: 20px;*/
-  /*transform: translateZ(0);*/
-  /*text-align: center;*/
-  /*color: #222;*/
-  /*z-index: 500;*/
-/*}*/
+
+.add-cap {
+  text-transform: capitalize;
+}
+
+.add-btn {
+  margin-left: 50px;
+}
+
+.title-word:first-letter {
+  text-transform: capitalize
+}
 
 .fade {
   opacity: .5;
@@ -523,20 +528,6 @@ textarea {
   max-width: 45px !important;
 }
 
-.iff-cont {
-  padding: 20px;
-  transform: translateZ(0);
-  color: #222;
-  z-index: 500;
-}
-
-.add-cap {
-  text-transform: capitalize;
-}
-
-.add-btn {
-  margin-left: 50px;
-}
 
 .btn:hover {
   color: white !important;

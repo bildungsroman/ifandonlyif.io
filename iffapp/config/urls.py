@@ -18,6 +18,7 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    path('admin/', default_views.page_not_found, kwargs={'exception': Exception('Page not Found')}),
     path(settings.ADMIN_URL, admin.site.urls),
 
     # User management

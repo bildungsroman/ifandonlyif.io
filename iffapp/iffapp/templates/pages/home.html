@@ -10,7 +10,7 @@
       <ul class="collection with-header">
         <li class="collection-header"><h5>Here are your current ifflists:</h5></li>
         {% for item in user_lists %}
-        <a class="collection-item" href="{% url 'users:detail' request.user.username  %}">{{item}}</a>
+        <a class="collection-item title-word" href="{% url 'users:detail' request.user.username  %}">{{item}}</a>
         {% endfor %}
       </ul>
       {% endif %}

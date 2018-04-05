@@ -9,29 +9,41 @@ from .models import User
 
 def home(request):
     """Renders the homepage view when a user is logged in"""
-    user_lists = IffList.objects.filter(user=request.user,  # get only the ifflists of logged-in user
-                                        is_completed=False)  # get all of a user's ifflists that are not completed
-    context = {'user_lists': user_lists}
+    if request.user.is_authenticated:
+        user_lists = IffList.objects.filter(user=request.user,  # get only the ifflists of logged-in user
+                                            is_completed=False)  # get all of a user's ifflists that are not completed
+        context = {'user_lists': user_lists}
+    else:
+        # Renders a landing page when a user is not logged in
+        context = {}
     return render(request, 'pages/home.html', context)
 
 
 class IfflistInfoMixin (object):
-    """to be used throughout the app to provide ifflist data"""
+    """To be used throughout the app to provide ifflist data"""
     def get_context_data(self, **kwargs):
         context = super(IfflistInfoMixin, self).get_context_data(**kwargs)
-
-        ... # Add more to context object
+        context['ifflist_set'] = IffList.objects.all()
+        context['todos_set'] = TodoItem.objects.all()
+        context['user_ifflists_current'] = IffList.objects.filter(user=self.request.user, is_completed=False).order_by('-created_date')
+        context['user_ifflists_completed'] = IffList.objects.filter(user=self.request.user, is_completed=True).order_by('-created_date')
+        user_latest_ifflist = IffList.objects.filter(user=self.request.user, is_completed=False).latest('created_date')
+        context['user_latest_ifflist'] = user_latest_ifflist
+        context['user_latest_todos'] = TodoItem.objects.filter(ifflist=user_latest_ifflist).order_by('id')
+        return context
 
 
 class UserCreateView(LoginRequiredMixin, IfflistInfoMixin, CreateView):
-    """this will be for creating and saving new ifflists"""
+    """This will be for creating and saving new ifflists"""
     model = User
+    # form_class = ?   # maybe something I can use
 
     def create_new_ifflist(self):
         pass
 
 
 class UserDetailView(LoginRequiredMixin, IfflistInfoMixin, DetailView):
+    """This is the main page where user ifflists will be displayed"""
     model = User
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
@@ -47,7 +59,7 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-
+    """Update the user profile (for the sidebar)"""
     fields = ['name', 'user_bio', 'user_goals', 'profile_pic']
 
     # we already imported User in the view code above, remember?
@@ -64,6 +76,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class UserListView(LoginRequiredMixin, ListView):
+    """Not being user right now, may be used in the future to show a user's friends"""
     model = User
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'

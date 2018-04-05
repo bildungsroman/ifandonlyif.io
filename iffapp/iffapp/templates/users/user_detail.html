@@ -13,73 +13,51 @@
     <!-- list of ifflists -->
     <div class="col l4 s12 hide-on-med-and-down"> <!-- for now: not visible on mobile -->
       <div class="iff-cont">
-        <ul class="collection with-header">
+        <ul class="collection with-header dark-collection">
           <li class="collection-header"><h5>Add new ifflist <a class="btn-floating btn-large waves-effect grey darken-2 add-btn"><i class="material-icons">add</i></a></h5></li>
         </ul>
         <ul class="collection with-header">
           <li class="collection-header"><h5>Active ifflists</h5></li>
-            <a class="collection-item">I get to play Xbox IFF...</a>
-            <a class="collection-item">I get to go to the park IFF...</a>
+          {% for item in user_ifflists_current %}
+          <a class="collection-item">I get to {{item}} IFF...</a>
+          {% endfor %}
         </ul>
         <ul class="collection with-header fade">
-            <li class="collection-header"><h5>Completed ifflists</h5></li>
-            <a class="collection-item">I got to read a new book</a>
-            <a class="collection-item">I got to go surfing</a>
-            <a class="collection-item">I got to buy a new dress</a>
-            <a class="collection-item">I got to take the kids to Disneyland</a>
-            <a class="collection-item">I got to go on a fancy date</a>
-            <a class="collection-item">I got to go to the bar</a>
+          <li class="collection-header"><h5>Completed ifflists</h5></li>
+          {% for item in user_ifflists_completed %}
+          <a class="collection-item">I got to {{item}}</a>
+          {% endfor %}
         </ul>
       </div>
     </div>
     <!-- current/add ifflist -->
-    <div class="col l8 s12 list-container">
-      <div class="list-title-container z-depth-1">
-        <h2 class="add-cap">((current ifflist name))<a class="btn-floating btn-large waves-effect grey darken-2 add-btn"><i class="material-icons">edit</i></a></h2>
-      </div>
-      <div class="gtd-container">
-        <h4 class="light-text">I get to: <span class="underline-span">((get-to-do))</span></h4>
-      </div>
-      <div class="iff-container center-align z-depth-1">
-          <h4><span class="iff">if and only if</span> I:</h4>
-        </div>
-      <div class="todo-container z-depth-1">
-        <table id="todo_table">
-          <tr>
-            <td scope="col"><h4 class="light-text" contenteditable="true">((first to-do))</h4></td>
-            <td scope="col"><a href="#!"><i class="material-icons">edit</i></a></td>
-            <td scope="col">
-              <label>
-                <input type="checkbox" class="filled-in" />
-                <span></span>
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td scope="col"><h4 class="light-text" contenteditable="true">((second to-do))</h4></td>
-            <td scope="col"><a href="#!"><i class="material-icons">edit</i></a></td>
-            <td scope="col">
-            <label>
-              <input type="checkbox" class="filled-in" />
+    <div class="col l8 s12">
+      <div class="iff-list-cont">
+        <ul class="collection with-header">
+          <h2 class="center-align"><span class="iff">I get to:</span></h2>
+          <li class="collection-item">
+            <label class="inline-collection">
+              <input type="checkbox" class="filled-in inline-collection" />
               <span></span>
             </label>
-            </td>
-          </tr>
-          <tr>
-            <td scope="col"><h4 class="light-text" contenteditable="true">((third to-do))</h4></td>
-            <td scope="col"><a href="#!"><i class="material-icons">edit</i></a></td>
-            <td scope="col">
-            <label>
-              <input type="checkbox" class="filled-in" />
+            <h5 class="inline-collection" contenteditable="true">{{user_latest_ifflist.get_to_do}}</h5>
+          </li>
+          <h2 class="center-align"><span class="iff">if and only if I:</span></h2>
+          {% for todo in user_latest_todos %}
+          <li class="collection-item">
+            <label class="inline-collection">
+              <input type="checkbox" class="filled-in inline-collection" />
               <span></span>
             </label>
-            </td>
-          </tr>
-        </table>
+            <h5 class="light-text inline-collection" contenteditable="true">{{todo}}</h5>
+          </li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
   </div>
 {% else %}
+
 <div class="container">
   <h4>Sorry, you can only see your own IFFlists (for now).</h4>
   <a class="btn btn-primary btn-waves" href="{% url 'users:detail' request.user.username  %}">Take me to my lists!</a>
@@ -87,3 +65,8 @@
 {% endif %}
 {% endblock content %}
 
+<!--<ul class="collection with-header dark-collection">-->
+  <!--<li class="collection-header">-->
+    <!--<h2 class="title-word">{{user_latest_ifflist.get_to_do}} <a class="btn-floating btn-large waves-effect grey darken-2 add-btn"><i class="material-icons">edit</i></a></h2>-->
+  <!--</li>-->
+<!--</ul>-->
