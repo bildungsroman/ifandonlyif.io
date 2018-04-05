@@ -74,6 +74,9 @@
     <ul class="mobile-header-nav">
       {% if request.user.is_authenticated %}
       <li>
+        <a href="{% url 'users:detail' request.user.username  %}">Add ifflist</a>
+      </li>
+      <li>
         <a href="{% url 'users:detail' request.user.username  %}">My ifflists</a>
       </li>
       <li>
@@ -263,7 +266,7 @@
       <p>Created by <a href="https://twitter.com/annaspies" target="_blank">@annaspies</a> (mainly to keep herself motivated). View the repo: <a href="https://github.com/bildungsroman/iffapp.com" target="_blank">IFF on Github</a>.</p>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-grey btn-flat">Awesome, let's make some lists!</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-grey btn-flat close-btn">Awesome, let's make some lists!</a>
     </div>
   </div>
   {% endblock modal %}

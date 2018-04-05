@@ -36,10 +36,10 @@
 </div>
   {% endfor %}
 <div class="space-20"></div>
-<div class="form-group">
-      <button class="secondaryAction btn btn-primary" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
-      <button class="secondaryAction btn btn-primary" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
-      <button class="primaryAction btn btn-primary" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+<div class="form-group btn-group">
+      <button class="secondaryAction btn btn-primary wide-btn" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
+      <button class="secondaryAction btn btn-primary wide-btn" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
+      <button class="primaryAction btn btn-primary wide-btn" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
 </div>
 
 </fieldset>
@@ -56,7 +56,7 @@
   <form method="post" action="{% url 'account_email' %}" class="add_email">
       {% csrf_token %}
       {{ form|crispy }}
-      <button class="btn btn-primary" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+      <button class="btn btn-primary wide-btn" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
   </form>
 </div>
 
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-      <button class="btn btn-primary" type="submit" name="action">Change Password</button>
+      <button class="btn btn-primary wide-btn" type="submit" name="action">Change Password</button>
     </form>
 </div>
 
@@ -105,7 +105,7 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
   {% endif %}
-  <button class="btn btn-danger" type="submit">{% trans 'Sign Out' %}</button>
+  <button class="btn btn-danger wide-btn" type="submit">{% trans 'Sign Out' %}</button>
 </form>
 </div>
 {% endblock %}

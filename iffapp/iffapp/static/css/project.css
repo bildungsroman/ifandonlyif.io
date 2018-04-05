@@ -141,7 +141,7 @@ textarea {
   font-size: 5vw;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 992px) {  /* this is for small screens! */
   .main-cont h1 {
     font-size: 2em;
     line-height: 1.4em;
@@ -169,6 +169,16 @@ textarea {
   }
   .page-footer p {
     font-size: .8em;
+  }
+  .close-btn {
+    font-size: .8em;
+  }
+  .list-container h4 {
+    font-size: 1.5em;
+  }
+  .wide-btn {
+    margin-bottom: 10px;
+    width: 100%;
   }
 }
 
@@ -305,7 +315,7 @@ textarea {
   transition: background-color 500ms linear;
 }
 /* FYI 993 is the screen width for the materialize navbar to do its thing */
-@media screen and (min-width: 993px) {
+@media screen and (min-width: 993px) {  /* this is for large screens! */
   #mobile-menu {
     display: none;
   }
