@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.dispatch import receiver
+# from django.dispatch import receiver  # not needed for some reason
 # from ..users.models import User  # this doesn't compile :(
 from iffapp.users.models import User
 
@@ -12,12 +12,12 @@ class IffList(models.Model):
     get_to_do = models.CharField(max_length=200)  # the one get to do item
     get_to_do_available = models.BooleanField(default=False)  # can you do the get-to-do
     get_to_do_is_completed = models.BooleanField(default=False)  # is the get-to-do completed
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # if user deleted, delete all user's lists
+    user = models.ForeignKey(User, related_name='list_set', on_delete=models.CASCADE)  # if user deleted, delete all user's lists
     created_date = models.DateTimeField(auto_now_add=True)  # automatically added, for sorting on homepage view
     completed_date = models.DateTimeField(null=True, blank=True)  # add IFFlist to archive upon completion
     is_completed = models.BooleanField(default=False)  # is this whole list completed, including get-to-do?
-    # this way we can do current_tasks = IffList.objects.filter(is_completed=False)
-    # or current_tasks = IffList.objects.filter(is_completed=True)
+    # this way we can do current_ifflists = IffList.objects.filter(is_completed=False)
+    # or completed_ifflists = IffList.objects.filter(is_completed=True)
     # in views to show current and completed items separately
 
     # complete the ifflist
@@ -68,7 +68,7 @@ class TodoItem(models.Model):
 
 
 # create a 'welcome' list upon user creation
-# @receiver(models.signals.post_save, sender=User)
+# @receiver(models.signals.post_save, sender=User)  # not needed for some reason
 def create_first_ifflist(sender, instance, created, **kwargs):
     if created:
         # create a new welcome IFFlist for the user with three to-dos

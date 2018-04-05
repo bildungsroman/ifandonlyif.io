@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
+<div class="container content">
   <!--  if logged in, shortlist of current to-dos -->
   {% if request.user.is_authenticated %}
     <div class="main-cont">
       <h1>Welcome back, {{user.username}}!</h1>
-      <h4>Here are your current ifflists:</h4>
-      {% if user.get_to_do %}
-      <ul>
-        {% for item in get_to_do %}
-        <li>{{item}}</li>
+      {% if user_lists %}
+      <ul class="collection with-header">
+        <li class="collection-header"><h5>Here are your current ifflists:</h5></li>
+        {% for item in user_lists %}
+        <a class="collection-item" href="{% url 'users:detail' request.user.username  %}">{{item}}</a>
         {% endfor %}
       </ul>
       {% endif %}

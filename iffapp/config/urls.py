@@ -8,8 +8,11 @@ from django.views import defaults as default_views
 from material.frontend import urls as frontend_urls
 from allauth.account import views as allauth_views
 
+from iffapp.users import views as user_views  # ignore Pycharm's complaints, this is correct for Django
+
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    # path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),  # original path
+    path('', user_views.home, name='home'),
     path('about/', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # Django Admin, use {% url 'admin:index' %}
@@ -18,7 +21,7 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
 
     # User management
-    path('lists/', include('iffapp.users.urls', namespace='users')),
+    path('user/', include('iffapp.users.urls', namespace='users')),
     # path('accounts/', include('allauth.urls')),  # get rid of the default, replace with custom URLs below:
     path("signup/", allauth_views.signup, name="account_signup"),
     path("login/", allauth_views.login, name="account_login"),

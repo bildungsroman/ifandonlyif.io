@@ -182,6 +182,10 @@ textarea {
   }
 }
 
+.content {
+  min-height: calc(100vh + 150px);
+}
+
 .underline-span {
   border-bottom: 2px black solid;
 }
