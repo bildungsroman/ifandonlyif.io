@@ -9,15 +9,35 @@ $(document).ready(function() {
 });
 
 // for some reason, this is required to make the modals work (though it shouldn't be)
+let $reg = $('#register');
+let $log = $('#login');
+
 $('.register-trigger').click(function () {
   $('#register-modal').modal().modal('open');
-  $('#login').addClass('hidden');
   $('#register-tab').addClass('active-tab');
+  $('#login-tab').removeClass('active-tab');
+  $reg.removeClass('hidden');
+  $log.addClass('hidden');
 });
 $('.login-trigger').click(function () {
   $('#register-modal').modal().modal('open');
-  $('#register').addClass('hidden');
   $('#login-tab').addClass('active-tab');
+  $('#register-tab').removeClass('active-tab');
+  $log.removeClass('hidden');
+  $reg.addClass('hidden');
+});
+// to switch the modal between sign up and login
+$(".register-bt").click(function() {
+    $reg.removeClass('hidden');
+    $log.addClass('hidden');
+    $('#register-tab').addClass('active-tab');
+    $('#login-tab').removeClass('active-tab');
+});
+$(".login-bt").click(function() {
+    $reg.addClass('hidden');
+    $log.removeClass('hidden');
+    $('#register-tab').removeClass('active-tab');
+    $('#login-tab').addClass('active-tab');
 });
 $('.about-trigger').click(function () {
   $('#about-modal').modal().modal('open');
@@ -26,19 +46,6 @@ $('.signout-trigger').click(function () {
   $('#signout-modal').modal().modal('open');
   document.body.classList.toggle('sidenav-active');
   document.body.classList.toggle('noscroll');
-});
-// to switch the modal between sign up and login
-$(".register-bt").click(function() {
-    $('#register').removeClass('hidden');
-    $('#login').addClass('hidden');
-    $('#register-tab').addClass('active-tab');
-    $('#login-tab').removeClass('active-tab');
-});
-$(".login-bt").click(function() {
-    $('#register').addClass('hidden');
-    $('#login').removeClass('hidden');
-    $('#register-tab').removeClass('active-tab');
-    $('#login-tab').addClass('active-tab');
 });
 
 // open mobile menu

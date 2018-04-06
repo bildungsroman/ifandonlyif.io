@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="container content">
-  <!--  if logged in, shortlist of current to-dos -->
   {% if request.user.is_authenticated %}
+  <!--  if logged in, shortlist of current to-dos -->
     <div class="main-cont">
       <h1>Welcome back, {{user.username}}!</h1>
       {% if user_lists %}
@@ -16,8 +16,8 @@
       {% endif %}
     </div>
   </div>
-<!--  if not logged in, universal landing page -->
   {% else %}
+  <!--  if not logged in, universal landing page -->
   <div class="main-cont center-align">
     <h1 class="light-text">I get to <span id="change-text-1" class="underline-span"></span></h1>
     <h1 class="iff">if and only if</h1>
