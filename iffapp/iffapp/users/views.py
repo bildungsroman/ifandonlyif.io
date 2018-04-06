@@ -19,6 +19,10 @@ def home(request):
     return render(request, 'pages/home.html', context)
 
 
+def save_ifflist(request):
+    pass
+
+
 class IfflistInfoMixin (object):
     """To be used throughout the app to provide ifflist data"""
     def get_context_data(self, **kwargs):

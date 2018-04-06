@@ -149,6 +149,7 @@ _Due date: April 6th_
 Ability for users to register and add lists is complete. It doesn't have to look pretty yet.
 ### Milestone 3
 _Due date: April 13th_ (Capstone presentation day)
+- Fix API post security issue!
 - ~~Make dropdown menu work in mobile~~
 - ~~Check all pages in mobile view for good UX~~
 - make JQuery onboarding guide for new users (if time)

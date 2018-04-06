@@ -25,8 +25,8 @@ urlpatterns = [
     # Django Rest Framework API stuff
     path('api/', api_views.IffListCreateAPIView.as_view(), name='ifflist_rest_api'),
     # insecure at the moment, and might be unnecessary
-    # path('api/todoitems/', api_views.TodoListCreateAPIView.as_view(), name='todoitem_rest_api'),
-    # path('api/user/', api_views.UserListCreateAPIView.as_view(), name='user_rest_api'),
+    path('api/todoitems/', api_views.TodoListCreateAPIView.as_view(), name='todoitem_rest_api'),
+    path('api/user/', api_views.UserListCreateAPIView.as_view(), name='user_rest_api'),
     # api/:slug
     path('api/<id>/', api_views.IffListRetrieveUpdateDestroyAPIView.as_view(), name='ifflist_rest_api'),
     # insecure at the moment

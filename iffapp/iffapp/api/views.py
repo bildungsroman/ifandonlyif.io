@@ -29,22 +29,23 @@ class IffListRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 
 class TodoListCreateAPIView(ListCreateAPIView):
-    # queryset = TodoItem.objects.all() # this returns all the things, which is bad
+    queryset = TodoItem.objects.all()  # this returns all the things, which is bad
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly, )
     serializer_class = TodoItemSerializer
     lookup_field = 'id'  # change to uuid for security in production!
 
-    def get_queryset(self):
-        return TodoItem.objects.filter(user=self.request.user)
+    # def get_queryset(self):   # figure this out to get only todoitems owned by authenticated user
+    #     return TodoItem.objects.filter(user=self.request.user)
 
 
 class TodoRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = TodoItem.objects.all()  # this returns all the things, which is bad
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly, )
     serializer_class = IffListSerializer
     lookup_field = 'id'  # change to uuid for security in production!
 
-    def get_queryset(self):
-        return TodoItem.objects.filter(user=self.request.user)
+    # def get_queryset(self):
+    #     return TodoItem.objects.filter(user=self.request.user)
 
 
 class UserListCreateAPIView(ListCreateAPIView):
@@ -53,7 +54,7 @@ class UserListCreateAPIView(ListCreateAPIView):
     lookup_field = 'id'  # change to uuid for security in production!
 
     def get_queryset(self):
-        return User.objects.filter(name=self.request.name)
+        return User.objects.filter(id=self.request.user.id)
 
 
 class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
@@ -62,4 +63,4 @@ class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'  # change to uuid for security in production!
 
     def get_queryset(self):
-        return User.objects.filter(name=self.request.name)
+        return User.objects.filter(id=self.request.user.id)
