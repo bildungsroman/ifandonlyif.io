@@ -22,6 +22,11 @@ $('.login-trigger').click(function () {
 $('.about-trigger').click(function () {
   $('#about-modal').modal().modal('open');
 });
+$('.signout-trigger').click(function () {
+  $('#signout-modal').modal().modal('open');
+  document.body.classList.toggle('sidenav-active');
+  document.body.classList.toggle('noscroll');
+});
 // to switch the modal between sign up and login
 $(".register-bt").click(function() {
     $('#register').removeClass('hidden');

@@ -490,6 +490,7 @@ textarea {
 
 .iff-cont {
   padding-left: 20px;
+  margin-top: 140px;
 }
 
 @media screen and (max-width: 992px) {
@@ -654,6 +655,9 @@ input[type="file"] {
 }
 .space-50 {
   margin-top: 50px;
+}
+.space-200 {
+  margin-top: 200px;
 }
 .left-marg {
   margin-left: 10px;
