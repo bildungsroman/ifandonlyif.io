@@ -32,6 +32,9 @@
     </div>
     <!-- current/add ifflist -->
     <div class="col l8 s12">
+      <div id="app">
+      <p> ${ message }$ </p>
+    </div>
       <div class="iff-list-cont">
         <ul class="collection with-header">
           <h2 class="center-align"><span class="iff">I get to:</span></h2>
@@ -63,6 +66,9 @@
   <a class="btn btn-primary btn-waves" href="{% url 'users:detail' request.user.username  %}">Take me to my lists!</a>
 </div>
 {% endif %}
+
+<script src="{% static 'js/vuejs.js' %}"> </script>
+
 {% endblock content %}
 
 <!--<ul class="collection with-header dark-collection">-->

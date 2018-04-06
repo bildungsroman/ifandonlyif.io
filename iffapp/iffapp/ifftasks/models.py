@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
+# import uuid as uuid_lib  # in the future
 # from django.dispatch import receiver  # not needed for some reason
+
 # from ..users.models import User  # this doesn't compile :(
 from iffapp.users.models import User
 

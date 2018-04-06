@@ -67,8 +67,8 @@
   <form method="POST" action="/password/change/" class="password_change minus-left-marg">
     {% csrf_token %}
     <div class="row">
-        <div class="input-field col s12 required has-error" id="id_oldpassword_container">
-            <input class="invalid" id="id_oldpassword" name="oldpassword" placeholder="Current Password" type="password">
+        <div class="input-field col s12" id="id_oldpassword_container">
+            <input class="invalid" id="id_oldpassword" name="oldpassword" placeholder="Current Password" type="password" required>
             <label for="id_oldpassword">Current Password</label>
             <div class="errors">
                 <small class="error">This field is required.</small>
@@ -76,8 +76,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="input-field col s12 required has-error" id="id_password1_container">
-            <input class="invalid" id="id_password1" name="password1" placeholder="New Password" type="password">
+        <div class="input-field col s12" id="id_password1_container">
+            <input class="invalid" id="id_password1" name="password1" placeholder="New Password" type="password" required>
             <label for="id_password1">New Password</label>
             <div class="errors">
                 <small class="error">This field is required.</small>
@@ -85,8 +85,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="input-field col s12 required has-error" id="id_password2_container">
-            <input class="invalid" id="id_password2" name="password2" placeholder="New Password (again)" type="password">
+        <div class="input-field col s12" id="id_password2_container">
+            <input class="invalid" id="id_password2" name="password2" placeholder="New Password (again)" type="password" required>
             <label for="id_password2">New Password (again)</label>
             <div class="errors">
                 <small class="error">This field is required.</small>

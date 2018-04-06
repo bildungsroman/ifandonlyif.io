@@ -25,6 +25,9 @@
   <link href="{% static 'css/animate.css' %}" rel="stylesheet">
   <link href="{% static 'css/project.css' %}" rel="stylesheet">
   {% endblock %}
+  <!-- VueJS - has to go in the head! -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script>
 
 </head>
 <body>
@@ -286,7 +289,6 @@
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
   {% block javascript %}
-
     <!-- Required by Bootstrap v4 beta -->
     <script src="{% static 'js/vendor/jquery-3.2.1.min.js' %}"> </script>
     <script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"> </script>

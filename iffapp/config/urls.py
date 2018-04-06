@@ -9,6 +9,7 @@ from material.frontend import urls as frontend_urls
 from allauth.account import views as allauth_views
 
 from iffapp.users import views as user_views  # ignore Pycharm's complaints, this is correct for Django
+from iffapp.api import views as api_views
 
 urlpatterns = [
     # path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),  # original path
@@ -20,6 +21,17 @@ urlpatterns = [
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', default_views.page_not_found, kwargs={'exception': Exception('Page not Found')}),
     path(settings.ADMIN_URL, admin.site.urls),
+
+    # Django Rest Framework API stuff
+    path('api/', api_views.IffListCreateAPIView.as_view(), name='ifflist_rest_api'),
+    # insecure at the moment, and might be unnecessary
+    # path('api/todo/', api_views.TodoListCreateAPIView.as_view(), name='todoitem_rest_api'),
+    # path('api/user/', api_views.UserListCreateAPIView.as_view(), name='user_rest_api'),
+    # api/:slug
+    path('api/<id>/', api_views.IffListRetrieveUpdateDestroyAPIView.as_view(), name='ifflist_rest_api'),
+    # insecure at the moment
+    # path('api/todo/<id>/', api_views.TodoRetrieveUpdateDestroyAPIView.as_view(), name='todoitem_rest_api'),
+    # path('api/user/<id>/', api_views.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_rest_api'),
 
     # User management
     path('user/', include('iffapp.users.urls', namespace='users')),

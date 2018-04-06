@@ -71,6 +71,8 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
     'material',
     'material.frontend',
 ]
@@ -202,6 +204,15 @@ TEMPLATES = [
 ]
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = 'materialize_css_forms'
+
+# DJANGO REST FRAMEWORK stuff
+# ------------------------------------------------------------------------------
+#
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser',
+    ),
+}
 
 # FIXTURES
 # ------------------------------------------------------------------------------
