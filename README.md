@@ -119,7 +119,7 @@ _Due date: March 30th_
     - ~~determine User model~~
 - Set up basic frontend design
     - ~~set up base HTML file~~
-    - set up all template HTML files
+    - ~~set up all template HTML files~~
     - ~~set up MaterializeCSS and make it play nice with everything else~~
     - ~~set up navbar~~
     - ~~set up landing page changing text~~
@@ -136,7 +136,7 @@ _Due date: April 6th_
 - ~~Set up auto email to user after registration, with confirmation link~~
 - ~~Set up forgot password email/reset link~~
 - ~~Set up welcome page for new user - add first ifflist~~
-- Set up VueJS project
+- ~~Set up VueJS project~~
 - ~~Set up profile sidebar and ability to add profile pic and bio~~
 - ~~Set up views with mixins to display current and completed ifflists~~
 - Set up add to-do capability
