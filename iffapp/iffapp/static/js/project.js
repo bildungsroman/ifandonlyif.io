@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   smoothScroll();
   // initialize Materialize components
   Materialize.updateTextFields();
@@ -27,17 +27,17 @@ $('.login-trigger').click(function () {
   $reg.addClass('hidden');
 });
 // to switch the modal between sign up and login
-$(".register-bt").click(function() {
-    $reg.removeClass('hidden');
-    $log.addClass('hidden');
-    $('#register-tab').addClass('active-tab');
-    $('#login-tab').removeClass('active-tab');
+$(".register-bt").click(function () {
+  $reg.removeClass('hidden');
+  $log.addClass('hidden');
+  $('#register-tab').addClass('active-tab');
+  $('#login-tab').removeClass('active-tab');
 });
-$(".login-bt").click(function() {
-    $reg.addClass('hidden');
-    $log.removeClass('hidden');
-    $('#register-tab').removeClass('active-tab');
-    $('#login-tab').addClass('active-tab');
+$(".login-bt").click(function () {
+  $reg.addClass('hidden');
+  $log.removeClass('hidden');
+  $('#register-tab').removeClass('active-tab');
+  $('#login-tab').addClass('active-tab');
 });
 $('.about-trigger').click(function () {
   $('#about-modal').modal().modal('open');
@@ -49,7 +49,7 @@ $('.signout-trigger').click(function () {
 });
 
 // open mobile menu
-$('.js-toggle-menu').click(function(e){
+$('.js-toggle-menu').click(function (e) {
   e.preventDefault();
   $('.mobile-header-nav').slideToggle();
   $(this).toggleClass('open');
@@ -58,6 +58,7 @@ $('.js-toggle-menu').click(function(e){
 
 // user sidebar
 let main_div = document.querySelector('.cover');
+
 function toggleSidenav(bool) {
   document.body.classList.toggle('sidenav-active');
   document.body.classList.toggle('noscroll');
@@ -73,12 +74,14 @@ $(function () {
 });
 
 // close message toast
-$(".close-toast").click(function(e) {
+$(".close-toast").click(function (e) {
   e.preventDefault();
   $("#message-container").fadeOut();
 });
 let toast = document.querySelector('#message-container');
-toast.addEventListener('webkitAnimationEnd', function(event) { toast.style.display = 'none'; }, false);
+toast.addEventListener('webkitAnimationEnd', function (event) {
+  toast.style.display = 'none';
+}, false);
 
 // sign-in
 let $input = $('.form-fieldset > input');
@@ -88,7 +91,7 @@ $input.blur(function (e) {
 });
 
 // navbar
-$(window).scroll(function() {
+$(window).scroll(function () {
   if ($(".navbar").offset().top > 50) {
     $('#custom-nav').addClass('affix');
     $(".navbar-fixed-top").addClass("top-nav-collapse");
@@ -100,10 +103,10 @@ $(window).scroll(function() {
 
 // Smooth the scroll action
 function smoothScroll() {
-  $('a[href*="#"]:not([href="#"])').click(function() {
-    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+  $('a[href*="#"]:not([href="#"])').click(function () {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
       if (target.length) {
         $('html, body').animate({
           scrollTop: target.offset().top
@@ -114,11 +117,23 @@ function smoothScroll() {
   });
 }
 
+// to do item styling
+$(function () {
+  $('input:checkbox').on('change', function () {
+    if ($(this).is(':checked')) {
+      $(this).siblings('h5').addClass('done');
+    } else {
+      $(this).siblings('h5').removeClass('done');
+    }
+  });
+});
+
+
 // for matching passwords
 let register_bt = document.querySelector('#register_bt');
 let id_password1 = document.querySelector('#id_password1');
 let id_password2 = document.querySelector('#id_password2');
-register_bt.onclick = function() {
+register_bt.onclick = function () {
   if (id_password1.value !== id_password2.value) {
     alert("Your passwords don't match!");
     console.log("Your passwords don't match!");

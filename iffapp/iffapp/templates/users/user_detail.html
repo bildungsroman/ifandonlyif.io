@@ -10,8 +10,24 @@
 {% if object == request.user %}
   <!-- This is where Vue.js will do its magic! -->
   <div id="app">
-  <div class="row">
-    <div class="loading" v-if="loading===true">Loading&#8230;</div>
+    <div class="row">
+      <div class="loading" v-if="loading===true">
+        <div class="preloader-background">
+          <div class="center-align preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
     <!-- list of ifflists -->
     <div class="col l4 s12 hide-on-med-and-down"> <!-- not visible on mobile -->
       <div class="iff-cont">
@@ -20,15 +36,11 @@
         </ul>
         <ul class="collection with-header">
           <li class="collection-header"><h5>Active ifflists</h5></li>
-          <div v-for="ifflist in ifflists_current">
-            <a class="collection-item" v-on:click="getIfflist(ifflist.id)">I get to ${ifflist.get_to_do}$ IFF...</a>
-          </div>
+            <a v-for="ifflist in ifflists_current" class="collection-item" v-on:click="getIfflist(ifflist.id)">I get to ${ifflist.get_to_do}$ IFF...</a>
         </ul>
         <ul class="collection with-header fade">
           <li class="collection-header"><h5>Completed ifflists</h5></li>
-          <div v-for="ifflist in ifflists_completed">
-            <a class="collection-item" v-on:click="getIfflist(ifflist.id)>I got to ${ifflist.get_to_do}$</a>
-          </div>
+            <a v-for="ifflist in ifflists_completed" class="collection-item" v-on:click="getIfflist(ifflist.id)">I got to ${ifflist.get_to_do}$</a>
         </ul>
       </div>
     </div>
@@ -39,21 +51,23 @@
           <h2 class="center-align"><span class="iff">I get to:</span></h2>
           <li class="collection-item">
             <label class="inline-collection">
-              <input type="checkbox" class="filled-in inline-collection" />
+              <input type="checkbox" class="filled-in inline-collection todo-check" />
               <span></span>
             </label>
-            <h5 class="inline-collection" contenteditable="true">{{user_latest_ifflist.get_to_do}}</h5>
+            <h5 class="todo-item inline-collection">${displayedIfflist.get_to_do}$</h5>
+            <span class="delete_bt"><i class="material-icons">delete_forever</i></span>
+            <span class="edit_bt"><i class="material-icons">edit</i></span>
           </li>
           <h2 class="center-align"><span class="iff">if and only if I:</span></h2>
-          {% for todo in user_latest_todos %}
-          <li class="collection-item">
+          <li v-for="todo in todos_all" class="collection-item">
             <label class="inline-collection">
               <input type="checkbox" class="filled-in inline-collection" />
               <span></span>
             </label>
-            <h5 class="light-text inline-collection" contenteditable="true">{{todo}}</h5>
+            <h5 class="light-text inline-collection">Todo item: ${todo.text}$</h5>
+            <span class="delete_bt"><i class="material-icons">delete_forever</i></span>
+            <span class="edit_bt"><i class="material-icons">edit</i></span>
           </li>
-          {% endfor %}
         </ul>
       </div>
     </div>
@@ -76,7 +90,7 @@
           {% endfor %}
         </ul>
       </div>
-  </div>
+    </div>
   </div>
 {% else %}
 
