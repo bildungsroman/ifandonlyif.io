@@ -3,12 +3,11 @@ new Vue({
   el: '#app',
   data: {
     message: 'This is where Vue.js will do its magic!',
-    ifflists: [],
-    todos: [],
+    ifflists_current: [],
+    ifflists_completed: [],
     loading: false,
     currentIfflist: {},
-    currentTodos: {},
-    newIfflist: { 'get-to-do': null, 'todo': null },
+    newIfflist: { 'get-to-do': null, 'todo_set': null },
   },
   http: {
     root: 'http://localhost:8000',
@@ -22,9 +21,16 @@ new Vue({
  methods: {
    getIfflists: function () {
      this.loading = true;
-     this.$http.get('/api/')
+     this.$http.get('api/')
          .then((response) => {
-           this.articles = response.data.results;
+           for (let i = 0; i < response.body.length; i++) {
+             if (response.body[i].is_completed === false) {
+               this.ifflists_current.push(response.body[i]);
+             } else {
+               this.ifflists_completed.push(response.body[i]);
+             }
+           }
+           console.log(response.body);
            this.loading = false;
          })
          .catch((err) => {
@@ -58,7 +64,7 @@ new Vue({
    },
    updateIfflist: function () {
      this.loading = true;
-     this.$http.put('/api/${this.currentIfflist.ifflist_id}/', this.currentIfflist)
+     this.$http.put('/api/${this.currentIfflist.ifflist_id}$/', this.currentIfflist)
          .then((response) => {
            this.loading = false;
            this.currentIfflist = response.data;
@@ -71,7 +77,7 @@ new Vue({
    },
    deleteIfflist: function (id) {
      this.loading = true;
-     this.$http.delete('/api/${id}/')
+     this.$http.delete('/api/${id}$/')
          .then((response) => {
            this.loading = false;
            this.getIfflists();

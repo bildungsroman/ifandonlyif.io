@@ -11,7 +11,7 @@ from .serializers import IffListSerializer, TodoItemSerializer, UserSerializer
 
 class IffListCreateAPIView(ListCreateAPIView):
     # queryset = IffList.objects.all() # this returns all the things, which is bad
-    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly, )
+    permission_classes = (IsOwnerOrReadOnly, IsAuthenticated, )
     serializer_class = IffListSerializer
     lookup_field = 'id'  # change to uuid for security in production!
 
@@ -20,7 +20,7 @@ class IffListCreateAPIView(ListCreateAPIView):
 
 
 class IffListRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly, )
+    permission_classes = (IsOwnerOrReadOnly, IsAuthenticated, )
     serializer_class = IffListSerializer
     lookup_field = 'id'  # change to uuid for security in production!
 

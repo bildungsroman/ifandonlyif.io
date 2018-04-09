@@ -8,7 +8,10 @@
 
 {% block content %}
 {% if object == request.user %}
+  <!-- This is where Vue.js will do its magic! -->
+  <div id="app">
   <div class="row">
+    <div class="loading" v-if="loading===true">Loading&#8230;</div>
     <!-- list of ifflists -->
     <div class="col l4 s12 hide-on-med-and-down"> <!-- not visible on mobile -->
       <div class="iff-cont">
@@ -17,30 +20,20 @@
         </ul>
         <ul class="collection with-header">
           <li class="collection-header"><h5>Active ifflists</h5></li>
-          {% for item in user_ifflists_current %}
-          <a class="collection-item">I get to {{item}} IFF...</a>
-          {% endfor %}
+          <div v-for="ifflist in ifflists_current">
+            <a class="collection-item" v-on:click="getIfflist(ifflist.id)">I get to ${ifflist.get_to_do}$ IFF...</a>
+          </div>
         </ul>
         <ul class="collection with-header fade">
           <li class="collection-header"><h5>Completed ifflists</h5></li>
-          {% for item in user_ifflists_completed %}
-          <a class="collection-item">I got to {{item}}</a>
-          {% endfor %}
+          <div v-for="ifflist in ifflists_completed">
+            <a class="collection-item" v-on:click="getIfflist(ifflist.id)>I got to ${ifflist.get_to_do}$</a>
+          </div>
         </ul>
       </div>
     </div>
     <!-- current/add ifflist -->
     <div class="col l8 s12">
-    <!-- This is where Vue.js will do its magic! -->
-    <div id="app">
-      <p> ${ message }$ </p>
-
-
-
-
-    </div>
-
-    <!-- for reference -->
       <div class="iff-list-cont">
         <ul class="collection with-header">
           <h2 class="center-align"><span class="iff">I get to:</span></h2>
@@ -83,6 +76,7 @@
           {% endfor %}
         </ul>
       </div>
+  </div>
   </div>
 {% else %}
 

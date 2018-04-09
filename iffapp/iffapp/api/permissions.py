@@ -7,10 +7,16 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     """
 
     def has_object_permission(self, request, view, obj):
+        print("I am doing a thing!")
+        if obj.user != request.user:
+            print("You cannot do this thing!")
+            return False
         # Read permissions are allowed to any request,
         # so we'll always allow GET, HEAD or OPTIONS requests.
-        if request.method in permissions.SAFE_METHODS:
+        elif request.method in permissions.SAFE_METHODS:
+            print("Returning True!")
             return True
-
-        # Write permissions are only allowed to the owner of the ifflist.
-        return obj.user == request.user
+        else:
+            # Write permissions are only allowed to the owner of the ifflist.
+            print("This should not be happening")
+            return obj.user == request.user
