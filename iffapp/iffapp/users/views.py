@@ -10,8 +10,9 @@ from .models import User
 def home(request):
     """Renders the homepage view when a user is logged in"""
     if request.user.is_authenticated:
+        # get all of a user's ifflists that are not completed
         user_lists = IffList.objects.filter(user=request.user,  # get only the ifflists of logged-in user
-                                            is_completed=False)  # get all of a user's ifflists that are not completed
+                                            is_completed=False).order_by('-created_date')  # display newest first
         context = {'user_lists': user_lists}
     else:
         # Renders a landing page when a user is not logged in
@@ -27,13 +28,13 @@ class IfflistInfoMixin (object):
     """To be used throughout the app to provide ifflist data"""
     def get_context_data(self, **kwargs):
         context = super(IfflistInfoMixin, self).get_context_data(**kwargs)
-        context['ifflist_set'] = IffList.objects.all()
-        context['todos_set'] = TodoItem.objects.all()
+        context['ifflist_set'] = IffList.objects.all().order_by('-created_date')
+        context['todos_set'] = TodoItem.objects.all().order_by('-created_date')
         context['user_ifflists_current'] = IffList.objects.filter(user=self.request.user, is_completed=False).order_by('-created_date')
         context['user_ifflists_completed'] = IffList.objects.filter(user=self.request.user, is_completed=True).order_by('-created_date')
         user_latest_ifflist = IffList.objects.filter(user=self.request.user, is_completed=False).latest('created_date')
         context['user_latest_ifflist'] = user_latest_ifflist
-        context['user_latest_todos'] = TodoItem.objects.filter(ifflist=user_latest_ifflist).order_by('id')
+        context['user_latest_todos'] = TodoItem.objects.filter(ifflist=user_latest_ifflist).order_by('-created_date')
         return context
 
 

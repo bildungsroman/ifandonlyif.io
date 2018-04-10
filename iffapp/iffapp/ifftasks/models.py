@@ -52,6 +52,7 @@ class TodoItem(models.Model):
     text = models.CharField(max_length=200)  # this is the text of the actual to-do
     ifflist = models.ForeignKey(IffList,  # which list this item belongs to - assign in detail view
                                 on_delete=models.CASCADE)  # if list deleted, delete all list items
+    created_date = models.DateTimeField(auto_now_add=True)  # automatically added, for sorting
     is_completed = models.BooleanField(default=False)  # is this item completed
 
     # this way we can do check off items in the detail view
