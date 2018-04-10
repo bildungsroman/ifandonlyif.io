@@ -14,7 +14,7 @@ class IffList(models.Model):
     get_to_do = models.CharField(max_length=200)  # the one get to do item
     get_to_do_available = models.BooleanField(default=False)  # can you do the get-to-do
     get_to_do_is_completed = models.BooleanField(default=False)  # is the get-to-do completed
-    user = models.ForeignKey(User, related_name='list_set', on_delete=models.CASCADE)  # if user deleted, delete all user's lists
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # if user deleted, delete all user's lists
     created_date = models.DateTimeField(auto_now_add=True)  # automatically added, for sorting on homepage view
     completed_date = models.DateTimeField(null=True, blank=True)  # add IFFlist to archive upon completion
     is_completed = models.BooleanField(default=False)  # is this whole list completed, including get-to-do?

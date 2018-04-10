@@ -13,6 +13,9 @@
         <a class="collection-item title-word" href="{% url 'users:detail' request.user.username  %}">{{item}}</a>
         {% endfor %}
       </ul>
+      <div class="center-align">
+        <a class="start-btn" href="{% url 'users:detail' request.user.username  %}">Add new ifflist</a>
+      </div>
       {% endif %}
     </div>
   </div>

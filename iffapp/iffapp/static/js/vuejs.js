@@ -1,17 +1,18 @@
-new Vue({
+vm = new Vue({
   delimiters: ['${', '}$'],
   el: '#app',
   data: {
-    message: 'This is where Vue.js will do its magic!',
-    ifflists_all: [],
+    add_text: 'Add new ifflist ',
+    add_btn: 'add',
+    ifflists_all: [],  // not used atm, but might come in handy eventually
     ifflists_current: [],
     ifflists_completed: [],
-    todos_all: [],
-    loading: false,
-    displayedIfflist: {},
-    displayedTodos: [],
-    newIfflist: {'get-to-do': null, 'todo_set': null},
-    newTodo: {},
+    todos_all: [],  // all the todos for everyone
+    loading: false,  // pretty loading spinner thingie
+    displayedIfflist: {},  // holds the currently displayed ifflist
+    displayedIfflistID: '',
+    displayedTodos: [],  // so the right todos are populated
+    new_todo_inputs: [],  // for adding additional inputs in add view
   },
   http: {
     root: 'http://localhost:8000',
@@ -59,7 +60,7 @@ new Vue({
             console.log(err);
           })
     },
-    loadStarter: function (starter) {  // loads the newest current ifflist as the starter list
+    loadStarter: function (starter) {  // loads the newest current ifflist as the starter list on page load
       this.displayedIfflist = starter;
       console.log(this.displayedIfflist.id);
       this.getTodos(starter.id);
@@ -71,6 +72,7 @@ new Vue({
       this.$http.get(`/api/${id}/`)
           .then((response) => {
             this.displayedIfflist = response.body;
+            this.currentIfflistID = this.displayedIfflist.id;
             console.log(this.displayedIfflist.id);
             this.getTodos(this.displayedIfflist.id);
             this.loading = false;
@@ -88,19 +90,40 @@ new Vue({
         }
       }
     },
-    showAdd: function () {
+    showAdd: function () {  // allows adding new todoitems to existing ifflist
+      // todo: change this to createAdd-like method instead!
       let add_todo_field = document.querySelector('.add_todo_field');
       add_todo_field.classList.remove('hidden');
     },
+    showAddIfflist: function () {  // toggles add/display views
+      let add_ifflist_div = document.querySelector('#add_ifflist_div');
+      add_ifflist_div.classList.toggle('hidden');
+      let current_ifflist_div = document.querySelector('#current_ifflist_div');
+      current_ifflist_div.classList.toggle('hidden');
+      if (this.add_btn === 'add') {
+        this.add_btn = 'arrow_back';
+        this.add_text = 'Back to my ifflists';
+      } else {
+        this.add_btn = 'add';
+        this.add_text = 'Add new ifflist ';
+      }
+    },
+    // createAdd: function () {  // makes a new li for adding todoitems
+    //   this.new_todo_inputs.push({
+    //     one: '',
+    //   });
+    // },
     addTodo: function () {
       let new_todo_item = document.querySelector('#new_todo_item').value;
-      this.newTodo = {'text': new_todo_item, 'ifflist': this.displayedIfflist.id, 'is_completed': false};
-      console.log(this.newTodo.text);
-      console.log(this.newTodo.ifflist);
+      newTodo = {'text': new_todo_item, 'ifflist': this.displayedIfflist.id, 'is_completed': false};
+      console.log(newTodo.text);
+      console.log(newTodo.ifflist);
       let csrf_token = Cookies.get('csrftoken');
-      this.$http.post('/api/todoitems/', this.newTodo, {headers: {'X-CSRFToken': csrf_token}})
+      this.$http.post('/api/todoitems/', newTodo, {headers: {'X-CSRFToken': csrf_token}})
           .then((response) => {
             this.loading = false;
+            this.getAllTodos();
+            this.getTodos(this.displayedIfflist.id);
             this.getIfflist(this.displayedIfflist.id);
           })
           .catch((err) => {
@@ -110,10 +133,17 @@ new Vue({
     },
     addIfflist: function () {
       this.loading = true;
-      this.$http.post('/api/', this.newIfflist)
+      let new_get_to_do = document.querySelector('#new_get_to_do').value;
+      console.log(new_get_to_do);
+      user = user_id;
+      let newIfflist = {'get_to_do': new_get_to_do, 'user': user};
+      console.log(newIfflist);
+      let csrf_token = Cookies.get('csrftoken');
+      this.$http.post('/api/', newIfflist, {headers: {'X-CSRFToken': csrf_token}})
           .then((response) => {
             this.loading = false;
-            this.getIfflists();
+            this.getAllTodos();
+            this.loadStarter();
           })
           .catch((err) => {
             this.loading = false;
@@ -158,6 +188,11 @@ new Vue({
           })
     },
   },
-  computed: {},
+  computed: {
+
+  },
+  watch: {
+
+  },
 
 });

@@ -647,6 +647,11 @@ textarea {
   margin-top: 15px;
 }
 
+.ifflist-btn {
+  width: 100%;
+  height: 50px;
+}
+
 @media screen and (max-width: 992px) {
   .iff-list-cont {
     padding: 0;
@@ -678,7 +683,7 @@ textarea {
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 

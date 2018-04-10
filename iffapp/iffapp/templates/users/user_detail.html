@@ -4,11 +4,11 @@
 
 {% block title %}{{ user.username }}'s ifflists {% endblock %}
 
-<!-- this is where all the ifflist vues will go -->
+<!-- this page where all the ifflist Vues will go -->
 
 {% block content %}
 {% if object == request.user %}
-<!-- This is where Vue.js will do its magic! -->
+<!-- preloader magic -->
 <div id="app">
   <div class="row">
     <div class="loading" v-if="loading===true">
@@ -29,13 +29,16 @@
       </div>
     </div>
   </div>
+    <!-- -----------------------------------------------------------------------------------------
+                                              list of ifflists
+    ------------------------------------------------------------------------------------------ -->
   <div class="row">
-    <!-- list of ifflists -->
     <div class="col l4 s12 hide-on-med-and-down"> <!-- not visible on mobile -->
       <div class="iff-cont">
         <ul class="collection with-header dark-collection">
-          <li class="collection-header"><h5>Add new ifflist <a
-            class="btn-floating btn-large waves-effect grey darken-2 add-btn"><i class="material-icons">add</i></a></h5>
+          <li class="collection-header"><h5>${add_text}$<a v-on:click="showAddIfflist"
+            class="btn-floating btn-large waves-effect grey darken-2 add-btn">
+            <i class="material-icons">${add_btn}$</i></a></h5>
           </li>
         </ul>
         <ul class="collection with-header">
@@ -50,8 +53,10 @@
         </ul>
       </div>
     </div>
-    <!-- current/add ifflist -->
-    <div class="col l8 s12">
+    <!-- -----------------------------------------------------------------------------------------
+                                              current ifflist
+    ------------------------------------------------------------------------------------------ -->
+    <div class="col l8 s12" id="current_ifflist_div">
       <div class="iff-list-cont">
         <ul class="collection with-header">
           <h2 class="center-align"><span class="iff">I get to:</span></h2>
@@ -65,7 +70,6 @@
             <a class="edit_bt"><i class="material-icons">edit</i></a>
           </li>
           <h2 class="center-align"><span class="iff">if and only if I:</span></h2>
-
           <li v-for="todo in displayedTodos" class="collection-item">
             <label class="inline-collection">
               <input type="checkbox" class="filled-in inline-collection"/>
@@ -83,7 +87,7 @@
                 <label for="new_todo_item"></label>
               </div>
               <div class="col s1">
-                <a class="save_bt" v-on:click="addTodo"><i class="material-icons">save</i></a>
+                <a class="save_bt" v-on:click="addTodo" v-model="new_todo_item"><i class="material-icons">save</i></a>
               </div>
             </div>
           </li>
@@ -94,12 +98,61 @@
         </div>
       </div>
     </div>
-    <!-- mobile list of ifflists -->
+    <!-- -----------------------------------------------------------------------------------------
+                                           create new ifflist
+    ------------------------------------------------------------------------------------------ -->
+    <div class="col l8 s12 hidden" id="add_ifflist_div">
+      <div class="iff-list-cont">
+        <ul class="collection with-header">
+          <h2 class="center-align"><span class="iff">I get to:</span></h2>
+          <li class="collection-item add_get_to_do_field">
+            <div class="row">
+              <div class="col s12">
+                <input type="text" id="new_get_to_do" name="new_get_to_do"
+                       class="todo-input inline-collection input-field inline"/>
+                <label for="new_get_to_do">Enter new get-to-do</label>
+              </div>
+            </div>
+          </li>
+          <!--<h2 class="center-align"><span class="iff">if and only if I:</span></h2>-->
+          <!--<li class="collection-item add_todo_field">-->
+            <!--<div class="row">-->
+              <!--<div class="col s12">-->
+                <!--<input type="text" name="new_todo_item" id="new_todo_item"-->
+                       <!--class="todo-input inline-collection input-field inline"/>-->
+                <!--<label for="new_todo_item"></label>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li v-for="(input) in new_todo_inputs" class="collection-item add_todo_field">-->
+            <!--<div class="row">-->
+              <!--<div class="col s12">-->
+                <!--<input v-model="input.one" type="text" name="new_todo_item" id="new_todo_item"-->
+                       <!--class="todo-input inline-collection input-field inline"/>-->
+                <!--<label for="new_todo_item"></label>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</li>-->
+        </ul>
+        <!--<div class="center-align">-->
+          <!--<a v-on:click="createAdd" id="plus" class="btn-floating btn-large waves-effect waves-circle white add-todo"><i-->
+            <!--class="material-icons main-text-color">add</i></a>-->
+        <!--</div>-->
+        <div class="space-50"></div>
+        <div class="center-align">
+          <a class="btn btn-primary btn-waves ifflist-btn" v-on:click="addIfflist">Create new ifflist</a>
+        </div>
+      </div>
+    </div>
+    <!-- -----------------------------------------------------------------------------------------
+                                  mobile only list of ifflists!
+    ------------------------------------------------------------------------------------------ -->
     <div class="col l4 s12 hide-on-med-and-up"> <!-- not visible on large screens -->
       <div class="space-50"></div>
       <ul class="collection with-header dark-collection">
-        <li class="collection-header"><h5>Add new ifflist <a
-          class="btn-floating btn-large waves-effect grey darken-2 add-btn"><i class="material-icons">add</i></a></h5>
+        <li class="collection-header"><h5>${add_text}$<a v-on:click="showAddIfflist"
+          class="btn-floating btn-large waves-effect grey darken-2 add-btn">
+          <i class="material-icons">${add_btn}$</i></a></h5>
         </li>
       </ul>
       <ul class="collection with-header">
@@ -118,17 +171,15 @@
 {% else %}
 
 <div class="container">
-  <h4>Sorry, you can only see your own IFFlists (for now).</h4>
+  <h4>Sorry, you can only see your own ifflists (for now).</h4>
   <a class="btn btn-primary btn-waves" href="{% url 'users:detail' request.user.username  %}">Take me to my lists!</a>
 </div>
 {% endif %}
 
+
+<script>
+  let user_id = {{user.id}};  // to pass to the Vue app (not pretty, but it works)
+</script>
 <script src="{% static 'js/vuejs.js' %}"></script>
 
 {% endblock content %}
-
-<!--<ul class="collection with-header dark-collection">-->
-<!--<li class="collection-header">-->
-<!--<h2 class="title-word">{{user_latest_ifflist.get_to_do}} <a class="btn-floating btn-large waves-effect grey darken-2 add-btn"><i class="material-icons">edit</i></a></h2>-->
-<!--</li>-->
-<!--</ul>-->
