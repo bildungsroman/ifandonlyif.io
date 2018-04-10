@@ -139,7 +139,7 @@ _Due date: April 6th_
 - ~~Set up VueJS project~~
 - ~~Set up profile sidebar and ability to add profile pic and bio~~
 - ~~Set up views with mixins to display current and completed ifflists~~
-- Set up add to-do capability
+- ~~Set up add to-do capability~~
 - Set up ability to save, complete and archive to-do lists
     - Write functions for adding, completing and editing todos
     - Write function to make get-to-do completion check appear only after todos have been completed
@@ -159,6 +159,7 @@ _Due date: April 13th_ (Capstone presentation day)
 - ~~Design IFF logo, finalize color scheme~~
 - Add https/SSL certificate
 - Deploy MVP on the interwebs using AWS Elastic Beanstalk
+- Present capstone!
 
 An MVP of IFF is deployed and live, with the ability for users to sign up. The frontend is finalized.
 ### Milestone 4
