@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-import uuid as uuid_lib
+# import uuid as uuid_lib
 import os
 
 

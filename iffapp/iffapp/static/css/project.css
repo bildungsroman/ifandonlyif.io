@@ -136,6 +136,10 @@ textarea {
   color: #616161;
 }
 
+.main-text-color {
+  color: #222 !important;
+}
+
 .main-cont {
   height: 80vh;
   width: 100%;
@@ -634,6 +638,11 @@ textarea {
   margin-top: 15px;
 }
 
+.todo-input {
+  font-size: 1.6em !important;
+  color: #222 !important;
+}
+
 .collection-item input[type="checkbox"] {
   margin-top: 15px;
 }
@@ -664,6 +673,13 @@ textarea {
 
 .fade {
   opacity: .5;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 .profile-pic-large {

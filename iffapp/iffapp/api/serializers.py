@@ -16,7 +16,6 @@ class TodoItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoItem
         fields = '__all__'
-        depth = 1
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -24,4 +23,4 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         owner = serializers.ReadOnlyField(source='user.username')
         fields = '__all__'
-        depth = 1
+        # depth = 1  # this messes things up!

@@ -1,5 +1,8 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
+from django.http import Http404
 from .permissions import IsOwnerOrReadOnly
 
 # the right way to import from another app! (ignore Pycharm's griping)
@@ -30,9 +33,16 @@ class IffListRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 class TodoListCreateAPIView(ListCreateAPIView):
     queryset = TodoItem.objects.all()  # this returns all the things, which is bad
-    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly, )
+    permission_classes = (IsAuthenticated, )
     serializer_class = TodoItemSerializer
     lookup_field = 'id'  # change to uuid for security in production!
+
+    def post(self, request, format=None):
+        serializer = TodoItemSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # def get_queryset(self):   # figure this out to get only todoitems owned by authenticated user
     #     return TodoItem.objects.filter(user=self.request.user)
@@ -40,8 +50,8 @@ class TodoListCreateAPIView(ListCreateAPIView):
 
 class TodoRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = TodoItem.objects.all()  # this returns all the things, which is bad
-    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly, )
-    serializer_class = IffListSerializer
+    permission_classes = (IsAuthenticated, )
+    serializer_class = TodoItemSerializer
     lookup_field = 'id'  # change to uuid for security in production!
 
     # def get_queryset(self):
@@ -59,7 +69,7 @@ class UserListCreateAPIView(ListCreateAPIView):
 
 class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly, )
-    serializer_class = IffListSerializer
+    serializer_class = UserSerializer
     lookup_field = 'id'  # change to uuid for security in production!
 
     def get_queryset(self):
