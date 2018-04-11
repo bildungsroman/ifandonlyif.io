@@ -7,8 +7,10 @@
 <!-- this page where all the ifflist Vues will go -->
 
 {% block content %}
-{% if object == request.user %}
-<!-- preloader magic -->
+{% if object == request.user %} <!-- shown only to logged-in user -->
+<!-- -----------------------------------------------------------------------------------------
+                                          preloader magic
+------------------------------------------------------------------------------------------ -->
 <div id="app">
   <div class="row">
     <div class="loading" v-if="loading===true">
@@ -43,12 +45,12 @@
         </ul>
         <ul class="collection with-header">
           <li class="collection-header"><h5>Active ifflists</h5></li>
-          <a v-for="ifflist in ifflists_current" class="collection-item" v-on:click="getIfflist(ifflist.id)">I get to
-            <span class="remove-cap">${ifflist.get_to_do}$</span> IFF...</a>
+          <a v-for="ifflist in ifflists_current" class="collection-item" v-on:click="getIfflist(ifflist.id)">I get to&nbsp;
+            <span class="remove-cap">${ifflist.get_to_do}$</span>&nbsp;IFF...</a>
         </ul>
         <ul class="collection with-header fade">
           <li class="collection-header"><h5>Completed ifflists</h5></li>
-          <a v-for="ifflist in ifflists_completed" class="collection-item" v-on:click="getIfflist(ifflist.id)">I got to
+          <a v-for="ifflist in ifflists_completed" class="collection-item" v-on:click="getIfflist(ifflist.id)">I got to&nbsp;
             <span class="remove-cap">${ifflist.get_to_do}$</span></a>
         </ul>
       </div>
@@ -61,57 +63,59 @@
         <ul class="collection with-header">
           <h2 class="center-align"><span class="iff">I get to:</span></h2>
           <li class="collection-item">
-            <label class="inline-collection hidden">
-              <input type="checkbox" class="filled-in inline-collection todo-check"/>
-              <span></span>
-            </label>
-            <h5 class="get-to-do-item inline-collection remove-cap">${displayedIfflist.get_to_do}$</h5>
-            <a class="delete_bt"><i class="material-icons">delete_forever</i></a>
-            <a class="edit_bt"><i class="material-icons">edit</i></a>
+            <div class="row">
+              <div class="col s10">
+              <label class="inline-collection hidden">
+                <input type="checkbox" class="filled-in inline-collection todo-check"/>
+                <span></span>
+              </label>
+              <h5 id="ifflist_item" class="get-to-do-item inline-collection remove-cap">${displayedIfflist.get_to_do}$</h5>
+              <input v-model="ifflist.value" v-bind:placeholder="displayedIfflist.get_to_do"
+                     type="text" name="new_todo_item" id="edit_ifflist_item"
+                     class="hidden todo-input inline-collection input-field inline"/>
+              <label for="new_todo_item"></label>
+            </div>
+            <div class="col s2">
+              <a class="delete_bt delete-trigger" href="#delete-modal"><i class="material-icons">delete_forever</i></a>
+              <a class="edit_bt" id="edit_bt_gtd" v-on:click="editGTD(ifflist.value, displayedIfflist.id)"><i class="material-icons">edit</i></a>
+              <a class="save_bt hidden" id="save_bt_gtd" v-on:click="updateIfflist(ifflist.value, displayedIfflist.id)"><i class="material-icons">save</i></a>
+            </div>
+            </div>
           </li>
           <h2 class="center-align"><span class="iff">if and only if I:</span></h2>
           <li v-for="todo in displayedTodos" class="collection-item">
-            <label class="inline-collection">
-              <input type="checkbox" class="filled-in inline-collection"/>
-              <span></span>
-            </label>
-            <h5 class="light-text inline-collection remove-cap todo-item">${todo.text}$</h5>
-            <a class="delete_bt"><i class="material-icons">delete_forever</i></a>
-            <a class="edit_bt"><i class="material-icons">edit</i></a>
-          </li>
-          <!-- add new todoitem -->
-          <li class="collection-item add_todo_field hidden">
             <div class="row">
-              <div class="col s11">
-                <input type="text" name="new_todo_item" id="new_todo_item"
-                       class="todo-input inline-collection input-field inline"/>
-                <label for="new_todo_item"></label>
-              </div>
-              <div class="col s1">
-                <a class="save_bt" v-on:click="addTodo" v-model="new_todo_item"><i class="material-icons">save</i></a>
-              </div>
+            <div class="col s10">
+              <label class="inline-collection">
+                <input type="checkbox" class="filled-in inline-collection"/>
+                <span></span>
+              </label>
+              <h5 class="light-text inline-collection remove-cap todo-item" v-model="todo.value">${todo.text}$</h5>
+            </div>
+            <div class="col s2">
+              <a class="delete_bt" v-on:click="deleteTodo(todo.id)"><i class="material-icons">delete_forever</i></a>
+              <a class="edit_bt" v-on:click="editTD(todo.value, todo.id)"><i class="material-icons">edit</i></a>
+              <a class="save_bt hidden" v-on:click="updateTodo(todo.value, todo.id)"><i class="material-icons">save</i></a>
+            </div>
             </div>
           </li>
-          <!-- add additional todoitems -->
-          <li v-for="input in new_todo_inputs" class="collection-item add_todo_field">
+          <!-- -----------------------------------------------------------------------------------------
+                                              add todoitem to ifflist
+           ----------------------------------------------------------------------------------------- -->
+          <li v-for="input in new_todos" class="collection-item">
             <div class="row">
               <div class="col s11">
-                <!-- todo: FIX THIS! multiple inputs with same ID-->
-                <input v-model="input.one" type="text" name="new_todo_item" id="new_todo_item"
-                       class="todo-input inline-collection input-field inline"/>
+                <input v-model="input.value" type="text" name="new_todo_item" id="new_todo_item"
+                       class="todo-input inline-collection input-field inline new_todo_item"/>
                 <label for="new_todo_item"></label>
               </div>
               <div class="col s1">
-                <a class="save_bt" v-on:click="addTodo" v-model="new_todo_item"><i class="material-icons">save</i></a>
+                <a class="save_bt" v-on:click="addTodo(input.value)"><i class="material-icons">save</i></a>
               </div>
             </div>
           </li>
         </ul>
-        <div class="center-align" id="show-add-bt">
-          <a v-on:click="showAdd" class="btn-floating btn-large waves-effect waves-circle white add-todo"><i
-            class="material-icons main-text-color">add</i></a>
-        </div>
-        <div class="center-align hidden" id="create-add-bt">
+        <div class="center-align" id="create-add-bt">
           <a v-on:click="createAdd" class="btn-floating btn-large waves-effect waves-circle white add-todo"><i
             class="material-icons main-text-color">add</i></a>
         </div>
@@ -163,7 +167,23 @@
       </ul>
     </div>
   </div>
+  <!-- delete modal -->
+  <div id="delete-modal" class="modal">
+    <div class="modal-content">
+      <h4>Delete</h4>
+      <p>Are you sure you want to delete this entire ifflist?</p>
+      <p>${del_msg}$</p>  <!-- displays deleting message when deleting -->
+      <a class="modal-action modal-close btn green waves-green btn-flat">Nope, I changed my mind!</a>
+      <a class="modal-action modal-close btn red waves-red btn-flat" id="delete_bt_gtd" v-on:click="deleteIfflist(displayedIfflist.id)">DELETE</a>
+    </div>
+  </div>
+
 </div>
+
+<script>
+  let user_id = {{user.id}};  // to pass to the Vue app (not pretty, but it works)
+</script>
+
 {% else %}
 
 <div class="container">
@@ -172,10 +192,6 @@
 </div>
 {% endif %}
 
-
-<script>
-  let user_id = {{user.id}};  // to pass to the Vue app (not pretty, but it works)
-</script>
 <script src="{% static 'js/vuejs.js' %}"></script>
 
 {% endblock content %}

@@ -47,6 +47,9 @@ $('.signout-trigger').click(function () {
   document.body.classList.toggle('sidenav-active');
   document.body.classList.toggle('noscroll');
 });
+$('.delete-trigger').click(function () {
+  $('#delete-modal').modal().modal('open');
+});
 
 // open mobile menu
 $('.js-toggle-menu').click(function (e) {

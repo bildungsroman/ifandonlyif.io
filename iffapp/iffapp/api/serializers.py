@@ -16,6 +16,7 @@ class TodoItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoItem
         fields = '__all__'
+        # depth = 1  # this messes things up!
 
 
 class UserSerializer(serializers.ModelSerializer):
