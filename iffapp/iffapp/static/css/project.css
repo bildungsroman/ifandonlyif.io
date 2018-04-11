@@ -652,6 +652,14 @@ textarea {
   height: 50px;
 }
 
+.todo-item {
+  width: 90%;
+}
+
+.get-to-do-item {
+  width: 90%;
+}
+
 @media screen and (max-width: 992px) {
   .iff-list-cont {
     padding: 0;
@@ -673,7 +681,17 @@ textarea {
 }
 
 .title-word:first-letter {
-  text-transform: capitalize
+  text-transform: capitalize;
+}
+
+.remove-cap:first-letter {
+  text-transform: lowercase !important;
+}
+
+a span {
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
 }
 
 .fade {

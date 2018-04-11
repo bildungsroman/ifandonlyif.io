@@ -12,7 +12,7 @@ vm = new Vue({
     displayedIfflist: {},  // holds the currently displayed ifflist
     displayedIfflistID: '',
     displayedTodos: [],  // so the right todos are populated
-    new_todo_inputs: [],  // for adding additional inputs in add view
+    new_todo_inputs: [],  // for adding additional todoitem inputs
   },
   http: {
     root: 'http://localhost:8000',
@@ -66,8 +66,10 @@ vm = new Vue({
       this.getTodos(starter.id);
     },
     getIfflist: function (id) {  // loads list on click
-      let add_todo_field = document.querySelector('.add_todo_field');
-      add_todo_field.classList.add('hidden');
+      if (document.querySelector('.add_todo_field')) {  // otherwise error when no fields made
+        let add_todo_field = document.querySelector('.add_todo_field');
+        add_todo_field.classList.add('hidden');
+      }
       this.loading = true;
       this.$http.get(`/api/${id}/`)
           .then((response) => {
@@ -90,10 +92,18 @@ vm = new Vue({
         }
       }
     },
-    showAdd: function () {  // allows adding new todoitems to existing ifflist
-      // todo: change this to createAdd-like method instead!
+    showAdd: function () {  // allows adding new todoitem to existing ifflist
       let add_todo_field = document.querySelector('.add_todo_field');
+      let show_add_bt = document.querySelector('#show-add-bt');
+      let create_add_bt = document.querySelector('#create-add-bt');
       add_todo_field.classList.remove('hidden');
+      show_add_bt.classList.add('hidden');
+      create_add_bt.classList.remove('hidden');
+    },
+    createAdd: function () {  // allows adding additional todoitems to existing ifflist
+      this.new_todo_inputs.push({  // makes a new li for adding todoitems
+        one: '',
+      });
     },
     showAddIfflist: function () {  // toggles add/display views
       let add_ifflist_div = document.querySelector('#add_ifflist_div');
@@ -108,11 +118,6 @@ vm = new Vue({
         this.add_text = 'Add new ifflist ';
       }
     },
-    // createAdd: function () {  // makes a new li for adding todoitems
-    //   this.new_todo_inputs.push({
-    //     one: '',
-    //   });
-    // },
     addTodo: function () {
       let new_todo_item = document.querySelector('#new_todo_item').value;
       newTodo = {'text': new_todo_item, 'ifflist': this.displayedIfflist.id, 'is_completed': false};
@@ -142,8 +147,7 @@ vm = new Vue({
       this.$http.post('/api/', newIfflist, {headers: {'X-CSRFToken': csrf_token}})
           .then((response) => {
             this.loading = false;
-            this.getAllTodos();
-            this.loadStarter();
+            this.getIfflists();
           })
           .catch((err) => {
             this.loading = false;
