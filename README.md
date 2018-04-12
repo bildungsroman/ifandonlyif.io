@@ -166,6 +166,7 @@ An MVP of IFF is deployed and live, with the ability for users to sign up. The f
 _Due date: April 20th_
 - add Vue functionality to home page, so links go to specific ifflists
 - in mobile view, make "Add ifflist" link go to add ifflist view
+- improve general mobile UX
 
 User testing and debugging with actual users.
 ### Milestone 5
