@@ -13,7 +13,9 @@
         <a class="collection-item title-word" href="{% url 'users:detail' request.user.username  %}">{{item}}</a>
         {% endfor %}
       </ul>
+      {% else %}
       <div class="center-align">
+        <h5>It looks like you don't have any ifflists. Want to create one?</h5>
         <a class="start-btn" href="{% url 'users:detail' request.user.username  %}">Add new ifflist</a>
       </div>
       {% endif %}

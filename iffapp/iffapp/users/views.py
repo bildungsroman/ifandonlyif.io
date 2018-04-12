@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, CreateView
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 
 from ifftasks.models import IffList, TodoItem  # the right way to import from another app! (ignore Pycharm's griping)
 from .models import User
@@ -31,11 +32,20 @@ class IfflistInfoMixin (object):
         context = super(IfflistInfoMixin, self).get_context_data(**kwargs)
         context['ifflist_set'] = IffList.objects.all().order_by('-created_date')
         context['todos_set'] = TodoItem.objects.all().order_by('-created_date')
+        context['user_ifflists_all'] = IffList.objects.filter(user=self.request.user)
         context['user_ifflists_current'] = IffList.objects.filter(user=self.request.user, is_completed=False).order_by('-created_date')
         context['user_ifflists_completed'] = IffList.objects.filter(user=self.request.user, is_completed=True).order_by('-created_date')
-        user_latest_ifflist = IffList.objects.filter(user=self.request.user, is_completed=False).latest('created_date')
-        context['user_latest_ifflist'] = user_latest_ifflist
-        context['user_latest_todos'] = TodoItem.objects.filter(ifflist=user_latest_ifflist).order_by('-created_date')
+        try:
+            if IffList.objects.filter(user=self.request.user).exists():
+                user_latest_ifflist = IffList.objects.filter(user=self.request.user, is_completed=False).latest('created_date')
+                context['user_latest_ifflist'] = user_latest_ifflist
+                context['user_latest_todos'] = TodoItem.objects.filter(ifflist=user_latest_ifflist).order_by(
+                    '-created_date')
+            else:
+                pass
+        except ObjectDoesNotExist:
+            print('Does Not Exist!')
+            print(IffList.objects.filter(user=self.request.user).exists())
         context['timestamp'] = timezone.now()  # need to run this from  Django, not Vue, to get completed_date
         return context
 

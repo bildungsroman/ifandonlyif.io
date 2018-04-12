@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 # import uuid as uuid_lib  # in the future
 # from django.dispatch import receiver  # not needed for some reason
 

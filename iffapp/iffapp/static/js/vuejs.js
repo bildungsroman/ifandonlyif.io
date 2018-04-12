@@ -8,6 +8,7 @@ vm = new Vue({
     ifflists_all: [],  // not used atm, but might come in handy eventually
     ifflists_current: [],
     ifflists_completed: [],
+    nolists: false,
     todos_all: [],  // all the todos for everyone
     loading: false,  // pretty loading spinner thingie
     displayedIfflist: {},  // holds the currently displayed ifflist
@@ -60,6 +61,9 @@ vm = new Vue({
       this.$http.get('api/')
           .then((response) => {
             this.ifflists_all = response.body;
+            if (this.ifflists_all.length === 0) {
+              this.nolists = true;
+            }
             for (let i = 0; i < response.body.length; i++) {
               if (response.body[i].is_completed === false) {
                 this.ifflists_current.push(response.body[i]);
@@ -109,7 +113,9 @@ vm = new Vue({
           this.displayedTodos.push(this.todos_all[i]);
         }
       }
-      this.checkIfAllComplete(id);
+      if (this.displayedTodos.length > 0) {
+        this.checkIfAllComplete(id);
+      }
     },
     createAdd: function () {  // allows adding additional todoitems to existing ifflist
       this.new_todos.push({value: ''});  // makes a new li for adding todoitems
@@ -176,6 +182,9 @@ vm = new Vue({
       this.$http.post('/api/', newIfflist, {headers: {'X-CSRFToken': csrf_token}})
           .then((response) => {
             this.loading = false;
+            if (this.nolists === true) {
+              location.reload();   // force a reload
+            }
             this.getIfflists(); // to reload the page after save
             this.showAddIfflist(); // back to list view
           })
@@ -262,21 +271,24 @@ vm = new Vue({
       }
     },
     checkIfAllComplete: function(id) {  // checks to see if all of an ifflist's todos have been completed
-      let todo_count = 0;
-      for (let todo of this.displayedTodos) {
-        if (todo.is_completed === false) {
-          todo_count = 0;               // otherwise still counting w/o refresh
-          this.nopeIfflist(id);       // reset get-to-do availability if new todoitem added
-          break                         // stop running if any todoitem is false
-        } else {
-          todo_count += 1;
+      if (this.displayedTodos.length > 0) {
+        let todo_count = 0;
+        for (let todo of this.displayedTodos) {
+          if (todo.is_completed === false) {
+            todo_count = 0;               // otherwise still counting w/o refresh
+            this.nopeIfflist(id);       // reset get-to-do availability if new todoitem added
+            break                         // stop running if any todoitem is false
+          } else {
+            todo_count += 1;
+          }
+        }
+        if (todo_count === this.displayedTodos.length) {
+          console.log("todo_count: " + todo_count);
+          console.log("this.displayedTodos.length: " + this.displayedTodos.length);
+          this.accessIfflist(id);
         }
       }
-      if (todo_count === this.displayedTodos.length) {
-        console.log("todo_count: " + todo_count);
-        console.log("this.displayedTodos.length: " + this.displayedTodos.length);
-        this.accessIfflist(id);
-      }
+
     },
     nopeIfflist: function (id) {  // allows ifflist to be completed
       if (this.displayedIfflist.get_to_do_available === true) {  // otherwise we have a fun infinite loop!
