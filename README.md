@@ -155,7 +155,7 @@ _Due date: April 13th_ (Capstone presentation day)
 - make JQuery onboarding guide for new users (if time)
 - add social page/links to tell friends
 - Get classmates/friends to sign up for initial testing
-- Test adding users, adding lists, saving
+- ~~Test adding users, adding lists, saving~~
 - ~~Design IFF logo, finalize color scheme~~
 - Add https/SSL certificate
 - Deploy MVP on the interwebs using AWS Elastic Beanstalk
@@ -164,19 +164,20 @@ _Due date: April 13th_ (Capstone presentation day)
 An MVP of IFF is deployed and live, with the ability for users to sign up. The frontend is finalized.
 ### Milestone 4
 _Due date: April 20th_
-
-- Soft launch of IFF to friends and family for testing
-- Profit?
+- add Vue functionality to home page, so links go to specific ifflists
+- in mobile view, make "Add ifflist" link go to add ifflist view
 
 User testing and debugging with actual users.
 ### Milestone 5
 _Due date: May 31st_
+- Soft launch of IFF to friends and family for testing
 - Move user login/register/password interaction stuff into Vue views rather than Django views for better UX
 - Add email reminders (that can be turned on or off) for completing of tasks
 
 All bugs fixed and mass roll-out of platform. Functionality limited to signing up and adding up to 10 IFF lists at a time.
 ### Milestone 6
 _Due date: Fall 2018_
+- Profit?
 
 Add social aspect to platform. Users can become friends, invite their friends, and show lists to friends who will keep them accountable.
 ### Milestone 7
