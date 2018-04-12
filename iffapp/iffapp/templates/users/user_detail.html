@@ -173,7 +173,7 @@
             </div>
           </li>
         </ul>
-        <div class="center-align" id="create-add-bt">
+        <div v-if="displayedIfflist.is_completed === false" class="center-align" id="create-add-bt">
           <a v-on:click="createAdd" class="btn-floating btn-large waves-effect waves-circle white add-todo"><i
             class="material-icons main-text-color">add</i></a>
         </div>
@@ -284,7 +284,6 @@
 
 <script>
   let user_id = {{user.id}};  // to pass to the Vue app (not pretty, but it works)
-  console.log("test");
 </script>
 
 

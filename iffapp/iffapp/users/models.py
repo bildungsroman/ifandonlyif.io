@@ -12,9 +12,9 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_('Your name'), blank=True, max_length=255)
     is_new_user = models.BooleanField(default=True)
-    profile_pic = models.ImageField(null=True, blank=True, upload_to='media/profile_pics')
-    user_bio = models.TextField(_('A short bio'), blank=True, null=True)
-    user_goals = models.TextField(_('Your current goals'), blank=True, null=True, max_length=255)
+    profile_pic = models.ImageField(null=True, blank=True, upload_to='media/profile_pics', default='media/profile_pics/user_default.png')
+    user_bio = models.TextField(_('A short bio'), blank=True, null=True, default='')
+    user_goals = models.TextField(_('Your current goals'), blank=True, null=True, max_length=255, default='')
     friends_with = models.ManyToManyField('self')  # for future use
     number_of_lists = models.IntegerField(default=1)  # for future use, when $monetizing$
     premium_account = models.BooleanField(default=False)  # for future use, when $monetizing$
