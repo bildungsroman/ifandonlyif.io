@@ -140,9 +140,9 @@ _Due date: April 6th_
 - ~~Set up profile sidebar and ability to add profile pic and bio~~
 - ~~Set up views with mixins to display current and completed ifflists~~
 - ~~Set up add to-do capability~~
-- Set up ability to save, complete and archive to-do lists
-    - Write functions for adding, completing and editing todos
-    - Write function to make get-to-do completion check appear only after todos have been completed
+- ~~Set up ability to save, complete and archive to-do lists~~
+    - ~~Write functions for adding, completing and editing todos~~
+    - ~~Write function to make get-to-do completion check appear only after todos have been completed~~
 - Finish front-end design of ifflist and ifflist lists (really need a better name)
 - Think of better name for ifflists
 
