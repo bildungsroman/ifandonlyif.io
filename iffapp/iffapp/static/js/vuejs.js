@@ -1,3 +1,6 @@
+// TODO: save ifflist on enter
+// TODO: save todo on keyup after interval
+
 vm = new Vue({
   delimiters: ['${', '}$'],
   el: '#app',
