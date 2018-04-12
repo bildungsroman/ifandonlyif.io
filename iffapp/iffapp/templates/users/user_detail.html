@@ -75,30 +75,46 @@
     <div class="col l8 s12" id="current_ifflist_div">
       <div class="iff-list-cont">
         <ul class="collection with-header">
-          <h2 class="center-align"><span class="iff">I get to:</span></h2>
+          <h2 v-if="displayedIfflist.is_completed === true" class="center-align"><span class="iff">I got to:</span></h2>
+          <h2 v-else class="center-align"><span class="iff">I get to:</span></h2>
+
+          <!-- get-to-do field -->
           <li class="collection-item">
             <div class="row">
-              <div class="col s10">
-            <!-- get-to-do field -->
-              <label class="inline-collection hidden">
-                <input type="checkbox" class="filled-in inline-collection" id="get_to_do_check"/>
-                <span></span>
-              </label>
-              <h5 id="ifflist_item" class="get-to-do-item inline-collection remove-cap">${displayedIfflist.get_to_do}$</h5>
-              <input v-model="ifflist.value" v-bind:placeholder="displayedIfflist.get_to_do"
-                     type="text" name="edit_ifflist_item" id="edit_ifflist_item"
-                     class="hidden todo-input inline-collection input-field inline"/>
-              <label for="edit_ifflist_item"></label>
-            </div>
-            <div class="col s2">
-              <a class="delete_bt delete-trigger" href="#delete-modal"><i class="material-icons">delete_forever</i></a>
-              <a class="edit_bt" id="edit_bt_gtd" v-on:click="editGTD(ifflist.value, displayedIfflist.id)"><i class="material-icons">edit</i></a>
-              <a class="save_bt hidden" id="save_bt_gtd" v-on:click="updateIfflist(ifflist.value, displayedIfflist.id)"><i class="material-icons">save</i></a>
-            </div>
+              <div v-if="displayedIfflist.is_completed === true" class="col s10">
+                <h5 id="ifflist_item" class="get-to-do-item inline-collection remove-cap">${displayedIfflist.get_to_do}$</h5>
+              </div>
+              <div v-else-if="displayedIfflist.get_to_do_available === true" class="col s10">
+                <label class="inline-collection">
+                  <input v-on:change="completeIfflist(displayedIfflist.id)" type="checkbox" class="filled-in inline-collection" id="get_to_do_check"/>
+                  <span></span>
+                </label>
+                <h5 id="ifflist_item" class="get-to-do-item inline-collection remove-cap">${displayedIfflist.get_to_do}$</h5>
+                <input v-on:keyup.enter="updateIfflist(ifflist.value, displayedIfflist.id)" v-model="ifflist.value" v-bind:placeholder="displayedIfflist.get_to_do"
+                       type="text" name="edit_ifflist_item" id="edit_ifflist_item"
+                       class="hidden todo-input inline-collection input-field inline"/>
+                <label for="edit_ifflist_item"></label>
+              </div>
+              <div v-else class="col s10">
+                <h5 id="ifflist_item" class="gtd-fade get-to-do-item inline-collection remove-cap">${displayedIfflist.get_to_do}$</h5>
+                <input v-on:keyup.enter="updateIfflist(ifflist.value, displayedIfflist.id)" v-model="ifflist.value" v-bind:placeholder="displayedIfflist.get_to_do"
+                       type="text" name="edit_ifflist_item" id="edit_ifflist_item"
+                       class="hidden todo-input inline-collection input-field inline"/>
+                <label for="edit_ifflist_item"></label>
+              </div>
+              <!-- edit/delete buttons -->
+              <div class="col s2">
+                <a class="delete_bt delete-trigger" href="#delete-modal"><i class="material-icons">delete_forever</i></a>
+                <a v-if="displayedIfflist.is_completed === false" class="edit_bt" id="edit_bt_gtd" v-on:click="editGTD(ifflist.value, displayedIfflist.id)"><i class="material-icons">edit</i></a>
+                <a v-if="displayedIfflist.is_completed === false" class="save_bt hidden" id="save_bt_gtd" v-on:click="updateIfflist(ifflist.value, displayedIfflist.id)"><i class="material-icons">save</i></a>
+              </div>
             </div>
           </li>
+
           <!-- end get-to-do -->
+
           <h2 class="center-align"><span class="iff">if and only if I:</span></h2>
+
           <!-- to-do fields -->
           <li v-for="todo in displayedTodos" class="collection-item">
             <div class="row">
@@ -217,6 +233,16 @@
 <script>
   let user_id = {{user.id}};  // to pass to the Vue app (not pretty, but it works)
 </script>
+
+<!--  check if any get-to-dos have been completed
+      if yes, Django completes the whole list and gives it a timestamp
+      (there's probably a better way to do this, but...) -->
+{% for ifflist in user_ifflists_current %}
+  {% if ifflist.get_to_do_available is True %}
+    {{ifflist.complete_get_to_do}}
+  {% endif %}
+{% endfor %}
+
 
 {% else %}
 <!-- if a user is not logged in or tries to access another user's profile, they'll see this instead -->

@@ -84,10 +84,10 @@ vm = new Vue({
     },
     getIfflist: function (id) {  // loads list on click
       console.log("getting ifflist");
-      if (document.querySelector('.add_todo_field')) {  // otherwise error when no fields made
-        let add_todo_field = document.querySelectorAll('.add_todo_field');
-        add_todo_field.classList.add('hidden');
-      }
+      // if (document.querySelector('.add_todo_field')) {  // otherwise error when no fields made
+      //       //   let add_todo_field = document.querySelectorAll('.add_todo_field');
+      //       //   add_todo_field.classList.add('hidden');
+      //       // }
       this.loading = true;
       this.$http.get(`/api/${id}/`)
           .then((response) => {
@@ -109,6 +109,7 @@ vm = new Vue({
           this.displayedTodos.push(this.todos_all[i]);
         }
       }
+      this.checkIfAllComplete(id);
     },
     createAdd: function () {  // allows adding additional todoitems to existing ifflist
       this.new_todos.push({value: ''});  // makes a new li for adding todoitems
@@ -132,7 +133,7 @@ vm = new Vue({
       let new_todo_item_value = value;                                     // todo: FIX THIS!
       this.new_todos = this.new_todos.filter(obj => obj.value !== value);  // remove only todoitem that is being saved
                                                                            // but save the rest
-      newTodo = {'text': new_todo_item_value, 'ifflist': this.displayedIfflist.id, 'is_completed': false};
+      let newTodo = {'text': new_todo_item_value, 'ifflist': this.displayedIfflist.id, 'is_completed': false};
       console.log("to ifflist id: " + newTodo.ifflist);
       let csrf_token = Cookies.get('csrftoken');
       this.$http.post('/api/todoitems/', newTodo, {headers: {'X-CSRFToken': csrf_token}})
@@ -140,32 +141,13 @@ vm = new Vue({
             this.loading = false;
             this.getAllTodos();
             this.getIfflist(newTodo.ifflist);  // to get the right list, not the newest one
+            this.$forceUpdate()  // update DOM... maybe?
           })
           .catch((err) => {
             this.loading = false;
             console.log(err);
           })
     },
-    // not happening for now, possibly ever
-    // updateTodo: function (value, id) {  // updates only the todoitem next to the save button that was clicked
-    //   this.loading = true;
-    //   console.log("updating todo");
-    //   let ifflistID = this.displayedIfflist.id;
-    //   this.editTD();  // to toggle visible
-    //   let user = user_id;
-    //   console.log("value: " + value + ", id: " + id);
-    //   let csrf_token = Cookies.get('csrftoken');
-    //   this.$http.put(`/api/todoitems/${id}/`, {'text': value}, {headers: {'X-CSRFToken': csrf_token}})
-    //       .then((response) => {
-    //         this.loading = false;
-    //         this.getAllTodos();
-    //         this.getIfflist(ifflistID);  // to get the right list, not the newest one
-    //       })
-    //       .catch((err) => {
-    //         this.loading = false;
-    //         console.log(err);
-    //       })
-    // },
     deleteTodo: function (id) {  // deletes only the todoitem next to the save button that was clicked
       this.loading = true;
       console.log("deleting todo");
@@ -222,7 +204,8 @@ vm = new Vue({
       this.$http.put(`/api/${id}/`, {'get_to_do': value, 'user': user}, {headers: {'X-CSRFToken': csrf_token}})
           .then((response) => {
             this.loading = false;
-            this.getIfflists(); // to reload the page after save
+            this.$forceUpdate();  // update DOM... maybe?
+            this.getIfflist(id); // to reload the list after save
           })
           .catch((err) => {
             this.loading = false;
@@ -249,25 +232,28 @@ vm = new Vue({
     toggleTodo: function (todo) {
       let csrf_token = Cookies.get('csrftoken');
       if (todo.is_completed === false) {
+        console.log('completed: ' + todo.text);
         this.$http.put(`/api/todoitems/${todo.id}/`, {'text': todo.text, 'ifflist': todo.ifflist, 'is_completed': true}, {headers: {'X-CSRFToken': csrf_token}})
             .then((response) => {
               this.loading = false;
               this.getAllTodos();
               this.getIfflist(todo.ifflist);  // to get the right list, not the newest one
               this.checkIfAllComplete(todo.ifflist);  // see if all of a list's todos are complete to reveal get-to-do
-              Vue.nextTick();  // update DOM... maybe?
+              this.$forceUpdate();  // update DOM... maybe?
             })
             .catch((err) => {
               this.loading = false;
               console.log(err);
             })
       } else {
+        console.log('uncompleted: ' + todo.text);
         this.$http.put(`/api/todoitems/${todo.id}/`, {'text': todo.text, 'ifflist': todo.ifflist, 'is_completed': false}, {headers: {'X-CSRFToken': csrf_token}})
             .then((response) => {
               this.loading = false;
               this.getAllTodos();
               this.getIfflist(todo.ifflist);  // to get the right list, not the newest one
-              Vue.nextTick();  // update DOM... maybe?
+              this.checkIfAllComplete(todo.ifflist);  // update all completes
+              this.$forceUpdate();  // update DOM... maybe?
             })
             .catch((err) => {
               this.loading = false;
@@ -275,12 +261,98 @@ vm = new Vue({
             })
       }
     },
-    checkIfAllComplete: function(id) {
-
+    checkIfAllComplete: function(id) {  // checks to see if all of an ifflist's todos have been completed
+      let todo_count = 0;
+      for (let todo of this.displayedTodos) {
+        if (todo.is_completed === false) {
+          todo_count = 0;               // otherwise still counting w/o refresh
+          this.nopeIfflist(id);       // reset get-to-do availability if new todoitem added
+          break                         // stop running if any todoitem is false
+        } else {
+          todo_count += 1;
+        }
+      }
+      if (todo_count === this.displayedTodos.length) {
+        console.log("todo_count: " + todo_count);
+        console.log("this.displayedTodos.length: " + this.displayedTodos.length);
+        this.accessIfflist(id);
+      }
     },
-    completeIfflist: function (id) {
-
+    nopeIfflist: function (id) {  // allows ifflist to be completed
+      if (this.displayedIfflist.get_to_do_available === true) {  // otherwise we have a fun infinite loop!
+        this.loading = true;
+        console.log("nope!");
+        let user = user_id;
+        let csrf_token = Cookies.get('csrftoken');
+        this.$http.put(`/api/${id}/`, {'get_to_do': this.displayedIfflist.get_to_do, 'user': user, 'get_to_do_available': false}, {headers: {'X-CSRFToken': csrf_token}})
+            .then((response) => {
+              this.loading = false;
+              this.$forceUpdate();  // update DOM... maybe?
+              this.getIfflist(id); // to reload the list after save
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      }
     },
+    accessIfflist: function (id) {  // allows ifflist to be completed
+      if (this.displayedIfflist.get_to_do_available === false) {  // otherwise we have a fun infinite loop!
+        this.getIfflist(id); // refresh the list after save
+        console.log("Unlocked get-to-do! " + id);
+        this.loading = true;
+        let user = user_id;
+        let csrf_token = Cookies.get('csrftoken');
+        this.$http.put(`/api/${id}/`, {'get_to_do': this.displayedIfflist.get_to_do, 'user': user, 'get_to_do_available': true}, {headers: {'X-CSRFToken': csrf_token}})
+            .then((response) => {
+              this.loading = false;
+              this.$forceUpdate();  // update DOM... maybe?
+              this.getIfflist(id); // to reload the list after save
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      }
+    },
+    completeIfflist: function (id) {  // allows ifflist to be completed
+      if (this.displayedIfflist.get_to_do_available === true) {  // double check you can do the thing!
+        this.loading = true;
+        console.log("All done! " + id);
+        let user = user_id;
+        let csrf_token = Cookies.get('csrftoken');
+        this.$http.put(`/api/${id}/`, {'get_to_do': this.displayedIfflist.get_to_do, 'user': user, 'get_to_do_available': true, 'get_to_do_is_completed': true}, {headers: {'X-CSRFToken': csrf_token}})
+            .then((response) => {
+              this.loading = false;
+              this.$forceUpdate();  // update DOM... maybe?
+              this.getIfflist(id); // to reload the list after save
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      }
+    },
+    // not happening for now, possibly ever
+    // updateTodo: function (value, id) {  // updates only the todoitem next to the save button that was clicked
+    //   this.loading = true;
+    //   console.log("updating todo");
+    //   let ifflistID = this.displayedIfflist.id;
+    //   this.editTD();  // to toggle visible
+    //   let user = user_id;
+    //   console.log("value: " + value + ", id: " + id);
+    //   let csrf_token = Cookies.get('csrftoken');
+    //   this.$http.put(`/api/todoitems/${id}/`, {'text': value}, {headers: {'X-CSRFToken': csrf_token}})
+    //       .then((response) => {
+    //         this.loading = false;
+    //         this.getAllTodos();
+    //         this.getIfflist(ifflistID);  // to get the right list, not the newest one
+    //       })
+    //       .catch((err) => {
+    //         this.loading = false;
+    //         console.log(err);
+    //       })
+    // },
   },
   computed: {},
   watch: {},

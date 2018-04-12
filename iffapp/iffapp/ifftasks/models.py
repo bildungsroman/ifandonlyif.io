@@ -22,24 +22,11 @@ class IffList(models.Model):
     # or completed_ifflists = IffList.objects.filter(is_completed=True)
     # in views to show current and completed items separately
 
-    # complete the ifflist
-    def complete(self):
-        if self.get_to_do_is_completed is True:
-            self.is_completed = True
-
     # this way we can do check off the get-to-do in the detail view
     def complete_get_to_do(self):  # runs from detail template
-        self.get_to_do_is_completed = True
-        self.completed_date = timezone.now()
-        self.is_completed = True
-
-    def allow_get_to_do(self):
-        # check if all to-dos are completed so get-to-do can be checked off
-        for item in self.items.all():
-            if not item.is_completed:
-                return False
-        self.get_to_do_available = True
-        return True
+        if self.get_to_do_is_completed is True:
+            self.completed_date = timezone.now()  # need to run this from  Django, not Vue, to get completed_date
+            self.is_completed = True
 
     def __str__(self):
         return self.get_to_do
