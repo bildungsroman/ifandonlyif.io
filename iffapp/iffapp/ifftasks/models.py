@@ -16,17 +16,21 @@ class IffList(models.Model):
     get_to_do_is_completed = models.BooleanField(default=False)  # is the get-to-do completed
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # if user deleted, delete all user's lists
     created_date = models.DateTimeField(auto_now_add=True)  # automatically added, for sorting on homepage view
-    completed_date = models.DateTimeField(null=True, blank=True)  # add IFFlist to archive upon completion
+    completed_date = models.DateTimeField(auto_now=True)  # saves last edited date
     is_completed = models.BooleanField(default=False)  # is this whole list completed, including get-to-do?
     # this way we can do current_ifflists = IffList.objects.filter(is_completed=False)
     # or completed_ifflists = IffList.objects.filter(is_completed=True)
     # in views to show current and completed items separately
 
     # this way we can do check off the get-to-do in the detail view
-    def complete_get_to_do(self):  # runs from detail template
-        if self.get_to_do_is_completed is True:
-            self.completed_date = timezone.now()  # need to run this from  Django, not Vue, to get completed_date
-            self.is_completed = True
+    # @property
+    # def complete_get_to_do(self):  # runs from detail template
+    #     if self.get_to_do_is_completed is True:
+    #         self.completed_date = timezone.now()  # need to run this from  Django, not Vue, to get completed_date
+    #         self.is_completed = True
+    #         self.save()
+    #         print("Completed ifflist from model ID: ", self.id)
+    #         return
 
     def __str__(self):
         return self.get_to_do

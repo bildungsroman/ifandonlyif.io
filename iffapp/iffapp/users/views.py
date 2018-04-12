@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView, CreateView
+from django.utils import timezone
 
 from ifftasks.models import IffList, TodoItem  # the right way to import from another app! (ignore Pycharm's griping)
 from .models import User
@@ -35,16 +36,13 @@ class IfflistInfoMixin (object):
         user_latest_ifflist = IffList.objects.filter(user=self.request.user, is_completed=False).latest('created_date')
         context['user_latest_ifflist'] = user_latest_ifflist
         context['user_latest_todos'] = TodoItem.objects.filter(ifflist=user_latest_ifflist).order_by('-created_date')
+        context['timestamp'] = timezone.now()  # need to run this from  Django, not Vue, to get completed_date
         return context
 
 
 class UserCreateView(LoginRequiredMixin, IfflistInfoMixin, CreateView):
     """This will be for creating and saving new ifflists"""
     model = User
-    # form_class = ?   # maybe something I can use
-
-    def create_new_ifflist(self):
-        pass
 
 
 class UserDetailView(LoginRequiredMixin, IfflistInfoMixin, DetailView):
@@ -53,6 +51,16 @@ class UserDetailView(LoginRequiredMixin, IfflistInfoMixin, DetailView):
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
     slug_url_kwarg = 'username'
+
+    # avoid doing this for now...
+    # def complete_get_to_do(self, request, *args, **kwargs):  # runs from detail template
+    #     for ifflist in IffList.objects.filter(user=self.request.user, is_completed=False):
+    #         if ifflist.get_to_do_is_completed is True:
+    #             ifflist.completed_date = timezone.now()  # need to run this from  Django to get completed_date
+    #             ifflist.is_completed = True
+    #             ifflist.save()
+    #             print("Completed ifflist from view ID: ", ifflist.id)
+    #             return super().dispatch(request, *args, **kwargs)
 
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):

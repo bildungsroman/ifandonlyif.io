@@ -315,17 +315,20 @@ vm = new Vue({
             })
       }
     },
-    completeIfflist: function (id) {  // allows ifflist to be completed
-      if (this.displayedIfflist.get_to_do_available === true) {  // double check you can do the thing!
+    completeIfflist: function (ifflist) {  // allows ifflist to be completed
+      if (ifflist.get_to_do_available === true) {  // double check you can do the thing!
         this.loading = true;
-        console.log("All done! " + id);
+        console.log("All done! " + ifflist.id);
         let user = user_id;
         let csrf_token = Cookies.get('csrftoken');
-        this.$http.put(`/api/${id}/`, {'get_to_do': this.displayedIfflist.get_to_do, 'user': user, 'get_to_do_available': true, 'get_to_do_is_completed': true}, {headers: {'X-CSRFToken': csrf_token}})
+        this.$http.put(`/api/${ifflist.id}/`, {'get_to_do': ifflist.get_to_do, 'user': user, 'get_to_do_available': true, 'get_to_do_is_completed': true, 'is_completed': true}, {headers: {'X-CSRFToken': csrf_token}})
             .then((response) => {
               this.loading = false;
               this.$forceUpdate();  // update DOM... maybe?
-              this.getIfflist(id); // to reload the list after save
+              this.getIfflist(ifflist.id); // to reload the list after save
+            })
+            .then((response) => {
+              location.reload();   // force a reload
             })
             .catch((err) => {
               this.loading = false;

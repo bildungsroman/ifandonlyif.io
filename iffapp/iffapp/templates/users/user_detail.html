@@ -86,7 +86,7 @@
               </div>
               <div v-else-if="displayedIfflist.get_to_do_available === true" class="col s10">
                 <label class="inline-collection">
-                  <input v-on:change="completeIfflist(displayedIfflist.id)" type="checkbox" class="filled-in inline-collection" id="get_to_do_check"/>
+                  <input v-on:change="completeIfflist(displayedIfflist)" type="checkbox" class="filled-in inline-collection" id="get_to_do_check"/>
                   <span></span>
                 </label>
                 <h5 id="ifflist_item" class="get-to-do-item inline-collection remove-cap">${displayedIfflist.get_to_do}$</h5>
@@ -233,15 +233,6 @@
 <script>
   let user_id = {{user.id}};  // to pass to the Vue app (not pretty, but it works)
 </script>
-
-<!--  check if any get-to-dos have been completed
-      if yes, Django completes the whole list and gives it a timestamp
-      (there's probably a better way to do this, but...) -->
-{% for ifflist in user_ifflists_current %}
-  {% if ifflist.get_to_do_available is True %}
-    {{ifflist.complete_get_to_do}}
-  {% endif %}
-{% endfor %}
 
 
 {% else %}
