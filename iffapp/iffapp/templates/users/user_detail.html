@@ -9,10 +9,13 @@
 {% block content %}
 {% if object == request.user %} <!-- shown only to logged-in user -->
 <!-- -----------------------------------------------------------------------------------------
-                                          preloader magic
+                                          start Vue app
 ------------------------------------------------------------------------------------------ -->
 <div id="app">
   <div class="row">
+<!-- -----------------------------------------------------------------------------------------
+                                          preloader magic
+------------------------------------------------------------------------------------------ -->
     <div class="loading" v-if="loading===true">
       <div class="preloader-background">
         <div class="center-align preloader-wrapper big active">
@@ -37,17 +40,28 @@
   <div class="row">
     <div class="col l4 s12 hide-on-med-and-down"> <!-- not visible on mobile -->
       <div class="iff-cont">
+        <!-- add new ifflist btn -->
         <ul class="collection with-header dark-collection">
-          <li class="collection-header"><h5>${add_text}$<a v-on:click="showAddIfflist"
-            class="btn-floating btn-large waves-effect grey darken-2 add-btn">
-            <i class="material-icons">${add_btn}$</i></a></h5>
+          <li class="collection-header">
+            <div class="row">
+              <div class="col s9">
+               <h5 class="add-btn">${add_text}$</h5>
+              </div>
+              <div class="col s3">
+                <a v-on:click="showAddIfflist"
+                class="btn-floating btn-large waves-effect grey darken-2 add-btn">
+                <i class="material-icons">${add_btn}$</i></a>
+              </div>
+            </div>
           </li>
         </ul>
+        <!-- current ifflists -->
         <ul class="collection with-header">
           <li class="collection-header"><h5>Active ifflists</h5></li>
           <a v-for="ifflist in ifflists_current" class="collection-item" v-on:click="getIfflist(ifflist.id)">I get to&nbsp;
             <span class="remove-cap">${ifflist.get_to_do}$</span>&nbsp;IFF...</a>
         </ul>
+        <!-- completed ifflists -->
         <ul class="collection with-header fade">
           <li class="collection-header"><h5>Completed ifflists</h5></li>
           <a v-for="ifflist in ifflists_completed" class="collection-item" v-on:click="getIfflist(ifflist.id)">I got to&nbsp;
@@ -65,15 +79,16 @@
           <li class="collection-item">
             <div class="row">
               <div class="col s10">
+            <!-- get-to-do field -->
               <label class="inline-collection hidden">
-                <input type="checkbox" class="filled-in inline-collection todo-check"/>
+                <input type="checkbox" class="filled-in inline-collection" id="get_to_do_check"/>
                 <span></span>
               </label>
               <h5 id="ifflist_item" class="get-to-do-item inline-collection remove-cap">${displayedIfflist.get_to_do}$</h5>
               <input v-model="ifflist.value" v-bind:placeholder="displayedIfflist.get_to_do"
-                     type="text" name="new_todo_item" id="edit_ifflist_item"
+                     type="text" name="edit_ifflist_item" id="edit_ifflist_item"
                      class="hidden todo-input inline-collection input-field inline"/>
-              <label for="new_todo_item"></label>
+              <label for="edit_ifflist_item"></label>
             </div>
             <div class="col s2">
               <a class="delete_bt delete-trigger" href="#delete-modal"><i class="material-icons">delete_forever</i></a>
@@ -82,20 +97,27 @@
             </div>
             </div>
           </li>
+          <!-- end get-to-do -->
           <h2 class="center-align"><span class="iff">if and only if I:</span></h2>
+          <!-- to-do fields -->
           <li v-for="todo in displayedTodos" class="collection-item">
             <div class="row">
-            <div class="col s10">
+            <div v-if="todo.is_completed === true" class="col s11">
               <label class="inline-collection">
-                <input type="checkbox" class="filled-in inline-collection"/>
+                <input type="checkbox" value="${todo.text}$" checked="checked" class="filled-in inline-collection" v-on:change="toggleTodo(todo)"/>
                 <span></span>
               </label>
-              <h5 class="light-text inline-collection remove-cap todo-item" v-model="todo.value">${todo.text}$</h5>
+              <h5 id="${todo.id}$" class="light-text inline-collection remove-cap todo-item strike">${todo.text}$</h5>
             </div>
-            <div class="col s2">
+            <div v-else class="col s11">
+            <label class="inline-collection">
+              <input type="checkbox" value="${todo.text}$" class="filled-in inline-collection" v-on:change="toggleTodo(todo)"/>
+              <span></span>
+            </label>
+            <h5 id="${todo.id}$" class="light-text inline-collection remove-cap todo-item">${todo.text}$</h5>
+          </div>
+            <div class="col s1">
               <a class="delete_bt" v-on:click="deleteTodo(todo.id)"><i class="material-icons">delete_forever</i></a>
-              <a class="edit_bt" v-on:click="editTD(todo.value, todo.id)"><i class="material-icons">edit</i></a>
-              <a class="save_bt hidden" v-on:click="updateTodo(todo.value, todo.id)"><i class="material-icons">save</i></a>
             </div>
             </div>
           </li>
@@ -105,7 +127,7 @@
           <li v-for="input in new_todos" class="collection-item">
             <div class="row">
               <div class="col s11">
-                <input v-model="input.value" type="text" name="new_todo_item" id="new_todo_item"
+                <input v-on:keyup.enter="addTodo(input.value)" v-model="input.value" type="text" name="new_todo_item" id="new_todo_item"
                        class="todo-input inline-collection input-field inline new_todo_item"/>
                 <label for="new_todo_item"></label>
               </div>
@@ -140,7 +162,7 @@
         </ul>
         <div class="space-50"></div>
         <div class="center-align">
-          <a class="btn btn-primary btn-waves ifflist-btn" v-on:click="addIfflist">Create new ifflist</a>
+          <button class="btn btn-primary btn-waves ifflist-btn" v-on:click="addIfflist">Create new ifflist</button>
         </div>
       </div>
     </div>
@@ -149,12 +171,21 @@
     ------------------------------------------------------------------------------------------ -->
     <div class="col l4 s12 hide-on-med-and-up"> <!-- not visible on large screens -->
       <div class="space-50"></div>
-      <ul class="collection with-header dark-collection">
-        <li class="collection-header"><h5>${add_text}$<a v-on:click="showAddIfflist"
-          class="btn-floating btn-large waves-effect grey darken-2 add-btn">
-          <i class="material-icons">${add_btn}$</i></a></h5>
-        </li>
-      </ul>
+      <!-- add new ifflist btn -->
+        <ul class="collection with-header dark-collection">
+          <li class="collection-header">
+            <div class="row">
+              <div class="col s9">
+               <h5 class="add-btn">${add_text}$</h5>
+              </div>
+              <div class="col s3">
+                <a v-on:click="showAddIfflist"
+                class="btn-floating btn-large waves-effect grey darken-2 add-btn">
+                <i class="material-icons">${add_btn}$</i></a>
+              </div>
+            </div>
+          </li>
+        </ul>
       <ul class="collection with-header">
         <li class="collection-header"><h5>Active ifflists</h5></li>
         <a v-for="ifflist in ifflists_current" class="collection-item" v-on:click="getIfflist(ifflist.id)">I get to
@@ -179,13 +210,16 @@
   </div>
 
 </div>
+<!-- -----------------------------------------------------------------------------------------
+                                          end Vue app
+------------------------------------------------------------------------------------------ -->
 
 <script>
   let user_id = {{user.id}};  // to pass to the Vue app (not pretty, but it works)
 </script>
 
 {% else %}
-
+<!-- if a user is not logged in or tries to access another user's profile, they'll see this instead -->
 <div class="container">
   <h4>Sorry, you can only see your own ifflists (for now).</h4>
   <a class="btn btn-primary btn-waves" href="{% url 'users:detail' request.user.username  %}">Take me to my lists!</a>

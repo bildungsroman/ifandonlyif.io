@@ -136,6 +136,10 @@ textarea {
   color: #616161;
 }
 
+.btn-primary {
+  background-color: #616161 !important;
+}
+
 .main-text-color {
   color: #222 !important;
 }
@@ -649,7 +653,8 @@ textarea {
 
 .ifflist-btn {
   width: 100%;
-  height: 50px;
+  height: 60px;
+  font-size: 1.4em;
 }
 
 .todo-item {
@@ -677,7 +682,7 @@ textarea {
 }
 
 .add-btn {
-  margin-left: 50px;
+  margin-top: 20px;
 }
 
 .title-word:first-letter {

@@ -16,6 +16,7 @@ vm = new Vue({
     new_todos: [],  // array of todos from inputs to be saved
     ifflist: [],  // for editing ifflist get-to-dos
     todo: [],  // for editing ifflist to-dos
+    todo_check: [],  // boolean array of checkboxes
   },
   http: {
     root: 'http://localhost:8000',
@@ -32,7 +33,7 @@ vm = new Vue({
       this.$http.get('api/todoitems/')
           .then((response) => {
             this.todos_all = response.body;
-            this.todos_all.sort((x,y) => x.id > y.id);  // sort by id number so the oldest is on top
+            this.todos_all.sort((x, y) => x.id > y.id);  // sort by id number so the oldest is on top
             this.getIfflists();  // get ifflists only after todos have been gotten
             this.loading = false;
           })
@@ -46,7 +47,7 @@ vm = new Vue({
       this.$http.get('api/todoitems/')
           .then((response) => {
             this.todos_all = response.body;
-            this.todos_all.sort((x,y) => x.id > y.id);  // sort by id number so the oldest is on top
+            this.todos_all.sort((x, y) => x.id > y.id);  // sort by id number so the oldest is on top
             this.loading = false;
           })
           .catch((err) => {
@@ -66,8 +67,8 @@ vm = new Vue({
                 this.ifflists_completed.push(response.body[i]);
               }
             }
-            this.ifflists_current.sort((x,y) => x.id < y.id);  // sort by id number so the newest is on top
-            this.ifflists_completed.sort((x,y) => x.id < y.id);  // sort by id number so the newest is on top
+            this.ifflists_current.sort((x, y) => x.id < y.id);  // sort by id number so the newest is on top
+            this.ifflists_completed.sort((x, y) => x.id < y.id);  // sort by id number so the newest is on top
             this.loadStarter(this.ifflists_current[0]);
             this.loading = false;
           })
@@ -126,13 +127,13 @@ vm = new Vue({
       }
     },
     addTodo: function (value) {  // adds only the todoitem next to the save button that was clicked
+      this.loading = true;
       console.log("adding todo");
-      let new_todo_item_value = value;
-      console.log(new_todo_item_value);
-      this.new_todos = this.new_todos.filter(obj => obj.value !== value);  // remove any todoitems that are being saved
-      // but save the rest
+      let new_todo_item_value = value;                                     // todo: FIX THIS!
+      this.new_todos = this.new_todos.filter(obj => obj.value !== value);  // remove only todoitem that is being saved
+                                                                           // but save the rest
       newTodo = {'text': new_todo_item_value, 'ifflist': this.displayedIfflist.id, 'is_completed': false};
-      console.log(newTodo.ifflist);
+      console.log("to ifflist id: " + newTodo.ifflist);
       let csrf_token = Cookies.get('csrftoken');
       this.$http.post('/api/todoitems/', newTodo, {headers: {'X-CSRFToken': csrf_token}})
           .then((response) => {
@@ -145,40 +146,37 @@ vm = new Vue({
             console.log(err);
           })
     },
-    updateTodo: function (value) {  // updates only the todoitem next to the save button that was clicked
-      console.log("updating todo");
-      let new_todo_item_value = value;
-      console.log(new_todo_item_value);
-      this.new_todos = this.new_todos.filter(obj => obj.value !== value);  // remove any todoitems that are being saved
-      // but save the rest
-      newTodo = {'text': new_todo_item_value, 'ifflist': this.displayedIfflist.id, 'is_completed': false};
-      console.log(newTodo.ifflist);
-      let csrf_token = Cookies.get('csrftoken');
-      this.$http.post('/api/todoitems/', newTodo, {headers: {'X-CSRFToken': csrf_token}})
-          .then((response) => {
-            this.loading = false;
-            this.getAllTodos();
-            this.getIfflist(newTodo.ifflist);  // to get the right list, not the newest one
-          })
-          .catch((err) => {
-            this.loading = false;
-            console.log(err);
-          })
-    },
-    deleteTodo: function (value) {  // deletes only the todoitem next to the save button that was clicked
+    // not happening for now, possibly ever
+    // updateTodo: function (value, id) {  // updates only the todoitem next to the save button that was clicked
+    //   this.loading = true;
+    //   console.log("updating todo");
+    //   let ifflistID = this.displayedIfflist.id;
+    //   this.editTD();  // to toggle visible
+    //   let user = user_id;
+    //   console.log("value: " + value + ", id: " + id);
+    //   let csrf_token = Cookies.get('csrftoken');
+    //   this.$http.put(`/api/todoitems/${id}/`, {'text': value}, {headers: {'X-CSRFToken': csrf_token}})
+    //       .then((response) => {
+    //         this.loading = false;
+    //         this.getAllTodos();
+    //         this.getIfflist(ifflistID);  // to get the right list, not the newest one
+    //       })
+    //       .catch((err) => {
+    //         this.loading = false;
+    //         console.log(err);
+    //       })
+    // },
+    deleteTodo: function (id) {  // deletes only the todoitem next to the save button that was clicked
+      this.loading = true;
       console.log("deleting todo");
-      let new_todo_item_value = value;
-      console.log(new_todo_item_value);
-      this.new_todos = this.new_todos.filter(obj => obj.value !== value);  // remove any todoitems that are being saved
-      // but save the rest
-      newTodo = {'text': new_todo_item_value, 'ifflist': this.displayedIfflist.id, 'is_completed': false};
-      console.log(newTodo.ifflist);
+      console.log("id: " + id);
+      let ifflistID = this.displayedIfflist.id;
       let csrf_token = Cookies.get('csrftoken');
-      this.$http.post('/api/todoitems/', newTodo, {headers: {'X-CSRFToken': csrf_token}})
+      this.$http.delete(`/api/todoitems/${id}/`, {headers: {'X-CSRFToken': csrf_token}})
           .then((response) => {
             this.loading = false;
             this.getAllTodos();
-            this.getIfflist(newTodo.ifflist);  // to get the right list, not the newest one
+            this.getIfflist(ifflistID);  // to get the right list, not the newest one
           })
           .catch((err) => {
             this.loading = false;
@@ -248,7 +246,36 @@ vm = new Vue({
             console.log(err);
           })
     },
-    completeTodo: function (id) {
+    toggleTodo: function (todo) {
+      let csrf_token = Cookies.get('csrftoken');
+      if (todo.is_completed === false) {
+        this.$http.put(`/api/todoitems/${todo.id}/`, {'text': todo.text, 'ifflist': todo.ifflist, 'is_completed': true}, {headers: {'X-CSRFToken': csrf_token}})
+            .then((response) => {
+              this.loading = false;
+              this.getAllTodos();
+              this.getIfflist(todo.ifflist);  // to get the right list, not the newest one
+              this.checkIfAllComplete(todo.ifflist);  // see if all of a list's todos are complete to reveal get-to-do
+              Vue.nextTick();  // update DOM... maybe?
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      } else {
+        this.$http.put(`/api/todoitems/${todo.id}/`, {'text': todo.text, 'ifflist': todo.ifflist, 'is_completed': false}, {headers: {'X-CSRFToken': csrf_token}})
+            .then((response) => {
+              this.loading = false;
+              this.getAllTodos();
+              this.getIfflist(todo.ifflist);  // to get the right list, not the newest one
+              Vue.nextTick();  // update DOM... maybe?
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      }
+    },
+    checkIfAllComplete: function(id) {
 
     },
     completeIfflist: function (id) {
