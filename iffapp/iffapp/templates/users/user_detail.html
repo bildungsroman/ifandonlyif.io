@@ -164,7 +164,7 @@
             <div class="row">
               <div class="col s11">
                 <input v-on:keyup.enter="addTodo(input.value)" v-model="input.value" type="text" name="new_todo_item" id="new_todo_item"
-                       class="todo-input inline-collection input-field inline new_todo_item input-class" v-bind="focusToInput()" autofocus/>
+                       class="todo-input inline-collection input-field inline new_todo_item"/>
                 <label for="new_todo_item"></label>
               </div>
               <div class="col s1">
@@ -190,7 +190,7 @@
             <div class="row">
               <div class="col s12">
                 <input v-on:keyup.enter="addIfflist" type="text" id="new_get_to_do" name="new_get_to_do"
-                       class="todo-input inline-collection input-field inline input-class" autofocus v-bind="focusToInput()"/>
+                       class="todo-input inline-collection input-field inline"/>
                 <label for="new_get_to_do">Enter new get-to-do</label>
               </div>
             </div>
@@ -259,7 +259,7 @@
           <li class="collection-item add_get_to_do_field">
             <div class="row">
               <div class="col s12">
-                <input v-on:keyup.enter="addIfflist" type="text" id="new_get_to_do" name="new_get_to_do"
+                <input type="text" id="new_get_to_do" name="new_get_to_do"
                        class="todo-input inline-collection input-field inline"/>
                 <label for="new_get_to_do">Enter new get-to-do</label>
               </div>

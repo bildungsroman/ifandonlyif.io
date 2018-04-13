@@ -1,3 +1,5 @@
+// TODO: save todo on keyup after interval
+
 vm = new Vue({
   delimiters: ['${', '}$'],
   el: '#app',
@@ -29,9 +31,6 @@ vm = new Vue({
     this.getInitialTodos(); // get todos first, or else ifflists are not populated with todos
   },
   methods: {
-    focusToInput() { // for autofocus to work in text fields
-      jQuery('.input-class').focus();
-      },
     getInitialTodos: function () {  // gets all the todos, regardless of user, and launches getIfflists
       this.loading = true;
       this.$http.get('api/todoitems/')
@@ -115,14 +114,13 @@ vm = new Vue({
     },
     getTodos: function (id) {  // get the todos for the displayed ifflist
       console.log("Getting todos for ifflist with ID: " + id);
-      this.checkIfAllComplete(id);
       this.displayedTodos = [];  // clear or else it just adds on todos to the wrong ifflist
       for (let i = 0; i < this.todos_all.length; i++) {
         if (this.todos_all[i].ifflist === id) {
           this.displayedTodos.push(this.todos_all[i]);
         }
       }
-      if (this.displayedTodos.length > 0) {  // only check if complete if there are todoitems
+      if (this.displayedTodos.length > 0) {
         this.checkIfAllComplete(id);
       }
     },
@@ -145,7 +143,7 @@ vm = new Vue({
     addTodo: function (value) {  // adds only the todoitem next to the save button that was clicked
       this.loading = true;
       console.log("adding todo");
-      let new_todo_item_value = value;
+      let new_todo_item_value = value;                                     // todo: FIX THIS!
       this.new_todos = this.new_todos.filter(obj => obj.value !== value);  // remove only todoitem that is being saved
                                                                            // but save the rest
       let newTodo = {'text': new_todo_item_value, 'ifflist': this.displayedIfflist.id, 'is_completed': false};
@@ -157,12 +155,6 @@ vm = new Vue({
             this.getAllTodos();
             this.getIfflist(newTodo.ifflist);  // to get the right list, not the newest one
             this.$forceUpdate()  // update DOM... maybe?
-          })
-          .then((response) => {
-            // because it doesn't always work the first time... (todo: fix this)
-            this.loading = false;
-            this.getAllTodos();
-            this.getIfflist(newTodo.ifflist);  // to get the right list, not the newest one
           })
           .catch((err) => {
             this.loading = false;
@@ -177,13 +169,6 @@ vm = new Vue({
       let csrf_token = Cookies.get('csrftoken');
       this.$http.delete(`/api/todoitems/${id}/`, {headers: {'X-CSRFToken': csrf_token}})
           .then((response) => {
-            this.loading = false;
-            this.getAllTodos();
-            this.getIfflist(ifflistID);  // to get the right list, not the newest one
-          })
-          .then((response) => {
-            // because it doesn't always work the first time... (todo: fix this)
-            this.checkIfAllComplete(ifflistID);  // update all completes
             this.loading = false;
             this.getAllTodos();
             this.getIfflist(ifflistID);  // to get the right list, not the newest one
@@ -301,9 +286,6 @@ vm = new Vue({
       }
     },
     checkIfAllComplete: function (id) {  // checks to see if all of an ifflist's todos have been completed
-      if (this.displayedTodos.length === 0) {
-          this.nopeIfflist(id);       // reset get-to-do availability if no todoitems
-        }
       if (this.displayedTodos.length > 0) {
         let todo_count = 0;
         for (let todo of this.displayedTodos) {
@@ -316,9 +298,12 @@ vm = new Vue({
           }
         }
         if (todo_count === this.displayedTodos.length) {
+          console.log("todo_count: " + todo_count);
+          console.log("this.displayedTodos.length: " + this.displayedTodos.length);
           this.accessIfflist(id);
         }
       }
+
     },
     nopeIfflist: function (id) {  // allows ifflist to be completed
       if (this.displayedIfflist.get_to_do_available === true) {  // otherwise we have a fun infinite loop!
