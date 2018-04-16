@@ -47,7 +47,7 @@ IFF will use Django in the backend to store user accounts and user lists. It wil
 ## Functionality
 The user starts on the landing page, which will look like so:
 
-![Image of landing page](https://raw.githubusercontent.com/PdxCodeGuild/20180116-FullStack-Day/32fb93dacbb08965f67cddb6c3ed06fc6ba41625/Code/Anna/Capstone/mockup/img/Screen%20Shot%202018-03-21%20at%2015.33.26.png)
+![Image of landing page](https://raw.githubusercontent.com/PdxCodeGuild/20180116-FullStack-Day/master/Code/Anna/Capstone/Capstone%20mockup%20and%20proposal/img/iffscreen2.png)
 
 A user signs up, and creates their first IFF list. They enter one get-to-do and how ever many to-dos they want.
 
@@ -55,7 +55,7 @@ Once a user has an account, their home screen shows a list of all of their IFF l
 
 Users can also have a history (archive) of all of the things they've done and have gotten to do in the past.
 
-![Image of list page](https://raw.githubusercontent.com/PdxCodeGuild/20180116-FullStack-Day/master/Code/Anna/Capstone/Capstone%20mockup%20and%20proposal/img/Screen%20Shot%202018-03-22%20at%2013.02.46.png)
+![Image of list page](https://raw.githubusercontent.com/PdxCodeGuild/20180116-FullStack-Day/master/Code/Anna/Capstone/Capstone%20mockup%20and%20proposal/img/iffscreen2.png)
 
 ## Data Model
 
@@ -115,7 +115,7 @@ _Due date: March 30th_
     - understand WTF it does
 - Set up Django project
     - ~~determine Django IFFlist models~~
-    - determine Django views
+    - ~~determine Django class-based views~~
     - ~~determine User model~~
 - Set up basic frontend design
     - ~~set up base HTML file~~
@@ -143,13 +143,11 @@ _Due date: April 6th_
 - ~~Set up ability to save, complete and archive to-do lists~~
     - ~~Write functions for adding, completing and editing todos~~
     - ~~Write function to make get-to-do completion check appear only after todos have been completed~~
-- Finish front-end design of ifflist and ifflist lists (really need a better name)
-- Think of better name for ifflists
+- ~~Finish front-end design of ifflist and ifflist lists (really need a better name)~~
 
 Ability for users to register and add lists is complete. It doesn't have to look pretty yet.
 ### Milestone 3
 _Due date: April 13th_ (Capstone presentation day)
-- Fix API post security issue!
 - ~~Make dropdown menu work in mobile~~
 - ~~Check all pages in mobile view for good UX~~
 - make JQuery onboarding guide for new users (if time)
@@ -157,16 +155,17 @@ _Due date: April 13th_ (Capstone presentation day)
 - Get classmates/friends to sign up for initial testing
 - ~~Test adding users, adding lists, saving~~
 - ~~Design IFF logo, finalize color scheme~~
-- Add https/SSL certificate
-- Deploy MVP on the interwebs using AWS Elastic Beanstalk
-- Present capstone!
+- ~~Present capstone!~~
 
 An MVP of IFF is deployed and live, with the ability for users to sign up. The frontend is finalized.
 ### Milestone 4
 _Due date: April 20th_
 - add Vue functionality to home page, so links go to specific ifflists
 - in mobile view, make "Add ifflist" link go to add ifflist view
+- Fix API post security issue!
 - improve general mobile UX
+- Add https/SSL certificate
+- Deploy MVP on the interwebs using AWS ECS
 
 User testing and debugging with actual users.
 ### Milestone 5
