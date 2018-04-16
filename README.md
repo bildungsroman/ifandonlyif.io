@@ -27,7 +27,8 @@ IFF will use Django in the backend to store user accounts and user lists. It wil
 - PostgreSQL for the user and list database
 - VueJS frontend
 - Materialize CSS for style
-- Deploy on AWS Elastic Beanstalk
+- Docker for containerization
+- Deploy on AWS ECS
 
 **Potential users**:
 
