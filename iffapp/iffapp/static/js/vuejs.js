@@ -192,6 +192,8 @@ vm = new Vue({
             if (this.nolists === true) {
               location.reload();   // force a reload
             }
+            this.ifflists_current = [];  // clear or lists are doubled
+            this.ifflists_completed = [];  // clear or lists are doubled
             this.getIfflists(); // to reload the page after save
             this.showAddIfflist(); // back to list view
           })
