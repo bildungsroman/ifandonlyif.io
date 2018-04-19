@@ -201,6 +201,8 @@ Sell IFF to Mark Zuckerberg and retire to a private island.
 ## Feature Requests
 _(for future versions)_
 
+Bug/feature spreadsheet: https://docs.google.com/spreadsheets/d/1of64JAw58ZcHRoA9sZqPyIhAF6ELwZjz0C8T4awcO6A/edit?usp=sharing
+
 - IFF/OR? 
 - Recurring events - ability to make an ifflist repeat every day/week/whatever
 - 
