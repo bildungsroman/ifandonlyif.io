@@ -205,4 +205,4 @@ Bug/feature spreadsheet: https://docs.google.com/spreadsheets/d/1of64JAw58ZcHRoA
 
 - IFF/OR? 
 - Recurring events - ability to make an ifflist repeat every day/week/whatever
-- 
+- Sticky ifflist - one list that's "sticky" and always on top
