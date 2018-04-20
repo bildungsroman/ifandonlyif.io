@@ -169,6 +169,7 @@ User testing and debugging with actual users.
 ### Milestone 5
 _Due date: May 31st_
 - Get classmates/friends to sign up for initial testing
+- add "sticky" ifflist option
 - add Vue functionality to home page, so links go to specific ifflists
 - in mobile view, make "Add ifflist" link go to add ifflist view
 - Move user login/register/password interaction stuff into Vue views rather than Django views for better UX

@@ -192,6 +192,7 @@ vm = new Vue({
             if (this.nolists === true) {
               location.reload();   // force a reload
             }
+            document.querySelector('#new_get_to_do').value = '';  // reset the input
             this.ifflists_current = [];  // clear or lists are doubled
             this.ifflists_completed = [];  // clear or lists are doubled
             this.getIfflists(); // to reload the page after save
