@@ -57,17 +57,30 @@
             </div>
           </li>
         </ul>
+        <!-- sticky ifflist -->
+        <!--<ul class="collection with-header">-->
+          <!--<li class="collection-header"><h5>Sticky ifflist</h5></li>-->
+          <!--<draggable :list="sticky" class="dragArea" :options="{group:'current'}">-->
+          <!--<a v-if="ifflist in sticky" class="collection-item" v-on:click="getIfflist(ifflist.id)">I get to&nbsp;-->
+            <!--<span class="remove-cap">${ifflist.get_to_do}$</span>&nbsp;IFF...</a>-->
+          <!--<a v-else class="collection-item"></a>-->
+          <!--</draggable>-->
+        <!--</ul>-->
         <!-- current ifflists -->
         <ul class="collection with-header">
           <li class="collection-header"><h5>Active ifflists</h5></li>
+          <draggable :list="ifflists_current" class="dragArea" :options="{group:'current'}">
           <a v-for="ifflist in ifflists_current" class="collection-item" v-on:click="getIfflist(ifflist.id)">I get to&nbsp;
             <span class="remove-cap">${ifflist.get_to_do}$</span>&nbsp;IFF...</a>
+          </draggable>
         </ul>
         <!-- completed ifflists -->
         <ul class="collection with-header fade">
           <li class="collection-header"><h5>Completed ifflists</h5></li>
+          <draggable :list="ifflists_completed" class="dragArea">
           <a v-for="ifflist in ifflists_completed" class="collection-item" v-on:click="getIfflist(ifflist.id)">I got to&nbsp;
             <span class="remove-cap">${ifflist.get_to_do}$</span></a>
+          </draggable>
         </ul>
       </div>
     </div>

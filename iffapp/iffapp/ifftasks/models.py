@@ -17,6 +17,7 @@ class IffList(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)  # automatically added, for sorting on homepage view
     completed_date = models.DateTimeField(auto_now=True)  # saves last edited date
     is_completed = models.BooleanField(default=False)  # is this whole list completed, including get-to-do?
+    is_sticky = models.BooleanField(default=False)  # is this list sticky (doesn't get to be completed)
     # this way we can do current_ifflists = IffList.objects.filter(is_completed=False)
     # or completed_ifflists = IffList.objects.filter(is_completed=True)
     # in views to show current and completed items separately
@@ -66,11 +67,11 @@ def create_first_ifflist(sender, instance, created, **kwargs):
         # create a new welcome IFFlist for the user with three to-dos
         welcome_list = IffList(get_to_do="party like it's 1999!", user=instance)
         welcome_list.save()
-        welcome_todo1 = TodoItem.create_welcome_todos("complete my profile (click your username above)", welcome_list)
+        welcome_todo1 = TodoItem.create_welcome_todos("complete my profile", welcome_list)
         welcome_todo1.save()
-        welcome_todo2 = TodoItem.create_welcome_todos("add my first ifflist (click 'Add new ifflist' on the left)", welcome_list)
+        welcome_todo2 = TodoItem.create_welcome_todos("add my first ifflist", welcome_list)
         welcome_todo2.save()
-        welcome_todo3 = TodoItem.create_welcome_todos("tell my friends about IFF (they'll thank you!)", welcome_list)
+        welcome_todo3 = TodoItem.create_welcome_todos("tell my friends about IFF", welcome_list)
         welcome_todo3.save()
 
 

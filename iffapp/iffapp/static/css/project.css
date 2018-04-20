@@ -703,6 +703,14 @@ a span {
   white-space: nowrap;
 }
 
+ul a {
+  cursor: pointer;
+}
+
+ul a:active {
+  background: #616161 !important;
+}
+
 .fade {
   opacity: .5;
 }

@@ -1,5 +1,3 @@
-// TODO: save todo on keyup after interval
-
 vm = new Vue({
   delimiters: ['${', '}$'],
   el: '#app',
@@ -10,6 +8,7 @@ vm = new Vue({
     ifflists_all: [],  // not used atm, but might come in handy eventually
     ifflists_current: [],
     ifflists_completed: [],
+    sticky: [],
     nolists: false,
     todos_all: [],  // all the todos for everyone
     loading: false,  // pretty loading spinner thingie
