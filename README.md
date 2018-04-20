@@ -109,11 +109,11 @@ _Due date: March 30th_
 - ~~Register domain~~
 - ~~Add placeholder to domain (redirect to github for now)~~
 - ~~Set up Cookiecutter Django~~
-    - understand WTF is going on with the files in it?
+    - ~~understand WTF is going on with the files in it?~~
 - ~~Set up Docker~~
 - ~~Set up PostgreSQL database~~
 - ~~Set up Django rest framework~~
-    - understand WTF it does
+    - ~~understand WTF it does~~
 - Set up Django project
     - ~~determine Django IFFlist models~~
     - ~~determine Django class-based views~~
@@ -153,7 +153,6 @@ _Due date: April 13th_ (Capstone presentation day)
 - ~~Check all pages in mobile view for good UX~~
 - make JQuery onboarding guide for new users (if time)
 - add social page/links to tell friends
-- Get classmates/friends to sign up for initial testing
 - ~~Test adding users, adding lists, saving~~
 - ~~Design IFF logo, finalize color scheme~~
 - ~~Present capstone!~~
@@ -161,9 +160,7 @@ _Due date: April 13th_ (Capstone presentation day)
 An MVP of IFF is deployed and live, with the ability for users to sign up. The frontend is finalized.
 ### Milestone 4
 _Due date: April 20th_
-- add Vue functionality to home page, so links go to specific ifflists
-- in mobile view, make "Add ifflist" link go to add ifflist view
-- Fix API post security issue!
+- ~~Fix API post security issue!~~
 - improve general mobile UX
 - Add https/SSL certificate
 - Deploy MVP on the interwebs using AWS ECS
@@ -171,7 +168,9 @@ _Due date: April 20th_
 User testing and debugging with actual users.
 ### Milestone 5
 _Due date: May 31st_
-- Soft launch of IFF to friends and family for testing
+- Get classmates/friends to sign up for initial testing
+- add Vue functionality to home page, so links go to specific ifflists
+- in mobile view, make "Add ifflist" link go to add ifflist view
 - Move user login/register/password interaction stuff into Vue views rather than Django views for better UX
 - Add email reminders (that can be turned on or off) for completing of tasks
 
