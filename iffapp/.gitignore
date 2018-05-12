@@ -37,6 +37,9 @@ pip-delete-this-directory.txt
 
 # EB stuff
 .ebextensions/
+ebextensions/
+01_packages.config
+02_python.config
 
 # Unit test / coverage reports
 htmlcov/
