@@ -155,6 +155,9 @@ vm = new Vue({
             this.getIfflist(newTodo.ifflist);  // to get the right list, not the newest one
             this.$forceUpdate()  // update DOM... maybe?
           })
+          .then((response) => {
+            this.getIfflist(ifflist.id); // to reload the list after save
+          })
           .catch((err) => {
             this.loading = false;
             console.log(err);
@@ -171,6 +174,9 @@ vm = new Vue({
             this.loading = false;
             this.getAllTodos();
             this.getIfflist(ifflistID);  // to get the right list, not the newest one
+          })
+          .then((response) => {
+            this.getIfflist(ifflist.id); // to reload the list after save
           })
           .catch((err) => {
             this.loading = false;
@@ -307,7 +313,7 @@ vm = new Vue({
       }
 
     },
-    nopeIfflist: function (id) {  // allows ifflist to be completed
+    nopeIfflist: function (id) {  // if todoitems not completed, can't complete ifflist
       if (this.displayedIfflist.get_to_do_available === true) {  // otherwise we have a fun infinite loop!
         this.loading = true;
         console.log("nope!");
@@ -329,7 +335,7 @@ vm = new Vue({
             })
       }
     },
-    accessIfflist: function (id) {  // allows ifflist to be completed
+    accessIfflist: function (id) {  // allows ifflist to be accessed
       if (this.displayedIfflist.get_to_do_available === false) {  // otherwise we have a fun infinite loop!
         this.getIfflist(id); // refresh the list after save
         console.log("Unlocked get-to-do! " + id);
