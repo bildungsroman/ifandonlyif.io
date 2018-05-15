@@ -19,13 +19,17 @@ ENV DOCKYARD_SRVPROJ=$DOCKYARD_SRVHOME/$DOCKYARD_SRC
 
 # Update the default application repository sources list
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y python python-pip
+RUN apt-get install -y python3 python-pip
 RUN apt-get install -y python-dev
+RUN apt-get install -y libpq-dev
+RUN apt-get install -y postgresql
 RUN apt-get install -y libmysqlclient-dev
 RUN apt-get install -y git
 RUN apt-get install -y vim
 RUN apt-get install -y mysql-server
 RUN apt-get install -y nginx
+RUN pip --version
+RUN PATH=$PATH:/usr/pgsql-10.3/bin/ pip install psycopg2
 
 # Create application subdirectories
 WORKDIR $DOCKYARD_SRVHOME
@@ -37,6 +41,7 @@ VOLUME ["$DOCKYARD_SRVHOME/media/", "$DOCKYARD_SRVHOME/logs/"]
 COPY $DOCKYARD_SRC $DOCKYARD_SRVPROJ
 
 # Install Python dependencies
+RUN pip install --upgrade pip
 RUN pip install -r $DOCKYARD_SRVPROJ/requirements.txt
 
 # Port to expose
