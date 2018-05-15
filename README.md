@@ -114,11 +114,11 @@ _Due date: March 30th_
 - ~~Set up PostgreSQL database~~
 - ~~Set up Django rest framework~~
     - ~~understand WTF it does~~
-- Set up Django project
+- ~~Set up Django projec~~
     - ~~determine Django IFFlist models~~
     - ~~determine Django class-based views~~
     - ~~determine User model~~
-- Set up basic frontend design
+- ~~Set up basic frontend design~~
     - ~~set up base HTML file~~
     - ~~set up all template HTML files~~
     - ~~set up MaterializeCSS and make it play nice with everything else~~
@@ -161,8 +161,8 @@ An MVP of IFF is deployed and live, with the ability for users to sign up. The f
 ### Milestone 4
 _Due date: April 20th_
 - ~~Fix API post security issue!~~
-- improve general mobile UX
-- Add https/SSL certificate
+- ~~improve general mobile UX~~
+- ~~Add https/SSL certificate~~
 - Deploy MVP on the interwebs using AWS ECS
 
 User testing and debugging with actual users.
