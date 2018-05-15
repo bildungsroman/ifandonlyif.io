@@ -114,7 +114,7 @@ _Due date: March 30th_
 - ~~Set up PostgreSQL database~~
 - ~~Set up Django rest framework~~
     - ~~understand WTF it does~~
-- ~~Set up Django projec~~
+- ~~Set up Django project~~
     - ~~determine Django IFFlist models~~
     - ~~determine Django class-based views~~
     - ~~determine User model~~
